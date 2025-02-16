@@ -63,43 +63,43 @@
 	\section{Osnovni pojmovi teorije grafova}
 	
 		\begin{definition}[Graf]
-		Graf je uredjen par $G = (V, E)$, gdje je $V$ skup elemenata koji se nazivaju čvorovi, a $E = \{ \{v_1, v_2\} : v_1, v_2 \in V \}$ je skup grana, tj. dvočlanih podskupova skupa cvorova $V$.
+		Graf je uredjen par $G = (V, E)$, gdje je $V$ skup elemenata koji se nazivaju čvorovi, a $E = \{ \{v_1, v_2\} : v_1, v_2 \in V \}$ je skup grana, tj. dvočlanih neuredjenih podskupova skupa cvorova $V$.
 		\end{definition}
 	
         \paragraph{}
-        Primjetimo da se u definiciji grafa, implicitno podrazumijeva da je grana neuredjeni dvočlani skup čvorova. Ukoliko uzmemo u obzir svojstva neuredjenog skupa, dolazimo do zakljucka da $\{v_1,v_2\} = \{v_2, v_1\}$, tj. svaka grana grafa ima dva ekvivalentna zapisa.
+        Primjetimo da je po definiciji grafa, grana neuredjeni dvoclani skup cvorova. Ukoliko uzmemo u obzir svojstva neuredjenog skupa, dolazimo do zakljucka da $\{v_1,v_2\} = \{v_2, v_1\}$, tj. svaka grana grafa ima dva ravnopravna zapisa.
     
         \paragraph{}
         Bez umanjenja opštosti, graf sa $n$ čvorova možemo predstavljati sa $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$.
 	
 		\begin{definition}[Petlja]
-		Petlja je grana koja spaja cvor grafa $G=(V,E)$ sa samim sobom, tj. grana definisana sa $\{v,v\} \in E$.
+		Petlja je grana koja spaja cvor grafa $G=(V,E)$ sa samim sobom, tj. grana $\{v,v\} \in E$
 		\end{definition}
 	
 		\begin{definition}[Multigraf]
-		Multigraf je graf kod kojeg dva proizvoljna čvora mogu biti povezana sa više grana, koje se u tom slučaju nazivaju višestruke grane.
+		Multigraf je graf kod kojeg dva proizvoljna čvora mogu biti povezana sa više grana, koje se u tom slucaju nazivaju visestruke grane.
 		\end{definition}
 	
-		\begin{definition}[Težinski graf]
-		Težinski graf $G =(V,E,w)$ je graf kod kojeg je svakoj grani dodijeljena težina, tj. realan pozitivan broj. Pored skupa čvorova i skupa grana, težinski graf je definisan i sa funkcijom $w: E \to \mathbb{R}^+$ koja grani grafa dodjeljuje težinu.
+		\begin{definition}[Tezinski graf]
+		Tezinski graf  $G =(V,E,w)$ je graf kod kojeg je svakoj grani dodijeljena tezina, tj. realan pozitivan broj. Pored skupa cvorova i skupa grana, tezinski graf je definisan i sa funkcijom $w: E \to \mathbb{R}^+$ koja grana grafa dodjeljuje tezine.
 		\end{definition}
 	
 		\begin{definition}[Usmjeren graf]
-		Usmjeren graf $G =(V,E)$ je graf kod kojeg grane imaju usmjerenje, tj. orjentaciju. $E$ je u tom slucaju skup uredjenih parova čvorova $E = \{ (v_1,v_2) : v_1, v_2 \in V\}$. 
-		Ukoliko $(v_1,v_2) \in E$, to znaci da graf sadrži granu koja vodi od $v_1$ do $v_2$, ali ne i da postoji grana koja vodi od $v_2$ do $v_1$, sto je posljedica svojstva $(v_1,v_2) \neq (v_2,v_1).$
+		Usmjeren graf $G =(V,E)$ je graf kod kojeg grane imaju usmjerenje, tj. orijentaciju. $E$ je u ovom slucaju skup uredjenih parova cvorova $E = \{ (v_1,v_2) : v_1, v_2 \in V\}$. 
+		Ukoliko $(v_1,v_2) \in E$, to znaci da graf sadrzi granu koja vodi od $v_1$ do $v_2$, ali ne i da postoji grana koja vodi od $v_2$ do $v_1$, sto je posljedica $(v_1,v_2) \neq (v_2,v_1).$
 		\end{definition}
 	
-		\paragraph{}
-		Ukoliko drugačije nije naglašeno, grafovi sa kojima ćemo se baviti u nastavku su podrazumijevano netežinski neusmjereni grafovi koji ne sadrže petlje i višestruke grane.
+			\paragraph{}
+			Ukoliko drugacije nije naglaseno, grafovi sa kojima cemo se baviti u nastavku su podrazumijevano netezinski neusmjereni grafovi koji ne sadrze petlje i visestruke grane.
 	
 		\begin{definition}[Susjednost čvorova]
-		Za čvorove $v_1$ i $v_2$ grafa $G = (V, E)$ kažemo da su susjedni ako u okviru grafa $G$ postoji grana koja povezuje ta dva čvora.
+		Za čvorove $v_1$ i $v_2$ grafa $G = (V, E)$ kažemo da su susjedni ako u okviru grafa $G$ postoji grana koja povezuje ta dva čvora. 
 		\[\text{ čvorovi } v_1  \text{ i } v_2 \text{ su susjedni } \Leftrightarrow \{v_1, v_2\} \in E \]
 		\end{definition}
 		
 		\begin{definition}[Incidentnost čvora i grane]
 		Za čvor $v$ i granu $e$ grafa $G = (V, E)$ kažemo da su incidentni ako dati čvor predstavlja jedan kraj date grane.
-		\[ \text{čvor } v \in V \text{ i grana }\ e \in E \text{ su incidentni} \Leftrightarrow v \in e \Leftrightarrow e = \{i,j\} \land ( v = i  \lor  v = j) \] 
+		\[ \text{čvor } v \in V \text{i grana }\ e \in E \text{ su incidentni} \Leftrightarrow v \in e \Leftrightarrow e = \{i,j\} \land ( v = i  \lor  v = j) \] 
 		\end{definition}
 	
 		\begin{definition}[Okolina čvora]
@@ -108,13 +108,12 @@
 		\end{definition}
 	
 		\begin{definition}[Stepen čvora]
-		Stepen (valencija) čvora $v$ u oznaci $\deg(v)$ je broj njemu susjednih čvorova, tj. kardinalnost njegove okoline.
+		Stepen (valencija) čvora $v$ u oznaci $\deg(v)$ je broj njemu susjednih čvorova, tj. kardinalnost okoline čvora $v$.
 		\[\deg(v) = |N_G(v)|\]
 		\end{definition}
 		
 		\begin{definition}[Regularan graf]
-		Graf $G=(V,E)$ je regularan sa stepenom regularnosti $x$ ako je stepen svakog njegovog čvora jednak $x$, tj ako važi 
-		\[ deg(v) = x \text{ za } \forall v \in V \]
+		Graf $G=(V,E)$ je regularan sa stepenom regularnosti $x$ ako je stepen svakog njegovog cvora jednak $x$, tj ako vazi $deg(v) = x$ za $\forall v \in V$. 
 		\end{definition}
 	
 		\begin{definition}[Podgraf]
@@ -136,11 +135,13 @@
 				\{i,v_1\} \in E \land \{v_k,j\} \in E \land \{v_p,v_{p+1}\} \in E \text{ za } \forall p \in \{1,2, \dots, k-1\} 
 			\]
 			\paragraph{}
-			Čvorovi $v_1,v_2 \dots v_k \in V_1 $ ne moraju biti različiti, a dužina šetnje je broj grana u datom podgrafu/nizu.
+			Čvorovi $v_1,v_2 \dots v_k \in V_1 $ ne moraju isključivo biti različiti.
+			\paragraph{}
+			Dužina šetnje je broj grana u datom podgrafu/nizu.
 		\end{definition}
 	
 		\begin{definition}[Put i-j]
-		Put $i$-$j$ je šetnja $i$-$j$ kod koje se su svi čvorovi u nizu različiti, osim možda $i$ i $j$.
+		Put $i$-$j$ je setnja $i$-$j$ kod koje se su svi cvorovi u nizu razliciti, osim mozda $i$ i $j$.
 		\end{definition}
 		
 		\begin{definition}[Ciklus i]
@@ -164,55 +165,57 @@
 			\end{split}
 		\]
 			\paragraph{}
-			Iz navedenih definicija povezanosti čvorova i komponenti povezanosti, lako se uočava da je je relacija povezanosti u stvari relacije ekvivalencije na skupu čvorova grafa $G$. Relacija povezanosti čvorova razbija skup $V$ na klase ekvivalencije tj. na disjunktne skupove čvorova koji odgovaraju skupovima cvorova komponenti povezanosti grafa $G$. 
+			Iz navedenih definicija povezanosti čvorova i komponenti povezanosti, lako se uočava da je je relacija povezanosti u stvari relacije ekvivalencije na skupu čvorova grafa $G$. Relacija povezanosti čvorova razbija skup 		$V$ na klase ekvivalencije tj. na disjunktne skupove čvorova koji odgovaraju skupovima cvorova komponenti povezanosti grafa $G$. 
 		\end{definition}
 	
 		\begin{definition}[Povezan graf]
-		Povezan graf je graf $G=(V,E)$ koji ima samo jednu komponentu povezanosti, ako $\forall v_1,v_2 \in V $ postoji šetnja $v_1$-$v_2$
+		Povezan graf je graf koji ima samo jednu komponentu povezanosti. 
+		Alternativno, graf $G=(V,E)$ je povezan ako $\forall v_1,v_2 \in V$postoji setnja $v_1$-$v_2$
 		\end{definition}
 	
 		\begin{definition}[Kompletan graf]
-		Kompletan graf sa $n$ čvorova u oznaci $K_n$ je graf kod kojeg je svaki čvor povezan sa svim ostalim čvorovima grafa. 
+		Kompletan graf sa $n$ cvorova u oznaci $K_n$ je graf kod kojeg je svaki cvor povezan sa svim ostalim cvorovima grafa. 
 		\[ 
-			K_n = (V,E) \text{ gdje } |V| = n \text{ i } v_1,v_2 \in V \Rightarrow \{v_1,v_2\} \in E
+			K_n = (V,E) \text{ gdje } |V| = n \text{ i } v_1,v_2 \in V \Rightarrow \{v_1,v_2\} \in E\}
 		\]
 		\end{definition}
 		
 		\begin{definition}[Put]
-		Put sa $n$ cvorova je graf $P_n=(V,E)$ za koga važi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \}$.
+		Put sa $n$ cvorova je graf $P_n=(V,E)$ za koga vazi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \}$.
 		\end{definition}
 		
 		\begin{definition}[Ciklus]
-		Ciklus sa $n$ cvorova je graf $C_n=(V,E)$ za koga važi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \} \cup \{\{1,n\}\}$.
+		Ciklus sa $n$ cvorova je graf $C_n=(V,E)$ za koga vazi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \} \cup \{\{1,n\}\}$.
 		\end{definition}
 	
 		\begin{definition}[Stablo]
-		Stalo je povezan graf koji ne sadrži ciklus.
+		Stalo je povezan graf koji ne sadrzi niti jedan ciklus.
 		\end{definition}
 	
-		\begin{definition}[Razapinjujući graf]
-		Razapinjujući graf grafa $G = (V,E)$ jeste njegov podgraf koji sadrži sve čvorove
+		\begin{definition}[Razapinjujuci graf]
+		Razapinjujuci graf grafa $G = (V,E)$ jeste njegov podgraf koji sadrzi sve cvorove
 		\[
 			G' = (V, E_1) \text{ gdje je } E_1 \subseteq E \Leftrightarrow G' \text{ je razapinjujuci graf} 
 		\]
 		\end{definition}
 	
-		\begin{definition}[Razapinjujuće stablo]
-		Razapinjujuće stablo je razapinjujući graf koji je ujedno i stablo.
+		\begin{definition}[Razapinjujuce stablo]
+		Razapinjujuce stablo je razapinjujuci graf koji je stablo
 		\end{definition}
 	
 		\begin{definition}[Kompleksnost grafa]
-		Kompleksnost grafa $G$ u oznaci $k(G)$ je ukupan broj njegovih razapinjujućih stabala. 
+		Kompleksnost grafa $G$ u oznaci $k(G)$ je ukupan broj njegovih razapinjujucih stabala. 
 		\end{definition}
 	
 	\section{Grafovi i njima pridružene matrice}
-	Svakom grafu se mogu pridružiti matrica susjedstva, matrica incidencije, matrica stepeni i Laplasova matrica.
-	Za spektralnu teoriju grafova od velikog značaja je Laplasova matrica.
+	Svakom grafu se moze pridružiti matrica susjedstva, matrica incidencije, matrica stepeni i Laplasova matrica.
+	Za spektralnu teoriju grafova od velikog značaja su matrica susjedstva i ponajvise Laplasova matrica.
 	
 		\subsection{Matrica susjedstva}
-		Matrica susjedstva je najčešći vid reprezentacije grafa pomoću matrice. 
+		Matrica susjedstva je najčešći vid reprezentacije grafa pomocu matrice. 
 		Vrste i kolone matrice susjedstva su indeksirane čvorovima grafa $G$.  
-		Matrica susjedstva je dimenzije $|V| \times |V|$ i element matrice susjedsta u $i$-tom redu i $j$-toj koloni nosi informaciju o susjedstvu čvorova sa indeksima $i$ i $j$.
+		Matrica susjedstva je dimenzije $|V| \times |V|$ i nosi informacije o susjedstvu čvorova grafa $G$. 
+		Preciznije, element matrice susjedsta u $i$-tom redu i $j$-toj koloni nosi informaciju o susjedstvu čvorova sa indeksima $i$ i $j$.
 	
 			\begin{definition}[Matrica susjedstva] 
 			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $A_G = [a_{ij}]_{n \times n}$ koja odgovara grafu $G$ i koja je definisana je sa
@@ -1904,26 +1907,42 @@
         
         Ukoliko odaberemo vektore koji odgovaraju najvecim sopstvenim vrijednostima Laplasove matrice, jasno je da u tom slucaju suma iz prethodnog izraza
         dostize svoj maksim, a upravo ona predstavlja sumu razlika izmedju vrijednosti dodijeljenih susjednim cvorovima. S toga, cvorovi kojima ovi sopstveni 
-        vekori dodjeljuju bliske vrijednosti teze da budu sto "udaljeniji" u grafu.
+        vekori dodjeljuju bliske vrijednosti teze da budu sto udaljeniji u grafu.
 
-        S toga, kao jedna od ideja namece spektralno particionaisanje ali upotrebom sopstvenih vektora koji odgovara 2-3 najvece sopstvene vrijednosti.
+        S toga, kao jedna od ideja namece spektralno particionaisanje ali upotrebom sopstvenih vektora koji odgovara 2 do 3 najvece sopstvene vrijednosti.
         Nakon izracunavanja sopstvenih vektora, njihove elemente je potrebno podijeliti u k grupa na osnovu njihove vrijednosti (upotrebom k-susjeda ili nekog drugog algoritma) i svakoj grupu dodijeliti boju.
         Element sopstvenog vektora $\vec{e}_i$ koji pripada j-toj grupi, kojoj je pridruzena boja $c_j$ ukazuje na to da bismo cvor $v_i$ trebali obojit sa $c_j$ bojom.
 
     \end{example}
 
+    \subsection{Spectral graph drawing}
 
-	\subsection
-	Spectal graph drawing	
+	Razmotrimo sada kako se spektralna teorema grafova moze iskoristiti za njihovo prikazivanje. Obicno se losa reprezentacija grafa povezuje sa velikim brojem grana koje se sijeku.
+	Iako znamo da je presijecanje grana u velikom broju slucajeva neizbjeno, iz rasloga sto mnostov grafova nije planarno, trebamo teziti tome da broj grana koje se sijeku svedemo na minimum.
+    Jasno da bismo to postigli potrebno je da strateski pozicioniramo cvorove. Kao logicna ideja namece se se to da susjedne cvorove smjestimo sto blize. Na ovaj nacin grane koje ih spajaju ce biti sto krace, a samim tim smanjice se i vjerovatnoca da ih neka druga grana grafa sijece.
+    
+	Ukoliko graf prikazujemo u ravni koordinatnog sistema, blisko pozicioniranje susjednih cvorova se svodi na dodjeljivanje bliskih vrijednosti koordinata susjednim cvorovima.
+    Razlika izmedju koordinata susjednih cvora treba da bude sto manja, tj. potrebno je da suma $\sum_{\{v,j\} \in E} (\vec{x}_v - \vec{x}_i)^2$ bude sto manja za $\forall v \in V$. Posmatramo kvadrat razlike x koordinata samo zato da bismo izbjegli negativne vrijednosti.
+    Ovaj izraz nam je vec poznat, radi se o kvadratnoj formi Laplasove matrice, tj. $\vec{x}^T L_G \vec{x}$. Ponovo, Laplasova matrica se namece kao potencijalno resenje.
+    Jasno je dan nam ne odgovara da navedena suma ima vrijednost 0, jer ipak zelimo razlikujemo susjedne cvorove, a ne da ih sve smjestimo u jednu tacku. Stoga vrijednost sume treba da bude bliska nuli.
+    Sada se postavlja pitanje kako odrediti vektor $\vec{x}$ koji svakom cvoru dodjeljuje vrijednost x koordinate. Zasto ne bismo pokusali sa sopstvenim vektorima Laplasove matrice?
+    Do njih mozemo (relativno) lako doci, a i znamo da $\vec{e_i}^T L_G \vec{e_i} = \alpha_i$. Odavde zakljucujemo da se Fiedler-ov vektor ponovo ukazuje kao resenje naseg problema.
+    Treba napomenuti, da Fiedler-ov vektor nije nuzno najbolji izbor za dodljevianje koordinata cvorovima, ali je njegova prednost po prirodi odgovara nasem problemi i sto nam je poznat.
+    Sada znamo kako cvorovima dodijeliti x koordinatu, ali sta je y koordinate? Ako bismo pokusali da svakom cvoru dodijelimo istu x i y ipsilon koordinatu,
+    dosli bismo do toga da bi se svi cvorovi nasli na pravoj $y = x$. Lako se vidi da bi se u tom slucaju sve grane lezale na pomenutoj pravo. Dakle, treba nam drugi pristup. 
+    Sta ukoliko bismo y koordinatu samo skalirali za neko p? U tom slucaju svi cvorovi bi lezali na pravoj $y=px$, sto nam opet ne odgovara iz istog razaloga.
+    Ukoliko sada to posmatramo u domenu vektora, ne odgovara nam ni jedna varijanta u kojoj je vektor $\vec{y}$ linerano zavisan sa vektorom $\vec{x}$.
+    Sada bar znamo gdje da trazimo vektor $\vec{y}$ - u skupu vektora linerno nezavisnih sa Fiedler-ovim vektorom, a koji istovremeno minimizuju kvadratnu formu Laplasove matrice.
+    Upravo su takak vektor je sopstveni vektor Laplsove matrice koji odgovara narednoj najmnanjoj sopstvenoj vrijednosti. Naravno ukoliko ovaj vektor ne daje najbolju repreyentaciju grafa, moze se pokusati i sa ostalim sopstvenim vektorima.
 
-	Pogledajmo kako se spektralna teorema moze iskoristiti za crtanje grafova. Jasno da je kod prikazivanja grafa sa mnostvom cvorova i grana problem predstavlja presijecanja grana, takodje jasno je i da je to uvecini slucajeva nemoguce izbjeci,
-	iz razloga sto vecina grafova nije planarna. Medjutim, ukoliko bismo mogli da nadjemo nacin da predstavimo graf u ravan na nacin da se grane sto manje presjecaju. Kako bismo to postigli potrebno je da strateski pozicioniramo susjedne cvorove. 
-	Pozicioniranjem susjednih cvorova tako da su sto blize jedan drugom, smanjujemo vjerovatnocu da ce se grane presjecati. Odnosno, ukoliko posmatramo priakaz grafa u ravni koordinatno sistema, susjedni cvorovoi treba da imaju bliske koodinate.
-	Ovo na mvec zvuci poznato, jer se radi o minimizacije vrijednosti dodiljenih svakom cvori grafa (koordinata). Laplsova matroca i njen spektar se namece kao logicno rjesenja postavljenog problema.
+    Za prikaz grafa u prostoru, iskoristicemo jos jedan od sopstvenih vektora Laplasove matrice putem kojeg cemo dodijeliti z koordinate svim cvorovima.
+    U nastavku cemo vidjeti kako sve ovo izgleda na djelu.
+
+    Prethodno opisani pristupom i motivacijom se vodio Hall kada je dosao do Spectral graph drawing-a
 
 	\begin{example}
-		Pokusajmo u ravni prikazati ciklus sa 20 cvorova. Jasno da je idealan prikaz ovog grafa pravilan dvadesetougao.
-
+		U ravni prikazati ciklus sa 20 cvorova. Jasno da je idealan prikaz ovog grafa pravilan dvadesetougao.
+        
 		Laplasova matrica ciklusa sa 20 cvorova je data sa
 		\[
 			\begin{pmatrix}
@@ -1934,22 +1953,101 @@
 				\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
 				0 & 0 & 0 & 0 & \cdots & 2 & -1 \\
 				-1 & 0 & 0 & 0 & \cdots & -1 & 2
-			  \end{pmatrix}	
-		\]
+            \end{pmatrix}	
+            \]
+            
+            Dio spektra Laplsove matrice je dat u nastavku
+            \[
+                \begin{split}
+                    \alpha_1=-0   \text{  } \vec{e}_1 = \begin{bmatrix} -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \end{bmatrix}  
+                    \alpha_2=0.1  \text{  } \vec{e}_2 = \begin{bmatrix} -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \\ 0.0 \\ 0.1 \\ 0.19 \\ 0.26 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.1 \\ -0.19 \\ -0.26 \\ -0.3 \end{bmatrix} 
+                 \alpha_3=0.1  \text{  } \vec{e}_3 = \begin{bmatrix} -0.0 \\ 0.09 \\ 0.18 \\ 0.25 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.09 \\ -0.18 \\ -0.25 \\ -0.3 \\ -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \end{bmatrix}
+              \end{split}
+              \]
+              
+              Iscrtajmo sada graf u ravni tako da su x i y koordinate cvorova data sa odgovarajucom vrijednosti sopstvenih vektora koji odgovara najmanjoj nenula sopstvenoj vrijednosti.
+              
+            \end{example}
+            
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=1\textwidth]{circle_graph.png}
+            \end{figure}
+            
+    \begin{example}
+        Predstaviti 'bucky ball' graf u ravni. 
+        
+        Radi se o grafu koji je matematicka reprezentacija molekula $c_{60}$. Molekul se sastoji od 60 atoma ugljenika koji forimiraju icosahedron.
+        U pitanju je graf sa stepenom regularnosti 3.
+        
+        Kako su matrice pridruzene voom grafu jako velike i nisu pogodne za prikaz, u nastavku cemo dati samo dio liste susjednosti, podrazumijevajuci da je skup cvorova dat Sa
+        $V = \{1,2, \dots 60\}$
+        \[
+            \begin{tabular}{c|l}
+                \textbf{Vertex} & \textbf{Adjacent Vertices} \\
+                \hline
+                1 & 2, 3, 4 \\
+                2 & 1, 55, 56 \\
+                3 & 1, 58, 60 \\
+                4 & 1, 57, 59 \\
+                5 & 8, 13, 14 \\
+                6 & 8, 12, 15 \\
+                7 & 8, 11, 16 \\
+                8 & 5, 6, 7 \\
+                9 & 13, 15, 25 \\
+                10 & 14, 16, 26 \\
+                11 & 7, 12, 24 \\
+                12 & 6, 11, 23 \\
+                13 & 5, 9, 18 \\
+        \end{tabular}
+        \]
 
-		Spektar date laplasove matrice je dat sa
-		\[
-		\]
+        Nakon izracunavanja spektra Laplasove matrice ovog grafa, vec nailazimo na prvi problem. Rekli smo da su nam potrebna 2 sopstvena vektora koja odgovarajaju najmanjin nenula sopstvenim 
+        vrijednostima. Najmanja nenula sopstvena vrijednost je $\alpha2 = 0.24$ i ima geometrijsku visestrukost 3. Nemamu nikakvu indikaciju koja dva od moguca 3 vektora su najbolja za prikaz, pa cemo pokusati sve moguce kombinacije.
 
-		Iscrtajmo sada graf u ravni tako da je x koordinata cvora data sa odgovarajucom vrijednosti sopstvenog vektora koji odgovara najmanjoj nenula sopstvenoj vrijednosti, a y koordinata sa odgovarajucom vrijednosti sopstvenog vektora koji odgovara drugoj najmanjoj nenula sopstvenoj vrijednosti.
-		
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_1.png}
+        \end{figure}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_2.png}
+        \end{figure}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_3.png}
+        \end{figure}
 
-		Zanimvljivo, na osnovu spektra Laplsove matrice uspjeli smo jako dobro prikazati dati graf u ravni. Da li je to slucajnost.
+        Zaista, sva tri prikazu su pristojna, ali se drugi naizgled cini kao najbolji.
+        S druge strane, cini se kao da im nedostoje jos jedna dimenzija za bolji prikaz. I zaista, kao dati graf predstavimo u prostoru dobijamo zaista dobar prikaz.
+        Da li je visestrukost najmanje nenula sopstvene vrijednosti upucivala da je graf potrebno predstaviti u trodimenzijalnom prostoru.
 
-		Ne nije slucajnost, zato sto priroda sopstvenoh vektora Laplsove matrice jeste da teze da susjednim cvorovima, dodijele bliske vrijednosti, u ovom slucaju koordinate. Jasno je i da prilikom odredjivanja y koordinate punovo smo tezili da susjednim cvorovima dodjelimo bliske vrijednosti, ali da raspodjela y koordinata ne bude linearno zavisna raspodjeli x koordinata.
-		Upravo to nam omogucava sopstveni vektor koji odgovara drugoj najmanjoj nenula sopstvenoj vrijednosti, jer je i on tezi istom cilju a pri tome je linearno nezavisan sa sopstvenim vektorom koji odgovara najmanjoj nenula sopstvenoj vrijednosti.
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_3d.png}
+        \end{figure}
+        
+    \end{example}
+    
+    \begin{example}
+        Prikazati pseudo-slucajno generisani graf sa 25 cvorova u ravni.
+        Uz pomoc odgovarajuceg softvera generisan je sljedeci graf.
+        
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{random_graph_3.png}
+        \end{figure}
+        
+        Pogledajmo sada do kakve reprezentacije grafa se dolazi upotrebom opisane metode.
+        
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{random_graph_4.png}
+        \end{figure}
 
-	\end{example}
+        Sa slike se vidi da he graf gotovo planaran, tj. prikaz sadrzi samo 3 grane koje se sijeku, sto je i bila nasa ideja prilikom prikazivanja grafa.
+    \end{example}
 
+    
 	\end{document}
 	
