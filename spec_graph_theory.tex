@@ -15,6 +15,8 @@
 	\usepackage{amsmath}
 	\usepackage{amsfonts}
 	\usepackage{graphicx}
+	\usepackage[T1]{fontenc}
+
 	
 	\geometry{a4paper}
 	
@@ -40,7 +42,7 @@
 	
 	\title{Spektralna teorija grafova}
 	\author{Željko Tripić}
-	\date{06.02.2025}
+	\date{28.02.2025}
 	
 	\begin{document}
 	\maketitle
@@ -60,41 +62,41 @@
 
     dodati latinicna slova
 	
-	\section{Osnovni pojmovi teorije grafova}
+	\section{Osnove teorije grafova}
 	
 		\begin{definition}[Graf]
-		Graf je uredjen par $G = (V, E)$, gdje je $V$ skup elemenata koji se nazivaju čvorovi, a $E = \{ \{v_1, v_2\} : v_1, v_2 \in V \}$ je skup grana, tj. dvočlanih neuredjenih podskupova skupa cvorova $V$.
+		Graf je uređen par $G = (V, E)$, gdje je $V$ skup elemenata koji se nazivaju čvorovi, a $E = \{ \{v_1, v_2\} : v_1, v_2 \in V \}$ je skup grana, tj. dvočlanih neuređenih podskupova skupa čvorova.
 		\end{definition}
 	
         \paragraph{}
-        Primjetimo da je po definiciji grafa, grana neuredjeni dvoclani skup cvorova. Ukoliko uzmemo u obzir svojstva neuredjenog skupa, dolazimo do zakljucka da $\{v_1,v_2\} = \{v_2, v_1\}$, tj. svaka grana grafa ima dva ravnopravna zapisa.
+        Primjetimo da je po definiciji grafa, grana neuređeni dvočlani skup čvorova. Ukoliko uzmemo u obzir svojstva neuređenog skupa, dolazimo do zaključka da $\{v_1,v_2\} = \{v_2, v_1\}$, tj. svaka grana grafa ima dva ravnopravna zapisa.
     
         \paragraph{}
         Bez umanjenja opštosti, graf sa $n$ čvorova možemo predstavljati sa $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$.
 	
 		\begin{definition}[Petlja]
-		Petlja je grana koja spaja cvor grafa $G=(V,E)$ sa samim sobom, tj. grana $\{v,v\} \in E$
+		Petlja je grana koja spaja čvor grafa $G=(V,E)$ sa samim sobom, tj. grana $\{v,v\} \in E$
 		\end{definition}
 	
 		\begin{definition}[Multigraf]
-		Multigraf je graf kod kojeg dva proizvoljna čvora mogu biti povezana sa više grana, koje se u tom slucaju nazivaju visestruke grane.
+		Multigraf je graf kod kojeg dva proizvoljna čvora mogu biti povezana sa više grana, koje se u tom slučaju nazivaju višestruke grane.
 		\end{definition}
 	
-		\begin{definition}[Tezinski graf]
-		Tezinski graf  $G =(V,E,w)$ je graf kod kojeg je svakoj grani dodijeljena tezina, tj. realan pozitivan broj. Pored skupa cvorova i skupa grana, tezinski graf je definisan i sa funkcijom $w: E \to \mathbb{R}^+$ koja grana grafa dodjeljuje tezine.
+		\begin{definition}[Težinski graf]
+		Težinski graf $G =(V,E,w)$ je graf kod kojeg je svakoj grani dodijeljena težina, tj. realan pozitivan broj. Pored skupa čvorova i skupa grana, težinski graf je definisan i sa funkcijom $w: E \to \mathbb{R}^+$ koja svakoj grani dodjeljuje težinu.
 		\end{definition}
 	
 		\begin{definition}[Usmjeren graf]
-		Usmjeren graf $G =(V,E)$ je graf kod kojeg grane imaju usmjerenje, tj. orijentaciju. $E$ je u ovom slucaju skup uredjenih parova cvorova $E = \{ (v_1,v_2) : v_1, v_2 \in V\}$. 
-		Ukoliko $(v_1,v_2) \in E$, to znaci da graf sadrzi granu koja vodi od $v_1$ do $v_2$, ali ne i da postoji grana koja vodi od $v_2$ do $v_1$, sto je posljedica $(v_1,v_2) \neq (v_2,v_1).$
+		Usmjeren graf $G =(V,E)$ je graf kod kojeg grane imaju usmjerenje, tj. orjentaciju. $E$ je u ovom slučaju skup uređenih parova čvorova $E = \{ (v_1,v_2) : v_1, v_2 \in V\}$. 
+		Ukoliko $(v_1,v_2) \in E$, to znači da graf sadrži granu koja vodi od $v_1$ do $v_2$, ali ne i da postoji grana koja vodi od $v_2$ do $v_1$, što je posljedica $(v_1,v_2) \neq (v_2,v_1).$
 		\end{definition}
 	
-			\paragraph{}
-			Ukoliko drugacije nije naglaseno, grafovi sa kojima cemo se baviti u nastavku su podrazumijevano netezinski neusmjereni grafovi koji ne sadrze petlje i visestruke grane.
+		\paragraph{}
+		Ukoliko drugačije nije naglašeno, grafovi sa kojima ćemo se baviti u nastavku su podrazumijevano netežinski neusmjereni grafovi koji ne sadrže petlje i višestruke grane.
 	
 		\begin{definition}[Susjednost čvorova]
 		Za čvorove $v_1$ i $v_2$ grafa $G = (V, E)$ kažemo da su susjedni ako u okviru grafa $G$ postoji grana koja povezuje ta dva čvora. 
-		\[\text{ čvorovi } v_1  \text{ i } v_2 \text{ su susjedni } \Leftrightarrow \{v_1, v_2\} \in E \]
+		\[\text{ čvorovi } v_1 \text{ i } v_2 \text{ su susjedni } \Leftrightarrow \{v_1, v_2\} \in E \]
 		\end{definition}
 		
 		\begin{definition}[Incidentnost čvora i grane]
@@ -107,13 +109,13 @@
 		\[N_G(v) = \{ v_1 : \{v, v_1\} \in E\}\]
 		\end{definition}
 	
-		\begin{definition}[Stepen čvora]
-		Stepen (valencija) čvora $v$ u oznaci $\deg(v)$ je broj njemu susjednih čvorova, tj. kardinalnost okoline čvora $v$.
+		\begin{definition}[(Algebarski) Stepen čvora]
+		Stepen (valencija) čvora $v$ u oznaci $\deg(v)$ je broj njemu susjednih čvorova, tj. kardinalnost njegove okoline.
 		\[\deg(v) = |N_G(v)|\]
 		\end{definition}
 		
 		\begin{definition}[Regularan graf]
-		Graf $G=(V,E)$ je regularan sa stepenom regularnosti $x$ ako je stepen svakog njegovog cvora jednak $x$, tj ako vazi $deg(v) = x$ za $\forall v \in V$. 
+		Graf $G=(V,E)$ je regularan sa stepenom regularnosti $x$ ako je stepen svakog njegovog čvora jednak $x$, tj. ako važi $deg(v) = x$ za $\forall v \in V$. 
 		\end{definition}
 	
 		\begin{definition}[Podgraf]
@@ -122,38 +124,37 @@
 		\end{definition}
 	
 		\begin{definition}[Šetnja i-j]
-		Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Šetnja od čvora $i$ do čvora $j$ u oznaci $i$-$j$ je podgraf $G_1 = (V_1, E_1)$ takav da važi 
+		Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Šetnja od čvora $i$ do čvora $j$ u oznaci $i-j$ je podgraf $G_1 = (V_1, E_1)$ za kojeg važi 
 		\[
 		 	V_1 \subseteq V \land  i \in V_1 \land j \in V_1
 		\]
 		\[ 
 		 	E_1 = \{\{i,v_1\},\{v_1,v_2\},\dots,\{v_{k-1},v_k\},\{v_k,j\}\} \land k \geq 0
 		\] 
+		Čvorovi $v_1,v_2 \dots v_k \in V_1 $ ne moraju isključivo biti različiti.
 			\paragraph{}
-			Alternativno, šetnja $i$-$j$ je niz čvorova $i, v_1, v_2, \dots, v_k, j \in V$ za koje važi 
+			Alternativno, šetnja $i-j$ je niz čvorova $i, v_1, v_2, \dots, v_k, j \in V$ za koje važi 
 			\[
 				\{i,v_1\} \in E \land \{v_k,j\} \in E \land \{v_p,v_{p+1}\} \in E \text{ za } \forall p \in \{1,2, \dots, k-1\} 
 			\]
-			\paragraph{}
-			Čvorovi $v_1,v_2 \dots v_k \in V_1 $ ne moraju isključivo biti različiti.
 			\paragraph{}
 			Dužina šetnje je broj grana u datom podgrafu/nizu.
 		\end{definition}
 	
 		\begin{definition}[Put i-j]
-		Put $i$-$j$ je setnja $i$-$j$ kod koje se su svi cvorovi u nizu razliciti, osim mozda $i$ i $j$.
+		Put $i-j$ je šetnja $i-j$ kod koje se su svi čvorovi u nizu različiti, osim možda $i$ i $j$.
 		\end{definition}
 		
 		\begin{definition}[Ciklus i]
-		Ciklus je put $i$-$j$ kod kojeg je $i=j$.
+		Ciklus je put $i-j$ kod kojeg je $i=j$.
 		\end{definition}
 		
 		\begin{definition}[Prost put i-j]
-		Prost put $i$-$j$ je put kod kojeg vazi $i \neq j$.
+		Prost put $i-j$ je put kod kojeg važi $i \neq j$.
 		\end{definition}
 	
 		\begin{definition}[Povezanost čvorova]
-		Za čvorove $v_1$ i $v_2$ grafa $G = (V, E)$ kažemo da su povezani ukoliko postoji $v_1$-$v_2$ šetnja u grafu $G$. 
+		Za čvorove $v_1$ i $v_2$ grafa $G = (V, E)$ kažemo da su povezani ukoliko postoji $v_1-v_2$ šetnja u grafu $G$. 
 		\end{definition}
 	
 		\begin{definition}[Komponenta povezanosti]
@@ -161,64 +162,63 @@
 		\[
 			\begin{split}
 			&\text{podgraf } G_1 = (V_1, E_1) \text{ je komponenta povezanosti grafa } G = (V, E)  \Leftrightarrow \\
-			& \forall v_1,v_2 \in V_1 \text{ važi } v_1 \text{ i } v_2 \text{ su povezani, }  \not \exists \{v_3, v_4\} \in E \text{ takva da } v_3 \in V_1 \land v_4 \in (V \setminus V_1)
+			& \forall v_1,v_2 \in V_1 \text{ važi } v_1 \text{ i } v_2 \text{ su povezani } \land \not \exists \{v_3, v_4\} \in E \text{ takva da } v_3 \in V_1 \land v_4 \in (V \setminus V_1)
 			\end{split}
 		\]
 			\paragraph{}
-			Iz navedenih definicija povezanosti čvorova i komponenti povezanosti, lako se uočava da je je relacija povezanosti u stvari relacije ekvivalencije na skupu čvorova grafa $G$. Relacija povezanosti čvorova razbija skup 		$V$ na klase ekvivalencije tj. na disjunktne skupove čvorova koji odgovaraju skupovima cvorova komponenti povezanosti grafa $G$. 
+			Iz navedenih definicija povezanosti čvorova i komponente povezanosti, lako se uočava da je je relacija povezanosti, u stvari, relacije ekvivalencije na skupu čvorova grafa $G$. Relacija povezanosti čvorova razbija skup $V$ na klase ekvivalencije tj. na disjunktne skupove čvorova koji odgovaraju skupovima cvorova komponenti povezanosti grafa $G$. 
 		\end{definition}
 	
 		\begin{definition}[Povezan graf]
 		Povezan graf je graf koji ima samo jednu komponentu povezanosti. 
-		Alternativno, graf $G=(V,E)$ je povezan ako $\forall v_1,v_2 \in V$postoji setnja $v_1$-$v_2$
+		Alternativno, graf $G=(V,E)$ je povezan ako $\forall v_1,v_2 \in V$ postoji šetnja $v_1-v_2$
 		\end{definition}
 	
 		\begin{definition}[Kompletan graf]
-		Kompletan graf sa $n$ cvorova u oznaci $K_n$ je graf kod kojeg je svaki cvor povezan sa svim ostalim cvorovima grafa. 
+		Kompletan graf sa $n$ čvorova u oznaci $K_n$ je graf kod kojeg je svaki čvor povezan sa svim ostalim čvorovima grafa. 
 		\[ 
-			K_n = (V,E) \text{ gdje } |V| = n \text{ i } v_1,v_2 \in V \Rightarrow \{v_1,v_2\} \in E\}
+			K_n = (V,E) \text{ gdje } |V| = n \text{ i } v_1,v_2 \in V \Rightarrow \{v_1,v_2\} \in E
 		\]
 		\end{definition}
 		
 		\begin{definition}[Put]
-		Put sa $n$ cvorova je graf $P_n=(V,E)$ za koga vazi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \}$.
+		Put sa $n$ čvorova je graf $P_n=(V,E)$ za koga važi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\}\}$.
 		\end{definition}
 		
 		\begin{definition}[Ciklus]
-		Ciklus sa $n$ cvorova je graf $C_n=(V,E)$ za koga vazi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \} \cup \{\{1,n\}\}$.
+		Ciklus sa $n$ cvorova je graf $C_n=(V,E)$ za koga važi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \} \cup \{\{1,n\}\}$.
 		\end{definition}
 	
 		\begin{definition}[Stablo]
-		Stalo je povezan graf koji ne sadrzi niti jedan ciklus.
+		Stalo je povezan graf koji ne sadrži niti jedan ciklus.
 		\end{definition}
 	
-		\begin{definition}[Razapinjujuci graf]
-		Razapinjujuci graf grafa $G = (V,E)$ jeste njegov podgraf koji sadrzi sve cvorove
+		\begin{definition}[Razapinjujući graf]
+		Razapinjujucć graf grafa $G = (V,E)$ jeste njegov podgraf koji sadrži sve njegove čvorove.
 		\[
-			G' = (V, E_1) \text{ gdje je } E_1 \subseteq E \Leftrightarrow G' \text{ je razapinjujuci graf} 
+			G' = (V, E_1) \text{ gdje je } E_1 \subseteq E \Leftrightarrow G' \text{ je razapinjujući graf} 
 		\]
 		\end{definition}
 	
-		\begin{definition}[Razapinjujuce stablo]
-		Razapinjujuce stablo je razapinjujuci graf koji je stablo
+		\begin{definition}[Razapinjujuće stablo]
+		Razapinjujucć stablo je razapinjujući graf koji je stablo.
 		\end{definition}
 	
 		\begin{definition}[Kompleksnost grafa]
-		Kompleksnost grafa $G$ u oznaci $k(G)$ je ukupan broj njegovih razapinjujucih stabala. 
+		Kompleksnost grafa $G$ u oznaci $k(G)$ je ukupan broj njegovih razapinjujućih stabala. 
 		\end{definition}
 	
 	\section{Grafovi i njima pridružene matrice}
-	Svakom grafu se moze pridružiti matrica susjedstva, matrica incidencije, matrica stepeni i Laplasova matrica.
-	Za spektralnu teoriju grafova od velikog značaja su matrica susjedstva i ponajvise Laplasova matrica.
+	Svakom grafu se mogu pridružiti matrica susjedstva, matrica incidencije, matrica stepeni i Laplasova matrica.
+	Za spektralnu teoriju grafova od najvećeg značaja je Laplasova matrica.
 	
 		\subsection{Matrica susjedstva}
-		Matrica susjedstva je najčešći vid reprezentacije grafa pomocu matrice. 
-		Vrste i kolone matrice susjedstva su indeksirane čvorovima grafa $G$.  
-		Matrica susjedstva je dimenzije $|V| \times |V|$ i nosi informacije o susjedstvu čvorova grafa $G$. 
-		Preciznije, element matrice susjedsta u $i$-tom redu i $j$-toj koloni nosi informaciju o susjedstvu čvorova sa indeksima $i$ i $j$.
+		Matrica susjedstva je najčešći vid reprezentacije grafa pomoću matrice. 
+		Dimenzije matrice su $|V| \times |V|$ i njene vrste i kolone su indeksirane čvorovima grafa $G$.  
+		Element matrice susjedsta u i-tom redu i j-toj koloni nosi informaciju o susjedstvu čvorova sa indeksima $i$ i $j$.
 	
 			\begin{definition}[Matrica susjedstva] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $A_G = [a_{ij}]_{n \times n}$ koja odgovara grafu $G$ i koja je definisana je sa
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $A_G = [a_{ij}]_{n \times n}$ koja odgovara grafu $G$ i koja je definisana sa
 			 \[
 				 a_{ij} =
 				 \begin{cases} 
@@ -228,119 +228,130 @@
 			 \]
 			naziva se matrica susjedstva (eng. adjacency matrix) grafa $G$.
 				\paragraph{}
-				Suma svih elemenata u $i$-toj vrsti/koloni matrice susjedstva predstvlja stepen cvora sa indeksom $i$,
-				tj. vazi $\sum_{k=1}^{n}a_{ik} = \sum_{k=1}^{n}a_{ki} = deg(i) \text{ za } \forall i \in \{1,2, \dots, n\}$.
-				Iz definicije matrice susjedstva neusmjerenog grafa jasno je da se radi o realnoj simetricnoj matrici, sto je cini ermitskom matricom. 
+				Suma svih elemenata u i-toj vrsti/koloni matrice susjedstva predstvlja stepen čvora sa indeksom $i$,
+				tj. važi $\sum_{k=1}^{n}a_{ik} = \sum_{k=1}^{n}a_{ki} = deg(i) \text{ za } \forall i \in \{1,2, \dots, n\}$.
+				Iz definicije matrice susjedstva neusmjerenog grafa jasno je da se radi o realnoj simetričnoj matrici, što je čini ermitskom matricom. 
 			\end{definition}
 	
-			\begin{definition}[Matrica susjedstva tezinskog grafa] 
-			Matrica susjedstva tezinskog grafa  $G = (V, E, W)$ je data matricom tezina grafa, tj. $A_G = W$.
+			\begin{definition}[Matrica susjedstva težinskog grafa] 
+			Matrica susjedstva $A_G$ težinskog grafa  $G = (V, E, w)$ je definisana sa
+			\[
+				a_{ij} =
+				\begin{cases} 
+				w(\{i,j\}) & \text{ako } \{i, j\} \notin E \\ 
+				0 & \text{ako } \{i, j\} \in E
+				\end{cases}
+			\]
 			\end{definition}
 	
 		\subsection{Matrica incidencije}
 		Matrica incidencije grafa $G$ je realna matrica dimenzije $|V| \times |E|$ kod koje su vrste indeksirane čvorovima, a kolone granama grafa $G$.
-		Matrica incidencije grafa $G$ nosi informacije o incidentnosti čvorova i grana grafa. 
-		Preciznije, element matrice incidencije u $i$-toj vrsti i $j$-toj koloni nosi informaciju o incidenciji čvora sa indeksom $i$ i grane sa indeksom $j$.
-		U literaturi se mogu pronaci razlicite definicije matrice incidencije, ali mi cemo ovdje navesti samo jednu koja se ispostavila kao najpogodnija za dobijanje dodatnih saznanja o grafu $G$.
+		Element matrice incidencije u i-toj vrsti i j-toj koloni nosi informaciju o incidenciji čvora sa indeksom i i grane sa indeksom j.
 	
 			\begin{definition}[Matrica incidencije] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, gdje je $n = |V|$ i $m = |E|$, koja odgovara grafu $G$ i koja je definisana sa
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, gdje je $n = |V|$ i $m = |E|$, koja je definisana sa
 			 \[
 				 b_{ij} =
 				 \begin{cases}
-				 1 & \text{ako } e_j = \{v_1,v_2\} \land ( i = v_1 \lor i=v_2) \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
+				 1 & \text{ako } e_j = \{i,v\} \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
 				 0 & \text{u suprotnom}
 				 \end{cases}
 			 \]
 			naziva se matrica incidencije grafa $G$.
 			\end{definition}
 	
-			\begin{definition}[Matrica incidencije] 
-			Neka je dat usmjeren graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, gdje je $n = |V|$ i $m = |E|$, koja odgovara grafu $G$ i koja je definisana sa
+			\begin{definition}[Matrica incidencije usmjerenog grafa] 
+			Neka je dat usmjeren graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, gdje je $n = |V|$ i $m = |E|$, koja je definisana sa
 			 \[
 				 b_{ij} =
 				 \begin{cases}
-				 1 & \text{ako } e_j = (v_1,v_2) \land i = v_1 \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
-				-1 & \text{ako } e_j = (v_1,v_2) \land i = v_2 \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
+				 1 & \text{ako } e_j = (i,v) \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
+				-1 & \text{ako } e_j = (v,i) \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
 				 0 & \text{u suprotnom}
 				 \end{cases}
 			 \]
-			naziva se matrica incidencije grafa $G$.
+			naziva se matrica incidencije usmjerenog grafa $G$.
 			\end{definition}
 	
-	
-			Matrica incidencije nije najpogodnija za analizu putem metoda linearne algebre, jer nije kvadratna, niti simetricna matrica.
+			Ponekad se matrica incidencije neusmjerenog grafa definiše kao matrica incidencije usmjerenog grafa, pri čemu se granama dodijele proizvolje orjentacije. 
+			Ovako definisana matrica incidencije je pogodna za dokazivanje Matrix-tree teoreme.
+			Matrica incidencije nije najpogodnija za analizu putem metoda linearne algebre, jer nije kvadratna, niti simetrična matrica.
 	
 		\subsection{Matrica stepeni}
 		Matrica stepeni (eng. degree matrix) grafa $G$ je realna dijagonalna matrice dimenzije $|V| \times |V|$ kod koje su vrste i kolone indeksirane čvorovima grafa $G$.
-		Elementi na glavnoj dijagonali matrice stepeni imaju vrijednost stepena cvora koji odgovara indeksu vrste/kolone. 
+		Elementi na glavnoj dijagonali matrice stepeni imaju vrijednost stepena čvora koji odgovara indeksu vrste/kolone, a svi ostali elementi su jednaki nuli. 
 	
 			\begin{definition}[Matrica stepeni] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $D_G = [d_{ij}]_{n \times n}$, gdje je $n = |V|$ , koja odgovara grafu $G$ i koja je definisana sa
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $D_G = [d_{ij}]_{n \times n}$, gdje je $n = |V|$ , koja je definisana sa
 			\[
 				d[ij] = 
 				 \begin{cases}
-				 deg(i) &  \text{ ako } i =j  \\ 
+				 deg(i) & \text{ ako } i = j  \\ 
 				 0  & \text{ ako } i \neq j 
 				 \end{cases}
 			\]
 			naziva se matrica stepeni grafa $G$.
 			\end{definition}
-	
+
+			Matrica stepeni težinskog grafa se može definisati na dva načina. Kod prvog načina na glavnoj dijagonali matrice se nalaze algebarski stepeni odgovarajućih čvorova. U ovom slučaju matrica se ne razlikuje
+			od matrice odgovarajućeg neusmjerenog grafa. Dok se kod drugog načina koriste težinski stepeni čvorova.
+			Algebarski stepen čvora smo već definisali, a težinski stepen čvora v je definisan sa $sum_{\{v,v_k\} \in E} w(\{v,v_k\})$ gdje $v_k$ predstavlja susjede čvora v.  
+		
 		\subsection{Laplasova matrica}
-	
+			Motiv za definisanje Laplasove matrice grafa je bila analogija Laplasovog linearnog operatora u domenu grafova.
+
 			\begin{definition}[Laplasova matrica] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $L_G = [l_{ij}]_{n \times n}$ grafa $G$, definisana sa $L_G = D_G - A_G$ naziva se Laplasova matrica grafa $G$.
-			Laplasova matrica uspostavlja relaciju izmedju dvije prethodno definisane matrice, matrice susjedstva i matrice stepeni grafa $G$.
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $L_G = [l_{ij}]_{n \times n}$, definisana sa $L_G = D_G - A_G$ naziva se Laplasova matrica grafa $G$.
+			Laplasova matrica uspostavlja relaciju između dvije prethodno definisane matrice, matrice susjedstva i matrice stepeni grafa $G$.
 			Iz navedenog izraza se lako vidi da su elementi Laplasove matrice dati sa
 			 \[
 				 l_{ij} =
 				 \begin{cases}
-				 \deg(i)  & \text{ako } i = j \\
-				 -1 & \text{ako } \{i, j\} \in E \\ 
+				 \deg(i)  & \text{ za } i = j \\
+				 -1 & \text{ za } \{i, j\} \in E \\ 
 				 0  & \text{u suprotnom}
 				 \end{cases}
 			 \]
 			
-			Na osnovu definicije Laplasove matrice mozemo zakljuciti da je matrica realna i simetricna.
+			Na osnovu definicije Laplasove matrice, možemo zaključiti da je matrica realna i simetrična.
 			Zanimljivo svojstvo Laplasove matrice je da je zbir elemenata svake vrste/kolone Laplasove matrice jednak nuli.
 			\end{definition}
 	
 			\paragraph{}
-			Iako smo već dali definiciju Laplasove matrice, ispostavlja se da ta definicija nije najpogodnija za ispitivanje njenih svojstava. Iz tog razloga dacemo jos neke karakterizacije Laplasove matrice.
+			Iako smo već dali definiciju Laplasove matrice, ispostavlja se da ta definicija nije najpogodnija za ispitivanje njenih svojstava. Iz tog razloga dajemo i narednu karakterizaciju Laplasove matrice.
 	
-			\begin{definition}{Laplasova matrica}
+			\begin{definition}[Laplasova matrica]
 			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. 
 			\[
 				L_G = \sum_{\{v_1,v_2\} \in E} L_{\{v_1,v_2\}}
 			\] 
 			
-			Matrica $L_{\{v_1,v_2\}} = [l_{ij}]_{n \times n}$ je matrica definisana sa
+			Laplasova matrica se može dobiti sumiranjem po svim granama grafa $G$ matrica $L_{\{v_1,v_2\}} = [l_{ij}]_{n \times n}$ definisanih sa
 			\[
 				 l_{ij} =
 				 \begin{cases}
-				 1  & \text{ako } i = j  \land i \in \{v_1,v_2\} \\
-				 -1 & \text{ako } \{i,j\} = \{v_1,v_2\} \\ 
+				 1  & \text{ za } i = j  \land i \in \{v_1,v_2\} \\
+				 -1 & \text{ za } \{i,j\} = \{v_1,v_2\} \\ 
 				 0  & \text{u suprotnom}
 				 \end{cases}
 			 \]
-			i može se posmatrati kao Laplasova matrica koja odgovara grani $\{v_1.v_2\}$ grafa $G$. Ova matrica je definisana za svaku granu grafa $G$. Iz definicije matrice $L_{\{v_1,v_2\}}$ lako se vidi da je ona realna i 					simetricna.
+			Matrica $L_{\{v_1,v_2\}}$ se može posmatrati kao Laplasova matrica koja odgovara grani $\{v_1.v_2\}$ grafa $G$. Iz definicije, zaključujemo da se radi o realnoj i simetričnoj matrici.
 			\end{definition}
 			
 			\begin{custom_proof}
 			Nakon sumiranja matrica $L_{\{v_1,v_2\}}$ po svim granama grafa $G$ dobijamo:
 				\begin{itemize}
-				\item element na glavnoj dijagonali $a_{ii}$ ce imati vrijednost $p_i$ koja odgovara broju granu kojima je dati cvor incidentan, tj. vrijednost elementa $a_{ii} = deg(i)$
-				\item element $a_{ij}$ van glavne dijagonale ($i \neq j$) matrice ce imati vrijednost -1 samo ako graf $G$ sadrzi granu $\{i,j\}$, u suprotnom vrijednost 0.  
+				\item element na glavnoj dijagonali $l_{ii}$ će imati vrijednost $p_i$ koja odgovara broju granu kojima je dati čvor incidentan, tj. važi $l_{ii} = deg(i)$
+				\item element $l_{ij}$ van glavne dijagonale ($i \neq j$) matrice će imati vrijednost -1 samo ako graf $G$ sadrži granu $\{i,j\}$, a u suprotnom vrijednost 0.  
 				\end{itemize}
 			\end{custom_proof}
 		
 			\paragraph{}
-			U nastavku cemo dati jos jednu njenu karakterizaciju koju cemo kasnije iskoristiti za dokazivanje Kirhofove teoreme.
+			Ni ova karakterizazija nam nije dovoljna, pa zato dajemo još jednu koju ćemo kasnije iskoristiti za dokazivanje Kirhofove teoreme.
 	
 			\begin{definition}[Laplasova matrica] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$, $|E| = m$. Svakoj grani grafa $G$ dodijelimo proizvoljnu orjentaciju i formirajmo matricu incidencije $I_G$ u odnosu na izabranu orijentaciju.
-			Tada vazi
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$, $|E| = m$. Svakoj grani grafa $G$ dodijelimo proizvoljnu orjentaciju i formirajmo matricu incidencije $I_G$ u odnosu na izabranu orjentaciju.
+			Za ovako dobijenu matricu incidencije važi
 			 \[
 				 L_G = I_G I_G^T
 			 \]
@@ -348,25 +359,45 @@
 	
 			\begin{custom_proof}
 			\[
-				I_G I_G^T = I  I^T  = [b_{ij}]_{n \times n}
+				I_G I_G^T = I_{n \times m}  I^T_{m \times n}  = [b_{ij}]_{n \times n}
 			\]
 			\[
 				 b_{ij} = \sum_{k=1}^{m} I_{ik} I_{kj}^T
-			 \]
-			Iskoristimo svojstvo transponovane matrice koje kaze $M_{ij}^T = M_{ji}$
+			\]
+
+			Iskoristimo svojstvo transponovane matrice $M_{ij}^T = M_{ji}$
 			\[
 				 b_{ij} = \sum_{k=1}^{m} I_{ik} I_{jk}
-			 \]
-			Element $I_{ik}$ nosi informaciju o incidentnosti cvora sa $i$ i grane $k$, a Element $I_{jk}$ nosi informaciju o incidentnosti cvora sa $j$ i grane $k$.
+			\]
+
+			Element $I_{ik}$ nosi informaciju o incidentnosti čvora $i$ i grane $k$, a element $I_{jk}$ nosi informaciju o incidentnosti čvora $j$ i grane $k$.
 			\[
 				 I_{ik}I_{jk} =
 				 \begin{cases}
-				1  & \text{ ako je } i = j \text{ incidentan sa granom k, tj. ako }  i = j \in k \\
-				 -1  & \text{ ako su oba cvora i i j incidentni sa granom k, tj. ako } \{i,j\} \in E \\
-				 0 & \text{ ako bar jedan od cvorova i i j nije incidentan sa granom k, tj, ako } i \notin k \lor j\notin k 
+				 (-1) * (-1) & \text{ ako } i = j \text{ predstavlja čvor u koji ulazi grana k } \\
+				 1 * 1 & \text{ ako } i = j \text{ predstavlja čvor iz kojeg polazi grana k } \\
+				 -1 * 1 & \text{ ako grana k polazi od čvora j i ulazi u čvor i} \\
+				 1 * (-1) & \text{ ako grana k polazi od čvora i, i ulazi u čvor i} \\
+				 0 * 1 & \text{ ako čvor i nije incidentan sa granom k koja polazi iz čvora j } \\ 
+				 0 * (-1) & \text{ ako čvor i nije incidentan sa granom k koja ulazi u čvor j } \\ 
+				 1 * 0 & \text{ ako čvor j nije incidentan sa granom k koja polazi iz čvora i } \\ 
+				 -1 * 0 & \text{ ako čvor j nije incidentan sa granom k koja ulazi u čvor i } \\ 
+				 0 * 0 & \text{ ako čvorovi i i j nisu incidentni sa granom k } \\ 
 				 \end{cases}
-			 \]
-			Jasno je da $I_{ik}I_{jk} = -1$ za fiksno i i j, moguce samo za jedno $k$ jer graf ne sadrzi visestruke grane. S toga ,vazi
+			\]
+
+			Nakon sređivanja prethodnog izraza dobijamo sljedeće
+			\[
+				 b_{ij} = I_{ik}I_{jk} =
+				 \begin{cases}
+				 1 & \text{ ako je } i = j \text{ incidentan sa granom k, tj. ako važi }  i = j \in k \\
+				 -1 & \text{ ako su čvorovi i i j incidentni sa granom k, tj. ako važi } k = \{i,j\} \in E \\
+				 0 & \text{ ako čvor i ili j nije incidentan sa granom k, tj, ako važi } i \notin k \lor j \notin k 
+				 \end{cases}
+			\]
+
+			Uzimajući u obzir da graf ne sadrži višestruke grane, $I_{ik}I_{jk} = -1$ za fiksno i i j je moguće samo za tačno jedno $k$. S toga, važi
+			
 			\[
 				\sum_{k=1}^{m} I_{ik}I_{jk} =
 				 \begin{cases}
@@ -375,47 +406,45 @@
 				 0 & \text{ u suprotnom }
 				 \end{cases}
 			 \]
-			Prethodni izraz predstavlja upravo definiciju elemenata Laplasove matrice. Uocimo da tvrdjenje vazi bez obzira koju orijentaciju grana grafa odaberemo.
+
+			Prethodni izraz predstavlja, upravo, definiciju elementa Laplasove matrice. Uočimo, takođe, da tvrđenje važi za proizvoljnu orjentaciju grana grafa, pa samim tim važi za bilo koju
+		    od mogućih $2^m$ orjentacija.
 			\end{custom_proof}
 	
-	\section{Prebrojavanje šetnji izmedju dva proizvoljna čvora grafa}
+	\section{Primjena matrice susjedstva u prebrojavanju šetnji}
 		\paragraph{}
-		U nauci, ali i nasoj svakodnevnici cesti su problemi koji se mogu modelovati i rijesiti pomocu grafova. 
-		Mnogi od tih problema se u domenu grafova svode na pitanje da li od nekog cvor $v_1$ mozemo doci do cvora $v_2$, i ukoliko je moguce, na koliko nacina je to moguce postici. Neki takvig problema su:
+		U nauci, ali i našoj svakodnevnici često se susrećemo sa problemima koji se mogu modelovati i riješiti pomoću grafova. 
+		Mnogi od tih problema se, u domenu grafova, svode na pitanje da li od nekog čvora $v_1$ možemo doći do čvora $v_2$, i ukoliko je moguće, na koliko naćina se to može postići. Primjeri takvih problema su:
 				\begin{itemize}
-				\item Na koliko nacina je moguce poslati, tj. rutirati poruka kroz racunarsku mrezu od racunara A do racunara B? Racunari su modelovani cvorovima grafa, a direktne veze izmedju uredjaja sa granama grafa.
-				\item Na koliko nacina DNK sekvenca A moze da mutira u DNK sekvencu B? DNK sekvence su modelovane cvorovima, a proste mutacije supstitucije gena granama grafa. 
-				\item Na koliko nacina je u lancanoj hemijskoj reakciji od molekula A dobiti molekul B. Molekuli su modelovani cvorovima, a reakcije sa granama grafa.
+				\item Na koliko načina je moguće poslati, tj. rutirati poruka kroz računarsku mrežu, od računara A do računara B? Računari su modelovani čvorovima grafa, a direktne veze između uređaja sa granama grafa.
+				\item Na koliko načina DNK sekvenca A može da mutira u DNK sekvencu B? DNK sekvence su modelovane čvorovima, a proste mutacije supstitucije gena granama grafa. 
 				\end{itemize}
 	
-		Ukoliko sada jos podignemo kriterij i zahtijevamo rjesavanje problema u odredjenom broju koraka, npr. da $n$ uredjaja posreduje u razmjeni poruke u racunarskoj mrezi, 
-		da se odigra tacno $n$ mutacija gena ili se 	ogranicimo na $n$ reakcija u lancu, lako se vidi, da je u pozadini problem odredjivanja broja $i$-$j$ setnji duzine $n$ u grafu.
+		Ukoliko sada još podignemo kriterij i zahtijevamo rješavanje problema u određenom broju koraka, npr. da tačno $n$ uređaja posreduje u razmjeni poruke, 
+		da se odigra tačno $n$ prostih mutacija gena, lako se vidi, da je u pozadini problem određivanja broja $i-j$ šetnji koje su dužine $n$.
 	
 		\paragraph{}
-		Kako bismo odredili broj šetnji dužine $n$ izmedju dva proizvoljna čvora grafa, pogodno je graf $G = (V, E)$ predstaviti u obliku matrice susjedstva. 
-		Naredna teorema daje relaciju izmedju elemenata matrice susjedstva i broja šetnji izmedju čvorova grafa.
+		Kako bismo odredili broj šetnji dužine $n$ između dva proizvoljna čvora grafa, pogodno je graf predstaviti pomoću matrice susjedstva. 
+		Naredna teorema daje relaciju između elemenata matrice susjedstva i broja šetnji između čvorova grafa.
 	
 		\begin{theorem}
-		Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Element matrice susjedstva $A_G$ u presjeku i-te vrste i j-te kolone označićemo sa $a_{ij}$, 
-		a element m-tog stepena matrice susjedstva $A_G^m$ u presjeku i-te vrste i j-te kolone označićemo sa $a_{ij}^m$.
-		
-		\paragraph{}
-		Element $a_{ij}^m$ matrice $A_G^m$ predstavlja broj $i$-$j$ šetnji dužine $m$. 
+			Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Element matrice susjedstva $A_G$ u presjeku i-te vrste i j-te kolone označićemo sa $a_{ij}$, 
+			a element m-tog stepena matrice susjedstva $A_G^m$ u presjeku i-te vrste i j-te kolone označićemo sa $a_{ij}^m$. Element $a_{ij}^m$ matrice $A_G^m$ predstavlja broj $i-j$ šetnji dužine $m$. 
 		\end{theorem}
-	
+		
 		\begin{custom_proof}
-			Datu teoremu ćemo dokazati putem matematičke indukcije.  Radi jednostavnosti zapisa koristićemo $A_G = A$.
+		    Teoremu ćemo dokazati putem matematičke indukcije. Radi jednostavnosti zapisa koristićemo $A_G = A$.
 			
 			\paragraph{Baza indukcije}
-			Za $n=1$, jasno je da $a_{ij}^1 = a_{ij}$ predstavlja broj šetnji dužine 1 izmedju čvorova, jer to odgovara broju grana kojima su povezani čvorovi $i$ i $j$. 
-			Kod grafa koji nije multigraf, broj grana izmedju čvorova $i$ i $j$ jednak je vrijednosti elementa $a_{ij}$ matrice $A_G$, tj. 0 ukoliko čvorovi nisu susjedni ili 1 ukoliko su čvorovi susjedni. 
-			Nije moguće imati šetnju $i$-$j$ dužine 1 ukoliko čvorovi $i$ i $j$ nisu susjedni, tj. direktno povezani granom grafa. 
+			Za $n=1$, jasno je da $a_{ij}^1 = a_{ij}$ predstavlja broj šetnji dužine 1 između čvorova, jer to odgovara broju grana kojima su povezani čvorovi i i j. 
+			Kod grafa koji nije multigraf, broj grana između čvorova i i j jednak je vrijednosti elementa $a_{ij}$ matrice $A_G$, tj. 0 ukoliko čvorovi nisu susjedni ili 1 ukoliko su čvorovi susjedni. 
+			Nije moguće imati šetnju $i-j$ dužine 1 ukoliko čvorovi i i j nisu susjedni, tj. direktno povezani granom grafa. 
 			
 			\paragraph{Induktivna pretpostavka}
-			Pretpostavimo da tvrdjenje važi za $k>1$.  Tada, $a_{ij}^k$ predstavlja broj šetnji dužine $k$ izmedju čvorova $i$ i $j$ u grafu $G$ za $\forall i,j \in V$. 
+			Pretpostavimo da tvrđenje važi za $k>1$ i proizvoljne čvorove i i j. Tada, $a_{ij}^k$ predstavlja broj šetnji dužine $k$ između čvorova i i j u grafu $G$ za $\forall i,j \in V$. 
 			
 			\paragraph{Induktivni korak}
-			Pokažimo sada da tvrdjenje važi i za $k+1$.
+			Pokažimo sada da tvrđenje važi i za $k+1$.
 			Iskoristimo pravila operacije množenja matrica, da bi smo odredili vrijednost elementa $a_{ij}^{k+1}$ matrice $A_G^{k+1}$.  
 			\[
 				A_G^{k+1} = A_G^k * A_G
@@ -423,6 +452,7 @@
 			\[
 				a_{ij}^{k+1} = A_{i.}^k * A_{.j} 
 			\]
+
 			\begin{equation}
 			a_{ij}^{k+1} = \sum_{p=1}^{n} a_{ip}^k * a_{pj}
 			\label{eq:element}
@@ -432,20 +462,21 @@
 			Vrijednost elementa $a_{ij}^{k+1}$ matrice $A_G^{k+1}$ se dobija kao proizvod i-te vrste matrice $A_G^k$ i j-te kolone matrice $A_G$. 
 			
 			\paragraph{}
-			Svaku $i$-$j$ šetnju dužine veće od 1 možemo predstaviti kao $i$-$p$ šetnju na koju nadovežemo granu $\{p,j\} \in E$ (što je ekvivalentno šetnji dužine 1), gdje je $p$ proizvoljan čvor grafa $G$. 
-			Zakljucujemo da se broj $i$-$j$ šetnji dužine $k+1$ može dobiti tako što za svaki čvor $p$ grafa $G$ prebrojimo $i$-$p$ šetnje dužine $k$ i dodamo ih u konačnu sumu ako graf $G$ sadrži granu $\{p,j\}$,
-			tj. ako su čvorovi $p$ i $j$ susjedni.
+			Svaku $i-j$ šetnju dužine veće od 1 možemo predstaviti kao $i-p$ šetnju na koju nadovežemo granu $\{p,j\} \in E$ (što je ekvivalentno šetnji dužine 1). 
+			Zaključujemo da se broj $i-j$ šetnji dužine $k+1$ može dobiti tako što za svaki čvor $p$ grafa $G$ prebrojimo $i-p$ šetnje dužine $k$ i dodamo ih u konačnu sumu ukoliko graf $G$ sadrži granu $\{p,j\}$,
+			tj. ako su čvorovi p i j susjedni.
 		
 			\paragraph{}
-			Ako sada uzmemo u obzir da prema induktivnoj pretpostavci $a_{ip}^k$ predstavlja broj $i$-$p$ šetnji dužine $k$ i da prema definiciji matrice susjedstva  $a_{pj}=1$ ako graf $G$ sadrži granu $\{p,j\}$, 
-			izraz $a_{ip}^k * a_{pj}$ predstavlja ukupan broj $i$-$j$ šetnji dužine k+1 koje koje su konstruisane na prethodno izlozeni nacin. 
-			Sumiranjem izraza po svim čvorovima grafa $G$ dobija se ukupan broj $i$-$j$ šetnji dužine $k+1$ predstavljen izrazom $\sum_{p=1}^{n} a_{ip}^k * a_{pj}$. 
-			Vrijednost ove sume, prema jednakosti (1), jednaka je elementu $a_{ij}^{k+1}$ matrice $A_G^{k+1}$ cime dokaz je završen.
+			Ako sada uzmemo u obzir da prema induktivnoj pretpostavci $a_{ip}^k$ predstavlja broj $i-p$ šetnji dužine $k$ i da prema definiciji matrice susjedstva $a_{pj}=1$ ako graf $G$ sadrži granu $\{p,j\}$, 
+			izraz $a_{ip}^k * a_{pj}$ predstavlja ukupan broj $i-j$ šetnji dužine $k+1$ koje su konstruisane na prethodno izloženi način. 
+			Sumiranjem izraza po svim čvorovima grafa $G$ dobija se ukupan broj $i-j$ šetnji dužine $k+1$ 
+			\[ \sum_{p=1}^{n} a_{ip}^k * a_{pj} \]. 
+			Vrijednost ove sume, prema jednakosti (1), jednaka je elementu $a_{ij}^{k+1}$ matrice $A_G^{k+1}$ čime dokaz je završen.
 		\end{custom_proof}
 	
 		\paragraph{}
-		Sada, iako znamo kako da prebrojimo $i$-$j$ setnje u zadatom grafu, nailazimo na problem koji proizilazi iz same prirode setnji koja im dozvoljava da vise puta posjete neke od cvorova grafa.
-		Na primjer, naredne setnje su u uracunate u konacnu sumu dobijenu putem prethodne teoreme a nisu prosti putevi:
+		Sada, iako znamo kako da prebrojimo $i-j$ šetnje u zadatom grafu, nailazimo na problem koji proizilazi iz same prirode šetnji. Naime, definicija šetnje dozvoljava da se više puta posjeti neki od čvorova grafa.
+		Na primjer, naredne šetnje su obuhvaćene prethodno izloženom teoremom a nisu prosti putevi:
 		\[
 			\begin{split}
 			i \rightarrow v_1 \rightarrow i \\
@@ -456,50 +487,53 @@
 			i \rightarrow v_1 \rightarrow v_2 \rightarrow i \rightarrow j 
 			\end{split}
 		\]
-		 Bilo bi korisno kada bismo na slican nacin mogli prebrojati proste puteve $i$-$j$ duzine $n$ u zadatom grafu. Ovo ogranicenje je sasvim prirodno, jer mozda, u kontekstu rutiranja poruke kroz racunarsku mrezu,
-		ne zelimo da isti uredjaj vise puta posreduje u prenosu jedne poruke.  U nastavku cemo po ugledu na prethodnu primjenu, pokusati da iskoristimo matricu susjedstva $A_G$ kako bismo prebrojali proste puteve $i$ - $j$.
+
+		Bilo bi veoma korisno kada bismo na sličan način mogli prebrojati proste puteve $i-j$ dužine $n$ u zadatom grafu. 
+		Ovakvo ograničenje je sasvim prirodno, jer možda, u kontekstu rutiranja poruke kroz računarsku mrežu,
+		ne želimo da isti uređaj više puta posreduje u prenosu jedne poruke. 
 		
-		\subsection{Prebrojavanje prostih puteva izmedju dva proizvoljna čvora grafa}
+		\subsection{Prebrojavanje prostih puteva}
+
+			Po ugledu na prethodnu primjenu, matricu susjedstva ćemo iskoristiti za prebrojavanje prostih puteva.
 	
 			\begin{theorem}
-			Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Element $s_{ij}^{(2)}$ matrice $S_G^{(2)}$ predstavlja broj prostih puteva $i$-$j$ dužine 2. Matrica $S_G^{(2)}$ je definisana sa
+			Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Element $s_{ij}^{(2)}$ matrice $S_G^{(2)}$ predstavlja broj prostih puteva $i-j$ dužine 2. Matrica $S_G^{(2)}$ je definisana sa
 			\[
 			S_G^{(2)} = A_G^{2} - D_G
 			\]  
-			gdje je $A_G$ matrica susjedstva, a $D_G$ matrica stepeni grafa $G$.
-			Uociti da $S_G^{(2)} \neq S_G^{2}$, tj. $S_G^{(2)}$ ne predstavlja drugi stepen matrice $S_G$.
+			Napomenimo da $S_G^{(2)} \neq S_G^{2}$, tj. $S_G^{(2)}$ ne predstavlja drugi stepen matrice $S_G$.
 			\end{theorem}
 		
 			\begin{custom_proof}
-			Kada su u pitanju setnje $i$-$j$ duzine 2, problematicne su samo one setnje koje pocinju i zavrsavaju u istom cvoru grafa, tj. one koje predstavljaju ciklus. 
-		 	Na primjer sve setnje oblika $i \rightarrow v \rightarrow i$ gdje $v \in (V \setminus \{i\})$ su ciklusi a ukljucene u konacan broj. Jasno je da $v \neq i$ jer razmatramo grafove bez petlji. 
-			Kod ovakvih setnji polazimo iz cvora $i$, idemo do njegovog susjeda $v$ in onda se vracamo nazad u cvor $i$ istom granom.
-			Kako su u pitanju setnje $i$-$i$, njihov broj je sadrzan u vrijednostima elemenata $a[ii]^2$ matrice $A_G^2$ (elementi na glavnoj dijagonali matrice). 
-			Jasno je da je broj ovakvih setnji jednak broju susjeda cvora i, tj. $deg(i)$. Takodje, jasno je i da su  
-			S obzirom da znamo da je broj problematicnih setnji $deg(i)$ i da znamo da njihov broj utice samo na elemente na glavnoj dijagonali matrice $A_G^2$, 
-			dolazimo do zakljucka da je broj $i$-$j$ prostih puteva duzine 2 dat izrazom
+			Kada su u pitanju šetnje $i-j$ dužine 2, problematične su samo one šetnje koje počinju i završavaju u istom čvoru grafa, tj. one koje predstavljaju ciklus. 
+		 	Na primjer sve šetnje oblika $i \rightarrow v \rightarrow i$ gdje $v \in (V \setminus \{i\})$ su ciklusi, a obuhvaćene su prilikom prebrojavanja po prethodno izloženoj teoremi.
+			Jasno je da $v \neq i$ jer razmatramo grafove bez petlji. 
+			Kod ovakvih šetnji polazimo iz čvora $i$, idemo do njegovog susjeda $v$ in onda se vraćamo nazad u čvor $i$ istom granom.
+			Kako su u pitanju šetnje oblika $i-i$, njihov broj je dat sa vrijednostima elemenata $a_{ii}^2$ matrice $A_G^2$ (elementi na glavnoj dijagonali matrice). 
+			Jasno je da je broj ovakvih šetnji jednak broju susjeda čvora i, tj. $deg(i)$. Odavde zaključujemo da važi
 				\[
 				s_{ij}^{(2)} = 
 				 \begin{cases}
-				 0 = a_{ij} - deg(i) &  \text{ ako } i =j  \\ 
-				 a_{ij} = a_{ij} - 0   & \text{ ako } i \neq j 
+				 0 = a_{ij}^2 - deg(i) &  \text{ za } i = j  \\ 
+				 a_{ij}^2 = a_{ij}^2 - 0   & \text{ ako } i \neq j 
 				 \end{cases}
 				\]  
 		
-			Matrica definisana sa prethodnim izrazom je upravo matrica $S_G^{(2)}$ data u teoremi, cime je tvrdnja dokazana.
+			Matrica definisana prethodnim izrazom je upravo matrica $S_G^{(2)}$ data u teoremi, čime je teorema dokazana.
 			\end{custom_proof}
 	
 			\begin{theorem}
-			Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Element $s_{ij}^{(3)}$ matrice $S_G^{(3)}$ predstavlja broj i-j šetnji dužine 3. Matrica $S_G^{(3)}$ je definisana sa
+			Neka je dat graf $G = (V, E), V = \{1, 2, \dots, n\}$. Element $s_{ij}^{(3)}$ matrice $S_G^{(3)}$ predstavlja broj $i-j$ prosti puteva dužine 3. Matrica $S_G^{(3)}$ je definisana sa
 			\[
-			S_G^{(3)} = S_G^{(2)} A_G - A_G(D_G - I) - Diag(S_G^{(2)}A_G) 
+			S_G^{(3)} = S_G^{(2)} A_G - A_G (D_G - I) - Diag(S_G^{(2)} A_G) 
 			\]  
-			gdje $Diag([a_{ij}]) $ definisana sa
+
+			gdje matrica $Diag([a_{ij}])$ definisana sa
 			\[
 			diag_{ij} = 
 			 \begin{cases}
-			a_{ij} &  \text{ ako } i = j  \\ 
-			 0   & \text{ ako } i \neq j 
+				a_{ij} &  \text{ za } i = j  \\ 
+			 	0   & \text{ za } i \neq j 
 			 \end{cases}
 			\]
 			\end{theorem}
