@@ -36,7 +36,7 @@
 	
 	\newtheorem{definition}{Definicija}
 	\newtheorem{theorem}{Teorema}
-	\newtheorem*{custom_proof}{Dokaz tvrdjenja}
+	\newtheorem*{custom_proof}{Dokaz tvrđenja}
 	\newtheorem{consequence}{Posljedica}
 	\newtheorem{example}{Primjer}
 	
@@ -530,7 +530,7 @@
 
 			gdje matrica $Diag([a_{ij}])$ definisana sa
 			\[
-			diag_{ij} = 
+			d_{ij} = 
 			 \begin{cases}
 				a_{ij} &  \text{ za } i = j  \\ 
 			 	0   & \text{ za } i \neq j 
@@ -539,184 +539,208 @@
 			\end{theorem}
 	
 			\begin{custom_proof}
-			Ideja je opet ista, prost put duzine 3 predstaviti kao prost put duzine 2 na kojeg je nadovezana jos jedna grana grafa. Posmatrajmo prost put $i$-$v$ duzine 2 na koga je nadovezana grana $\{v,j\}$. 
-			Naravno $v \neq j$ jer u tom slucaju graf bi sadrzavao petlju $\{j,j\}$ i $v \neq i$, jer u tom slucaju $i$-$v$ nije prost put, sto je nasa pretpostavka. 
-			Konstrukcija ove setnje je moguca samo ako su cvorovi $v$ i $j$ susjedni. Broj tako konstruisanih setnji, gdje je $v$ fiksan cvor, je $s_{iv}^{(2)} * a_{vj}$.
-			Nakon sumiranja po svim cvorovima grafa, osim $i$ i $j$, dobijamo $\sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj}) $.
-			Da bi ovako konstruisana setnja $i$-$j$ bila prost put mora da vazi 	da prost put $i$-$v$ ne posjecuje cvor $j$. 
-			Da bismo odredili broj prostih puteva $i$ - $j$ duzine 3 moramo da eliminisemo sve setnje oblika $i \rightarrow j \rightarrow v \rightarrow j$. 
-			Ukoliko je moguce konstruisati ovakve setnje njihov broj odgovara broju grana $\{j,v\}$ gdje $v \in (V \setminus \{i,j\})$. Jasno je da 
+			Ideja je opet ista, prost put dužine 3 predstaviti kao prost put dužine 2 na kojeg je nadovezana još jedna grana.
+			Posmatrajmo prost put $i-v$ dužine 2 na koga je nadovezana grana $\{v,j\}$. 
+			Mora da važi $v \neq j$ jer u tom slučaju graf bi sadržavao petlju $\{j,j\}$ i $v \neq i$, jer u tom slučaju $i-v$ nije prost put. 
+			Konstrukcija prostog puta $i-x-v-j$ je moguća samo ako su čvorovi v i j susjedni. 
+			Broj tako konstruisanih puteva, gdje je v fiksan čvor, jednak je $s_{iv}^{(2)} * a_{vj}$.
+			Nakon sumiranja po svim čvorovima grafa, osim i i j, dobijamo $\sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj})$.
+			Da bi ovako konstruisana šetnja $i-j$ bila prost put mora da važi da prost put $i-v$ ne posjećuje čvor j. 
+			Da bismo odredili broj prostih puteva $i-j$ dužine 3 moramo da eliminišemo sve šetnje oblika $i \rightarrow j \rightarrow v \rightarrow j$. 
+			Ukoliko je moguće konstruisati ovakve šetnje, njihov broj odgovara broju grana $\{j,v\}$ gdje $v \in (V \setminus \{i,j\})$. Jasno je da 
 			\[
-			% card\{\{j,v\}:  v \in (V \setminus \{i,j\})\} =
-			%  \begin{cases}
-			%  deg(j)      & \text{ ako } \{i,j\} \notin E  \\ 
-			%  deg(j) - 1 & \text{ ako } \{i,j\} \in E   
-			%  \end{cases} 
+				card\{\{j,v\}:  v \in (V \setminus \{i,j\})\} =
+				\begin{cases}
+				deg(j) & \text{ ako } \{i,j\} \notin E  \\ 
+				deg(j) -1 & \text{ ako } \{i,j\} \in E   
+				\end{cases} 
 			\]
 		
-			Uocimo da ukoliko vazi $\{i,j\} \notin E$ onda setnja $i \rightarrow j \rightarrow v \rightarrow j$ ni ne postoji.
-			S obzirom na sve navedeno potrebno je iskljuciti $a_{ij} * (deg(j) - 1)$ setnji iz konacnog broja.
+			Uočimo da ukoliko važi $\{i,j\} \notin E$ onda šetnja $i \rightarrow j \rightarrow v \rightarrow j$ ni ne postoji.
+			S obzirom na sve navedeno potrebno je isključiti $a_{ij} * (deg(j) - 1)$ šetnji iz konačnog broja.
 		
 			\[
 			s_{ij}^{(3)} =  \sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * (deg(j)  - 1))
 				       = \sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * deg(j)) - a_{ij}
 			\] 
 		
-			Iako smo rekli da $v \neq j$, mozemo sumirati i za vrijednost $v=j$ jer u tom slucaju $a_{vj} = a_{jj} = 0$.
-			Takodje, smo rekli da $v \neq i$, ali mozemo sumirati i za vrijednost $v=i$ jer u tom slucaju $s_{iv}^{(2)} = s_{ii}^{(2)} = 0$.
+			Iako smo rekli da $v \neq j$ i $v \neq i$, možemo sumirati i za te vrijednosti jer u tim slučajevima $a_{vj} = a_{jj} = 0$ i $s_{iv}^{(2)} = s_{ii}^{(2)} = 0$, pa je suma ostaje ista.
 			
 			\[
 			s_{ij}^{(3)} =  \sum_{v \in V} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * (deg(j)  - 1))
 				       = \sum_{v \in V} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * deg(j)) - a_{ij}
 			\] 
 		 
-			Uocima da izraz $a_{ij} * deg(j)$ predstavlja mnozenje svih elemenata u istoj koloni matrice susjedstva sa istim skalarom, sto odgovara mnozenju matrice susjedstva sa dijagonalnom matricom, 
-			u ovom konkretnom slucaju, matricom stepeni.
-			Prethodni izraz prestavlja broj prostih puteva $i-j$ duzine 3 za $i \neq j$. Za $i = j$ broj prostih puteva je nula pa mora da vazi $s_{ii} = 0$ za $\forall i \in V$. 
-			Da bismo to postigli za elemente na glavnoj dijagonali moramo anulirati vrijednost $\sum_{v \in E} (s_{iv}^{(2)} * a_{vj}) - a_{ij} * (deg(j)  - 1)$.
-			Kako je $a_{ij} = 0$ za elemente na glavnoj dijagonali matrice susjedstva, ostaje nam da anuliramo vrijednost $\sum_{v \in E} (s_{iv}^{(2)}*a_{vj}) = \sum_{v = 1}^{n} (s_{iv}^{(2)}*a_{vj}) = S_{i.}^{(2)} A_{.j}$.
-			To mozemo postici tako sto cemo od izraza oduzeti matricu ciji elementi na glavnoj dijagonali imaju vrijednost odgovarajuceg elementa matrice $S_G^{(2)} A_G$, a ostali elementi su jednaki 0.
-			Kada prethodni izraz prikazemo u matricnom zapisu dobijamo
+			Uočimo da izraz pod sumom liči na množenje matrica i da izraz $a_{ij} * deg(j)$ predstavlja množenje svih elemenata u istoj koloni matrice susjedstva sa istim skalarom,
+			što odgovara množenju matrice susjedstva sa dijagonalnom matricom, u ovom konkretnom slučaju, matricom stepeni. Kada prethodni izraz prikažemo u matričnom zapisu dobijamo
 			\[
 				\begin{split}
-				S_G^{(3)} & = S_G^{(2)} A_G - A_G D_G - A_G  - Diag(S_G^{(2)} A_G) \\
-					      & = S_G^{(2)} A_G - A_G D_G - A_G I - Diag(S_G^{(2)} A_G)  \\
-					      & = S_G^{(2)} A_G - A_G (D_G - I) - Diag(S_G^{(2)} A_G)
+					S_G^{(3)} & = S_G^{(2)} A_G - A_G D_G - A_G \\
+			 				  & = S_G^{(2)} A_G - A_G D_G - A_G I \\
+			    			  & = S_G^{(2)} A_G - A_G (D_G - I) 
 				\end{split}
+			\]
+
+			Prethodni izraz prestavlja broj prostih puteva $i-j$ dužine 3 za $i \neq j$. 
+			Za $i = j$ broj prostih puteva je nula pa mora da važi $s_{ii} = 0$ za $\forall i \in V$. 
+			Da bismo to postigli za elemente na glavnoj dijagonali moramo anulirati vrijednost $\sum_{v \in E} (s_{iv}^{(2)} * a_{vj}) - a_{ij} * (deg(j)  - 1)$.
+			Kako je $a_{ij} = 0$ za elemente na glavnoj dijagonali matrice susjedstva, ostaje nam da anuliramo vrijednost $\sum_{v \in E} (s_{iv}^{(2)}*a_{vj}) = \sum_{v = 1}^{n} (s_{iv}^{(2)}*a_{vj}) = S_{i.}^{(2)} A_{.j}$.
+			To možemo postići tako što ćemo od izraza oduzeti matricu čiji elementi na glavnoj dijagonali imaju vrijednost odgovarajućeg elementa matrice $S_G^{(2)} A_G$, a ostali elementi su jednaki 0.
+			
+			\[
+				S_G^{(3)} = S_G^{(2)} A_G - A_G (D_G - I) - Diag(S_G^{(2)} A_G)
 			\]
 			\end{custom_proof}
 	
 			\paragraph{}
-			Razmotrimo i broj prostih puteva i-j duzine 4. Polazimo od iste ideja, a to je predstaviti prost put duzine 4 preko prostog puta duzine 3 na koji je nadovezana jos jedna grana grafa.
-			Posmatrajmo prosti put $i$-$v$ duzine 3 na koga je nadovezana grana $\{v,j\}$. Naravno $v \neq j$ jer u tom slucaju graf bi sadrzavao petlju $\{j,j\}$ i $v \neq i$, jer u tom slucaju $i$-$v$ nije prost put, 
-			sto je nasa pretpostavka.  Konstrukcija ove setnje je moguca samo ako su cvorovi $v$ i $j$ susjedni. Broj tako konstruisanih setnji, gdje je $v$ fiksan cvor, je
+			Razmotrimo i broj prostih puteva $i-j$ dužine 4. Ponovo, polazimo od iste ideja, a to je predstaviti prost put dužine 4 preko prostog puta dužine 3 na koji je nadovezana još jedna grana.
+			Posmatrajmo prost put $i-v$ dužine 3 na koga je nadovezana grana $\{v,j\}$. Naravno, $v \neq j$ jer u tom slučaju graf bi sadržavao petlju. Takođe, i $v \neq i$, jer u tom slučaju $i-v$ nije prost put.
+			Konstrukcija ove šetnje je moguća samo ako su čvorovi $v$ i $j$ susjedni. Broj tako konstruisanih šetnji, gdje je v fiksan čvor, je dat izrazom
 			\[
 				\sum_{v \in  (V \setminus \{i,j\})} s_{iv}^{(3)} * a_{vj}
 			\]
-			Ponovo iz istih razloga mozemo dopustiti sumiranje i po cvoru $j$.
+			Ponovo iz istih razloga možemo dopustiti sumiranje i po čvoru $j$.
 			\[
 				\sum_{v \in (V \setminus \{i\})} s_{iv}^{(3)} * a_{vj}
 			\]
+
 			\paragraph{}
-			Konstruisane setnje se mogu predstaviti sa $i \rightarrow v_1 \rightarrow v_2 \rightarrow v \rightarrow j$. Naravno da bi $i$ - $v$ bio prost put mora da vazi $i \neq v_1 \neq v_2 \neq v$,
-			a da bi ovako konstruisana setnja $i$-$j$ bila prost put mora da vazi da prosti put $i$-$v$ ne posjecuje cvor $j$.
-			To znaci da moramo eliminisati setnje koje oblika $i \rightarrow j \rightarrow v_2 \rightarrow v \rightarrow j$ i $i \rightarrow v_1 \rightarrow j \rightarrow v \rightarrow j$, tj. iz prosti puteva $i$-$v$ moramo izuzeti 
-			$i \rightarrow j \rightarrow v_2 \rightarrow v$ i $i \rightarrow v_1 \rightarrow j \rightarrow v$.
-		
+			Konstruisane šetnje se mogu predstaviti sa $i \rightarrow v_1 \rightarrow v_2 \rightarrow v \rightarrow j$. 
+			Da bi šetnja $i-j$ bila prost put mora da važi da prost put $i-v$ ne posjećuje čvor j.
+			To znači da moramo eliminisati šetnje koje su oblika $i \rightarrow j \rightarrow v_2 \rightarrow v \rightarrow j$ i $i \rightarrow v_1 \rightarrow j \rightarrow v \rightarrow j$. 
+	
 			\paragraph{}
-			Prost put $i \rightarrow j \rightarrow v_2 \rightarrow v$ su moguc samo ako su $i$ i $j$ susjedni cvorovi i za fiksan cvor $v$ ima ih koliko i prostih puteva $j \rightarrow v_2 \rightarrow v$. 
-			S tim da moramo da pazimo da $v_2 \neq i$, tj. moramo izuzeti setnju $j-i-v$. Ne moramo da vodimo racuna da li je $v=i$ jer ne vrsimo sumiranje u tom slucaju.
+			Prosti putevi $i \rightarrow j \rightarrow v_2 \rightarrow v$ su mogući samo ako su i i j susjedni čvorovi. Za fiksan čvor v ima ih koliko i prostih puteva $j \rightarrow v_2 \rightarrow v$. 
+			S tim da moramo da pazimo da $v_2 \neq i$, tj. moramo izuzeti šetnju $j-i-v$. Ne moramo da vodimo računa da li je $v=i$ jer ne vršimo sumiranje u tom slučaju.
 			\[
-				\sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * (s_{jv}^{(2)} - a_{ij}a_{jv})]\}
+				\sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * (s_{jv}^{(2)} - a_{ji}a_{iv})]\}
 			\]
 		
 			\paragraph{}
 			Sa druge strane, prostih puteva $i \rightarrow v_1 \rightarrow j \rightarrow v$ za fiksan cvor $v$ ima koliko i prostih puteva $i \rightarrow v_1 \rightarrow j$. 
-			S tim da moramo da pazimo da $v_1 \neq v$. Ove setnje su moguce samo ako su $j$ i $v$ susjedni cvorovi.
+			S tim da moramo da pazimo da $v_1 \neq v$. Ove šetnje su moguće samo ako su $j$ i $v$ susjedni čvorovi.
 			\[
-				\sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * (s_{jv}^{(2)} - a_{ij}a_{jv}) - a_{jv} * (s_{ij}^{(2)} -  a_{iv}a_{vj})]\}
+				\sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * (s_{jv}^{(2)} - a_{ji}a_{iv}) - a_{jv} * (s_{ij}^{(2)} -  a_{iv}a_{vj})]\}
 			\]
-			Jasno je da $a_{xy}a_{xy}=a_{xy}$, tako da mozemo ukloniti $a_{ij}$ i $a_{jv}$ iz malih zagrada, kao i $a_{jv}$ iz srednje zagrade, cime dobijamo konacan izraz
+			Jasno je da važi $a_{xy}a_{xy}=a_{xy}$ i $a_{xy}=a_{yx}$, tako da možemo ukloniti $a_{ji}$ i $a_{vj}$ iz malih zagrada, kao i $a_{jv}$ iz srednje zagrade, nakon čega dobijamo konačan izraz
 			 \[
-				s_{ij}^{(4)} = \sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * (s_{jv}^{(2)} - a_{jv}) - (s_{ij}^{(2)} -  a_{iv})]\}
+				s_{ij}^{(4)} = \sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * s_{jv}^{(2)} - s_{ij}^{(2)} +  a_{iv}( a_{ij} + 1)]\}
 			 \]
-			Zbog kompleksnosti samog racuna ovdje cemo se zaustaviti.
-			Evidentno je da se povecanjem duzine prostog puta povecava i kompleksnost izraza.
+			Zbog kompleksnosti samog izraza ovdje ćemo se zaustaviti. Evidentno je da se povećanjem dužine prostog puta povećava i kompleksnost izraza.
 		
 			\paragraph{}
-			Maksimum broja prostih puteva izmedju dva cvora u grafu mozemo izracunati na osnovu znanja koja imamo o kompletnom grafu sa $n$ cvorova $K_n$.
-			Potrebno je da izaberemo $k-1$ cvor koji ce pored $v_0$ i $v_k$ cvorova biti sadrzan u prostom putu. Prvi od $k-1$ cvorova moemo odabrati na $n-2$ nacina, 
-			jer ne mozemo odabrati cvorove $v_0$ i $v_k$. Naredni cvor pored pored $v_0$ i $v_k$, ne moze biti ni prethodno izabrani cvor. Istom srategijom biramo cvorove sve dok ne odaberemo svih $k-1$. 
-			Ispostavlja se da je u kompletnom grafu broj prostih puteva $i$-$j$ jednak 
+			Maksimum broja prostih puteva između dva čvora u grafu možemo izračunati na osnovu znanja koja imamo o kompletnom grafu sa $n$ čvorova $K_n$.
+			Potrebno je da izaberemo $k-1$ čvor koji će pored čvorova i i j biti sadržan u prostom putu. Prvi od $k-1$ čvorova možemo odabrati na $n-2$ načina, 
+			jer ne možemo odabrati čvorove i i j. Naredni čvor pored pored i, j, ne može biti ni prethodno izabrani čvor. Istom strategijom biramo čvorove sve dok ne odaberemo svih $k-1$. 
+			Ispostavlja se da je u kompletnom grafu broj prostih puteva $i-j$ jednak 
 			\[
 				\begin{split}
-				s_{v_0 v_k}^{(k)} & = (n-2)(n-2-1) \dots (n-2-(k-2)) \\
+				s_{ij}^{(k)} & = (n-2)(n-2-1) \dots (n-2-(k-2)) \\
 				                  & = (n-2)(n-3) \dots (n-k) \\
 				                  & = \prod_{i=0}^{k-2} (n-2-i) \\ 
 				                  & = \frac{(n-2)!}{(n-k-1)!}
 				\end{split}
 			\]
-	\section{Prebrojavanje razapinjujucih stabala grafa}
+	\section{Prebrojavanje razapinjujućih stabala grafa}
 	
 		\paragraph{}
-		Prisjetimo se rjesavanja strujnih kola upotrebom Kirhofovih zakona. Po drugom Kirhofovom zakonu zbir padova napona u zatvorenoj konturi jednak je nuli. Kako bismo uopste primijenili ovaj zakon, 
-		potrebno je odrediti odgovarajuce zatvorene konture. Jedan od nacina da uvijek izaberemo prave konture jeste da posmatramo strujno kola kao graf u kome su provodnici grane, 
-		a mjesta racvanja provodnika cvorovi i da formiramo razapinjujuce stablo takvog grafa. Nakon formiranja razapinjujuceg stabla, zatvorene konture konstruisemo tako sto na stablo nadovezemo jos jednu granu,
-	        tj. provodnik, koji nije u njegovom sastavu.
+		Prisjetimo se rješavanja strujnih kola upotrebom Kirhofovih zakona. Prema drugom Kirhofovom zakonu zbir padova napona u zatvorenoj konturi jednak je nuli. 
+		Kako bismo uopšte primijenili ovaj zakon, potrebno je odrediti odgovarajuće zatvorene konture.
+		Jedan od načina da uvijek izaberemo prave konture jeste da posmatramo strujno kola kao graf u kome su provodnici grane, 
+		a mjesta račvanja provodnika čvorovi i da formiramo razapinjujuće stablo takvog grafa.
+		Nakon formiranja razapinjujućeg stabla, zatvorene konture konstruišemo tako što na stablo nadovežemo još jednu granu,
+	    tj. provodnik, koji nije u njegovom sastavu i tako formiramo ciklus u grafu.
 	
 		\paragraph{}
-	        S druge strane, posmatrajmo situaciju u kojoj zelimo da dizajniramo racunarsku mrezu koja ce spajati sve vece gradove u nekoj drzavi. 
-		Cilj je da upotrebom brzih, ali i skupih kablova uspostavimo direktnu ili indirektnu vezu izmedju svih tih gradova.
-		Izmedju pojedinih gradova nije moguce uspostaviti direktnu mrezu iz razloga sto reljef ne omogucava postavljanje kablova, dok je kod nekih udaljenost prevelika. Jasno je da ce optimalna mreza imati strukturu
-		razapinjujuceg stabla grafa kojeg cine gradovi. Takodje, jasno je i da razapinjujuce stablo ne mora biti jedinstveno.
+	        S druge strane, posmatrajmo situaciju u kojoj želimo da dizajniramo računarsku mrežu koja će spajati sve veće gradove u nekoj državi. 
+		Cilj je da upotrebom skupih kablova sa velikom propusnim opsegom uspostavimo direktnu ili indirektnu vezu između svih tih gradova.
+		Između pojedinih gradova nije moguće uspostaviti direktnu vezu iz razloga što reljef to ne dopušta, dok je kod nekih udaljenost prevelika.
+		Jasno je da će optimalna mreža imati strukturu razapinjujućeg stabla grafa. Takođe, jasno je i da razapinjujuće stablo ne mora biti jedinstveno.
 	
 		\paragraph{}
-		Vidimo da je odredjivanje razapinjujuceg stabla problem koji se jako cesto javlja. Kako razapinjujuce stablo vrlo cesto nije moguce jedinstveno odrediti, 
-		potrebno je pronaci sva takva stabla, pa onda odrediti koje nam najvise odgovara vodeci se nekim kriterijumom odabira.  Ukoliko je vec moguce formirati vise od jednog razapinjujuceg stabla, 
-		korisno bi bilo imati informaciju o njihovom broju.
+		Sada je već jasno da je određivanje razapinjujućeg stabla problem koji se jako često javlja. Kako razapinjujuće stablo vrlo često nije moguće jedinstveno odrediti, 
+		potrebno je pronaći sva takva stabla, pa onda odrediti koje nam najvise odgovara vodeći se nekim kriterijumom odabira. 
+		Ukoliko je već moguće formirati više od jednog razapinjujućeg stabla, korisno bi bilo prebrojati ih za dati graf.
 		
 		\paragraph{}
-		Kako bismo konacno opravdali naslov rada koji glasi spektralna teorija grafova, krajnje je vrijeme da uspostavimo vezu izmedju spektra neke od grafu pridruzenih 	     
-		matrica i nekog njegovog svojstva, u ovom slucaju broj razapinjujucih stabala. 
-		S toga, navodimo narednu teoremu koja nam daje relaciju izmedju sopstvenih vrijednosti Laplasove matrice grafa i broja njegovih razapinjujucih stabala.
+		Kako bismo konačno opravdali naslov rada koji ukazuje na to da ćemo koristiti spektar matrice,
+		krajnje je vrijeme da uspostavimo vezu između spektra neke od grafu pridruženih 	     
+		matrica i nekog njegovog svojstva. 
+		S toga, navodimo narednu teoremu koja nam daje relaciju između sopstvenih vrijednosti Laplasove matrice grafa i broja njegovih razapinjujućih stabala.
 	
-		\begin{theorem}[Kirhofova matrica-stablo teorema]
-		Neka je dat povezan graf $G= (V,E) $ sa n cvorova, njegova Laplasova matrica $L_G$ i njene nenula sopstvene vrijednosti $\alpha_2, \alpha_3, \dots, \alpha_n$. Vazi
+		\begin{theorem}[Kirhofova teorema]
+		Neka je dat povezan graf $G= (V,E) $ sa n čvorova, njegova Laplasova matrica $L_G$ i njene nenula sopstvene vrijednosti $\alpha_2, \alpha_3, \dots, \alpha_n$. Tada važi
 		\[
 			k(G) = |V|^{-1}\alpha_2 \alpha_3 \dots \alpha_n
 		\]
-		Kompleksnost povezanog grafa $G$, tj. broj njegovih razapinjujucih stabala jednak je kolicniku proizvoda nenula sopstvenih vrijednosti Laplasove matrice i broja cvorova. 
-		Jasno je da se za nepovezan graf ne moze formirati razapinjujuce stablo, tj. u tom slucaju $k(G) = 0$. 
+		Kompleksnost povezanog grafa $G$, tj. broj njegovih razapinjujućih stabala jednak je količniku proizvoda nenula sopstvenih vrijednosti Laplasove matrice i broja čvorova. 
+		Jasno je da se za nepovezan graf ne može formirati razapinjujuće stablo, tj. u tom slučaju $\alpha_2 = 0$ pa dobijamo $k(G) = 0$. 
+		Ova teorema je još poznata i kao teorema "matrica-stablo" (eng. Matrix-Tree theorem).
 		\end{theorem}
 	
-		\begin{custom_proof}
+		\begin{custom_proof} Za dokazivanje teoreme biće nam potrebna i neke pomoćna tvrđenja koja ćemo usput navoditi.
+
+		Neka je $M$ proizvoljna matrica dimenzije $a \times b$. Sa $M_{R,S}$ označavaćemo redukovanu matricu koja se od matrice $M$ dobije tako što se zadrže samo vrste iz skupa $R$ i kolone is skupa $S$. 
+		$M_{R,:}$ je matrica koja se dobije od matrice $M$ tako što se zadrže samo vrste iz skupa $R$, a $M_{:,S}$ je matrica koja se dobije od matrice $M$ tako što se zadrže samo kolone iz skupa $S$.
+		Matrica $M_{R,S}$ je dimenzije $|R| \times |S|$.
 	
-		Neka je $M$ proizvoljna matrica dimenzije $a \times b$. Sa $M_{R,S}$ oznacavacemo redukovanu matricu koja se od matrice $M$ dobije tako sto se zadrze samo vrste iz skupa $R$ i kolone is skupa $S$. 
-		$M_{R,:}$ je matrica koja se dobije od matrice $M$ tako sto se zadrze samo vrste iz skupa $R$, a $M_{:,S}$ je matrica koja se dobije od matrice $M$ tako sto se zadrze samo kolone iz skupa $S$.
-		Dobijena matrica je dimenzije $|R| \times |S|$.
+		Kako svako razapinjujuće stablo sadrži sve čvorove grafa i $n-1$ granu,
+		jasno je da treba odrediti koliko podskupova skupa grana sa $n-1$ elementom zadovoljava uslove razapinjujućeg stabla.
+		Kako je u pitanju povezan graf, jasno je i da $|E| \geq n-1$.
+		Matrica incidencije je matrica koja najneposrednije sadrži informacije o granama grafa,
+		s toga se ona nameće kao logičan izbor prilikom formiranja razapinjujućeg stabla grafa. Matricu incidencije ćemo formirati u odnosu na proizvoljnu orjentaciju koju ćemo dodijeliti svakoj grani grafa.
+	    Iz grafa je potrebno je ukloniti odgovarajuće grane, odnosno iz matrice incidencije potrebno je ukloniti odgovarajuće kolone kako bi se formiralo razapinjujuće stablo. 
+		Tako dobijenu matricu incidencije razapinjujućeg stabla možemo predstaviti sa $I_{:,S}$ gdje je $S \subseteq E$ podskup skupa grana koje ulaze u sastav stabla.
+		Tako redukovana matrica incidencije je dimenzije $n \times (n - 1)$.
 	
-		Kako svako razapinjujuce stablo sadrzi sve cvorove grafa, tj. njih n
-		i $n$ grana, jasno je da treba odrediti koliko podskupova skupa grana sa $n-1$ elemenata zadovoljavaju uslove razapinjujuceg stabla. Kako je u pitanju povezan graf, jasno je i da $|E| \geq (n-1)$
-		Matrica incidencije je matrica koja najneposrednije sadrzi informacije o granama grafa, s toga se ona namece kao prirodan izbor prilikom formiranja razapinjujuceg stabla grafa.
-	        Iz grafa je potrebno je ukloniti odgovarajuce grane, odnosno iz matrice incidencije potrebno je ukloniti odgovarajuce kolone kako bi se formiralo razapinjujuce stablo. 
-		Tako dobijenu matricu incidencije razapinjujuceg stabla mozemo predstaviti sa $I_{:,S}$ gdje je $S \subseteq E$ poskup skupa grana koje ulaze u sastav stabla. Dobijena matrica je dimenzije $n \times (n - 1)$.
+		Posmatrajmo slučaj u kome matrica $I_{:,S}$ odgovara podgrafu koji nije stablo. U tom slučaju odgovarajući podgraf sadrži ciklus. 
+		Drugim riječima u okviru skupa $S$ postoji niz grana koje formiraju ciklus.
+		Uočimo jedan takav ciklus i formirajmo redukovanu matricu $I_{V \setminus \{q\}:,S}$ uklanjanjem vrste koja predstavlja proizvoljan čvor $q$ van uočenog ciklusa.
+	    Jasno je da takav čvor postoji, jer bi u suprotnom značilo da su svi čvorovi sadržani u uočenom ciklusu a to nije moguće, jer bi za to trebalo n grana, dok ih mi imamo dostupno samo $n-1$. 
+		Bez umanjenja opštosti, možemo pretpostaviti da se radi o posljednjoj vrsti u matrici, jer je indeksiranje čvorova i grana prilikom formiranja matrice incidencije urađeno na proizvoljan način, 
+		što znači da je uvijek moguće namjestiti da uočeni čvor q bude predstavljen posljednjom vrstom matrice incidencije. 
+	    Formirana matrica je kvadratna dimenzije $n - 1$. Krećimo se sada po uočenom ciklusu u grafu i pri tome vršimo elementarne transformacije kolona matrice $I_{V \setminus \{q\}:,S}$,
+	    na način da prolaskom granom $(i,j)$ u smjeru od i ka j, množimo odgovarajuću kolonu sa 1, a u suprotnom sa -1. Dobijenu matricu označimo sa $I_{V \setminus \{q\}:,S}'$.
+	    Jasno je da važi $det(I_{V \setminus \{q\}:,S}') = \pm det(I_{V \setminus \{q\}:,S}$). Jasno je i da je svaki čvor sadržan u ciklusu incidentan sa dvije grane ciklusa,
+		i to na način da jedna grana izlazi iz datog čvora, a druga ulazi u dati čvor. Ukoliko sada saberemo kolone koje odgovaraju svim granama sadržanim u uočenom ciklusu, dobićemo da je njihov zbir nula. 
+		Drugim riječima, matrica $I_{V \setminus \{q\}:,S}'$ ima netrivijalnu sumu kolona koja je jednaka nuli. Prema linearnoj algebri ovo znači da matrica ima linerano zavisne kolone i da je singularna.
+		
+		\[det(I_{V \setminus \{q\}:,S}') = det(I_{V \setminus \{q\}:,S}) = 0\]
 	
-		Posmatrajmo slucaj u kome matrica $I_{:,S}$ odgovara podgrafu koji nije stablo. U tom slucaju podgraf sadrzi ciklus. Drugim rijecima u okviru skupa $S$ postoji niz grana koje formiraju ciklus.
-		Uocimo jedan takav ciklus i formirajmo redukovanu matricu $I_{V \setminus \{q\}:,S}$ uklanjanjem vrste koja predstavlja proizvoljan cvor $q$ van uocenog ciklusa.
-	       Jasno je da takav cvor postoji, jer bi u suprotnom znacilo da su svi cvorovi sadrzani u uocenom ciklusu a to nije moguce, jer bi nam u tom slucaju trebalo $n$ grana, dok ih mi imamo dostupno samo $n-1$. 
-		Bez umanjenja opstosti, mozemo predpostaviti da se radi o posljednjoj vrsti u matrici, jer je indeksiranje cvorova i grana prilikom formiranja matrice incidencije uradjeno na proizvoljan nacin, 
-		sto znaci da je uvijek moguce namjestiti da uoceni cvor $q$ bude predstavljen posljednjom vrstom matrice incidencije. 
-	       Formirana matrica je kvadratna dimenzije $n -1$. Krecimo se sad po uocenom ciklusu u grafu i pri tome vrsimo elementarne transformacije kolona matrice $I_{V \setminus \{q\}:,S}$,
-	       na nacin da prolaskom granom $(i,j)$ u smjeru od i ka j, mnozimo kolonu koja odgovara grani $\{i,j\}$ sa 1, a u suprotnom sa -1. Dobijenu matricu oznacimo sa $I_{V \setminus \{q\}:,S}'$.
-	       Jasno je da vazi $det(I_{V \setminus \{q\}:,S}') = \pm det(I_{V \setminus \{q\}:,S}$). Jasno je da svaki cvor sadrzan u ciklusu je incidentan sa dvije grane,
-		i to na nacin da jedna grana izlazi iz datog cvora, a druga ulazi u dati cvor. Ukoliko sada saberemo kolone koje odgovaraju svim granama sadrzanim u uocenom ciklusu, doivecemo da je njihov zbir nula. 
-		Drugim rijecima, matrica $I_{V \setminus \{q\}:,S}'$ ima netrivijalnu sumu kolona koja je jednaka nuli, tj. ima linerano zavisne kolone sto na ukazuje da vrijedi
-		$det(I_{V \setminus \{q\}:,S}') = det(I_{V \setminus \{q\}:,S}) = 0$.
-	
-		Posmatrajmo slucaj u kome matrica $I_{:,S}$ odgovara podgrafu koji jeste stablo. Formirajmo redukovanu matricu $I_{V \setminus \{q\}:,S}$ uklanjanjem posljednje vrste matrice $I_{:,S}$ koja odgovara cvoru $q$. 
-	        Kako je u pitanju stablo, jasno je da $q$ incidentan sa bar jednom granom. Posto smo uklonili vrstu koja odogovara cvoru $q$ iz matrice, sada imamo slucaj da je bar jedna kolona matrice $I_{V \setminus \{q\}:,S}$
-		ima jedan element jednak $\pm 1$, a sve ostale jednake 0. Iskoristimo Laplasov metode racunanja determinante i izvrsimo razvoj po uocenoj koloni, 
-		dobijamo $det(I_{V \setminus \{q\}:,S}) = \pm det(I_{V \setminus \{q,w\}:,S})$. Cvor $w$ odgovara vrsti koju smo uklonili prilikom razvoja determinante. Jasno je da su $q$ i $w$ bili susjedni cvorovi. 
-		Kako nije moguce da su q i w bili samo medjusobno povezani, mora postojati jos jedan cvor koji je bio susjedan sa jednim od njih, tj. u matrici $I_{V \setminus \{q,2\}:,S}$ mora postojati kolona koja ima jedan element
-		jednak $\pm 1$, a sve ostale jednake 0. Ponovo na isti nacin, upotrebom Laplasovog razvoja racunamo $det(I_{V \setminus \{q,w\}:,S})$. 
-		Ovaj iterativni postupak ponavljamo sve dok ne dodjemo do determinante koja odgovara matrici dimenzije $2 \time 2$. Nije moguce da dva preostala cvora budu povezana samo oizmedju sebe, tj. bar jedan od njih 
-		je u izvornom grafu susjedan sa nekim od uklonjenjih cvorova. Ukoliko preostala sva cvora nisu susjedna, onda i drugi cvor mora biti susjedan sa nekim od uklonjenih cvorova. Na osnovu prethodno, dolazimo do 				zakljucka da je rezultantna matrica oblika $\begin{bmatrix} \pm 1 &  0 \\ \mp 1 & \pm 1 \end{bmatrix}$ ili $\begin{bmatrix} \pm 1 &  \pm 1 \\ \mp 1 & 0 \end{bmatrix}$ ili $\begin{bmatrix} \pm 1 &  \pm 1 \\ 0 &  \mp 1 		\end{bmatrix}$ ili $\begin{bmatrix} 0 & \pm 1 \\ \pm 1 & \mp 1 \end{bmatrix}$ ili $\begin{bmatrix} 0 &  \pm 1 \\ \pm 1 & 0 \end{bmatrix}$ ili $\begin{bmatrix} \pm 1 &  0 \\ 0 & \pm 1 \end{bmatrix}$. 
-		Jasno je da dva preostala cvora ne mogu biti istovremeno susjedni i pri tome oba biti povezana sa prethodno uklonjenim covrovima, jer bi u tom slucaju imali ciklus. Determinanta svih navednim matrica je $\pm 1$, 
-		sto znaci i da je det $det(I_{V \setminus \{q\}:,S}) = \pm 1$.
-	
-		Kod oba slucaja orijentacija grana grafa je proizvoljna.
-	
-		Sumirajmo
+		Posmatrajmo sada slučaj u kome matrica $I_{:,S}$ odgovara podgrafu koji jeste stablo. Formirajmo redukovanu matricu $I_{V \setminus \{q\}:,S}$ uklanjanjem posljednje vrste matrice $I_{:,S}$ koja odgovara čvoru q. 
+	    Pošto smo uklonili vrstu koja odogovara čvoru q iz matrice, a q je incidentan sa barem jednom granom stabla (jer je ono povezan graf), sada imamo slučaj da bar jedna kolona matrice $I_{V \setminus \{q\}:,S}$
+		ima jedan element jednak $\pm 1$, a sve ostale elemente jednake 0. Iskoristimo Laplasov metod računanja determinante matrice i izvrsimo razvoj po uočenoj koloni.
+		Dobijamo $det(I_{V \setminus \{q\}:,S}) = \pm det(I_{V \setminus \{q,w\}:,S})$. Čvor w odgovara vrsti koju smo uklonili prilikom razvoja determinante.
+		Jasno je da su $q$ i $w$ bili susjedni cvorovi. 
+		Kako nije moguće da su q i w bili samo međusobno susjedni, mora postojati još jedan čvor koji je bio susjedan sa jednim od njih, tj. u matrici $I_{V \setminus \{q,w\}:,S}$ mora postojati kolona koja ima jedan element
+		jednak $\pm 1$, a sve ostale jednake 0. Ponovo na isti način, upotrebom Laplasovog razvoja računamo $det(I_{V \setminus \{q,w\}:,S})$. 
+		Ovaj iterativni postupak ponavljamo sve dok ne dođemo do determinante koja odgovara matrici dimenzije $2 \time 2$. 
+		Nije moguće da dva preostala čvora budu povezana samo izmedju sebe, tj. bar jedan od njih je u izvornom grafu susjedan sa nekim od uklonjenjih čvorova.
+		Ukoliko preostala dva čvora nisu susjedna, onda i drugi čvor mora biti susjedan sa nekim od uklonjenih čvorova.
+		Takođe, dva preostala čvora ne mogu biti istovremeno susjedni i pri tome oba biti povezana sa nekim od prethodno uklonjenih čvorova, jer bi u tom slučaju imali ciklus.
+		Na osnovu prethodnog, dolazimo do zaključka da je rezultantna matrica oblika 
 		\[
-		 det(I_{V \setminus \{q\}:,S} = 
+		\begin{bmatrix} \pm 1 &  0 \\ \mp 1 & \pm 1 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} \pm 1 &  \pm 1 \\ \mp 1 & 0 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} \pm 1 &  \pm 1 \\ 0 &  \mp 1 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} 0 & \pm 1 \\ \pm 1 & \mp 1 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} 0 &  \pm 1 \\ \pm 1 & 0 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} \pm 1 &  0 \\ 0 & \pm 1 \end{bmatrix}
+		\] 
+		Vrijednost determinante svih ovih matrica je $\pm 1$, 
+		što znači i da je $det(I_{V \setminus \{q\}:,S}) = \pm 1$.
+	
+		\paragraph{}
+		Konačno dobijamo:
+		\[
+		 det(I_{V \setminus \{q\}:,S}) = 
 		\begin{cases}
-		\pm 1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G}\\
-		0 u suprotnom
+		\pm 1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G} \\
+		0 \text{ u suprotnom }
 		\end{cases} 
 		\]
-		gdje je $q$ cvor predstavljen sa posljednom vrstom matrice $I_G$.
-	
-		Kako bismo se rijesili $\pm 1$, kvadrirajmo determinantu:
+		gdje je $q$ čvor predstavljen posljednom vrstom matrice $I_G$. 
+		Kako bismo se rijesili $\pm 1$, kvadrirajmo determinantu.
 		\[
 		 det(I_{V \setminus \{q\}:,S})^2 = 
 		\begin{cases}
