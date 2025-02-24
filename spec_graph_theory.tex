@@ -695,25 +695,25 @@
 	
 		Posmatrajmo slučaj u kome matrica $I_{:,S}$ odgovara podgrafu koji nije stablo. U tom slučaju odgovarajući podgraf sadrži ciklus. 
 		Drugim riječima u okviru skupa $S$ postoji niz grana koje formiraju ciklus.
-		Uočimo jedan takav ciklus i formirajmo redukovanu matricu $I_{V \setminus \{q\}:,S}$ uklanjanjem vrste koja predstavlja proizvoljan čvor $q$ van uočenog ciklusa.
+		Uočimo jedan takav ciklus i formirajmo redukovanu matricu $I_{V \setminus \{q\},S}$ uklanjanjem vrste koja predstavlja proizvoljan čvor $q$ van uočenog ciklusa.
 	    Jasno je da takav čvor postoji, jer bi u suprotnom značilo da su svi čvorovi sadržani u uočenom ciklusu a to nije moguće, jer bi za to trebalo n grana, dok ih mi imamo dostupno samo $n-1$. 
 		Bez umanjenja opštosti, možemo pretpostaviti da se radi o posljednjoj vrsti u matrici, jer je indeksiranje čvorova i grana prilikom formiranja matrice incidencije urađeno na proizvoljan način, 
 		što znači da je uvijek moguće namjestiti da uočeni čvor q bude predstavljen posljednjom vrstom matrice incidencije. 
-	    Formirana matrica je kvadratna dimenzije $n - 1$. Krećimo se sada po uočenom ciklusu u grafu i pri tome vršimo elementarne transformacije kolona matrice $I_{V \setminus \{q\}:,S}$,
-	    na način da prolaskom granom $(i,j)$ u smjeru od i ka j, množimo odgovarajuću kolonu sa 1, a u suprotnom sa -1. Dobijenu matricu označimo sa $I_{V \setminus \{q\}:,S}'$.
-	    Jasno je da važi $det(I_{V \setminus \{q\}:,S}') = \pm det(I_{V \setminus \{q\}:,S}$). Jasno je i da je svaki čvor sadržan u ciklusu incidentan sa dvije grane ciklusa,
+	    Formirana matrica je kvadratna dimenzije $n - 1$. Krećimo se sada po uočenom ciklusu u grafu i pri tome vršimo elementarne transformacije kolona matrice $I_{V \setminus \{q\},S}$,
+	    na način da prolaskom granom $(i,j)$ u smjeru od i ka j, množimo odgovarajuću kolonu sa 1, a u suprotnom sa -1. Dobijenu matricu označimo sa $I_{V \setminus \{q\},S}'$.
+	    Jasno je da važi $det(I_{V \setminus \{q\},S}') = \pm det(I_{V \setminus \{q\},S}$). Jasno je i da je svaki čvor sadržan u ciklusu incidentan sa dvije grane ciklusa,
 		i to na način da jedna grana izlazi iz datog čvora, a druga ulazi u dati čvor. Ukoliko sada saberemo kolone koje odgovaraju svim granama sadržanim u uočenom ciklusu, dobićemo da je njihov zbir nula. 
-		Drugim riječima, matrica $I_{V \setminus \{q\}:,S}'$ ima netrivijalnu sumu kolona koja je jednaka nuli. Prema linearnoj algebri ovo znači da matrica ima linerano zavisne kolone i da je singularna.
+		Drugim riječima, matrica $I_{V \setminus \{q\},S}'$ ima netrivijalnu sumu kolona koja je jednaka nuli. Prema linearnoj algebri ovo znači da matrica ima linerano zavisne kolone i da je singularna.
 		
-		\[det(I_{V \setminus \{q\}:,S}') = det(I_{V \setminus \{q\}:,S}) = 0\]
+		\[det(I_{V \setminus \{q\},S}') = det(I_{V \setminus \{q\},S}) = 0\]
 	
-		Posmatrajmo sada slučaj u kome matrica $I_{:,S}$ odgovara podgrafu koji jeste stablo. Formirajmo redukovanu matricu $I_{V \setminus \{q\}:,S}$ uklanjanjem posljednje vrste matrice $I_{:,S}$ koja odgovara čvoru q. 
+		Posmatrajmo sada slučaj u kome matrica $I_{,S}$ odgovara podgrafu koji jeste stablo. Formirajmo redukovanu matricu $I_{V \setminus \{q\},S}$ uklanjanjem posljednje vrste matrice $I_{:,S}$ koja odgovara čvoru q. 
 	    Pošto smo uklonili vrstu koja odogovara čvoru q iz matrice, a q je incidentan sa barem jednom granom stabla (jer je ono povezan graf), sada imamo slučaj da bar jedna kolona matrice $I_{V \setminus \{q\}:,S}$
 		ima jedan element jednak $\pm 1$, a sve ostale elemente jednake 0. Iskoristimo Laplasov metod računanja determinante matrice i izvrsimo razvoj po uočenoj koloni.
-		Dobijamo $det(I_{V \setminus \{q\}:,S}) = \pm det(I_{V \setminus \{q,w\}:,S})$. Čvor w odgovara vrsti koju smo uklonili prilikom razvoja determinante.
+		Dobijamo $det(I_{V \setminus \{q\},S}) = \pm det(I_{V \setminus \{q,w\},S})$. Čvor w odgovara vrsti koju smo uklonili prilikom razvoja determinante.
 		Jasno je da su $q$ i $w$ bili susjedni cvorovi. 
-		Kako nije moguće da su q i w bili samo međusobno susjedni, mora postojati još jedan čvor koji je bio susjedan sa jednim od njih, tj. u matrici $I_{V \setminus \{q,w\}:,S}$ mora postojati kolona koja ima jedan element
-		jednak $\pm 1$, a sve ostale jednake 0. Ponovo na isti način, upotrebom Laplasovog razvoja računamo $det(I_{V \setminus \{q,w\}:,S})$. 
+		Kako nije moguće da su q i w bili samo međusobno susjedni, mora postojati još jedan čvor koji je bio susjedan sa jednim od njih, tj. u matrici $I_{V \setminus \{q,w\},S}$ mora postojati kolona koja ima jedan element
+		jednak $\pm 1$, a sve ostale jednake 0. Ponovo na isti način, upotrebom Laplasovog razvoja računamo $det(I_{V \setminus \{q,w\},S})$. 
 		Ovaj iterativni postupak ponavljamo sve dok ne dođemo do determinante koja odgovara matrici dimenzije $2 \time 2$. 
 		Nije moguće da dva preostala čvora budu povezana samo izmedju sebe, tj. bar jedan od njih je u izvornom grafu susjedan sa nekim od uklonjenjih čvorova.
 		Ukoliko preostala dva čvora nisu susjedna, onda i drugi čvor mora biti susjedan sa nekim od uklonjenih čvorova.
@@ -728,12 +728,12 @@
 		\text{ ili } \begin{bmatrix} \pm 1 &  0 \\ 0 & \pm 1 \end{bmatrix}
 		\] 
 		Vrijednost determinante svih ovih matrica je $\pm 1$, 
-		što znači i da je $det(I_{V \setminus \{q\}:,S}) = \pm 1$.
+		što znači i da je $det(I_{V \setminus \{q\},S}) = \pm 1$.
 	
 		\paragraph{}
 		Konačno dobijamo:
 		\[
-		 det(I_{V \setminus \{q\}:,S}) = 
+		 det(I_{V \setminus \{q\},S}) = 
 		\begin{cases}
 		\pm 1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G} \\
 		0 \text{ u suprotnom }
@@ -742,19 +742,19 @@
 		gdje je $q$ čvor predstavljen posljednom vrstom matrice $I_G$. 
 		Kako bismo se rijesili $\pm 1$, kvadrirajmo determinantu.
 		\[
-		 det(I_{V \setminus \{q\}:,S})^2 = 
+		 det(I_{V \setminus \{q\},S})^2 = 
 		\begin{cases}
 		1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G}\\
 		0 \text{ u suprotnom}
 		\end{cases} 
 		\]
 	
-		Ukoliko sada izracunamo sumu po svim skupovima grana $S$ koji sadrze tacno $n-1$ granu i formiraju razapinjujuce stablo grafa dobijamo
+		Ukoliko sada izračunamo sumu po svim podskupovima grana koji sadrže tačno $n-1$ granu i formiraju razapinjujuće stablo grafa dobićemo upravo kompleksnost grafa $G$.
 		\[
-		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\}:,S})^2 = k(G)
+		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\},S})^2 = k(G)
 		\]
 	
-		Ukoliko sada iskoristimo cinjenicu da $det(M^T) = det(M)$, da $M_{R,S} = (M_{:,S})_{R,:} = (M_{R,:})_{:,S}$ i da $(M_{R,S})^T =(M^T)_{S,R}$, dobijamo
+		Iskoristimo činjenicu da $det(M^T) = det(M)$, da $M_{R,S} = (M_{:,S})_{R,:} = (M_{R,:})_{:,S}$ i da $(M_{R,S})^T = (M^T)_{S,R}$.
 		\[
 		\begin{split}
 		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\}:,S})^2  & =
@@ -764,72 +764,139 @@
 		\end{split}
 		\]
 	
-		Prijsetimo se Cauchy-Binet formule koja kaze da ako su date matrice $A_{p \times q}$ i $B_{q \times p}$ i ako je $q \geq p$ onda vazi
+		Prisjetimo se Cauchy-Binet formule koja tvrdi da ako su date matrice $A_{p \times q}$ i $B_{q \times p}$ i ako je $q \geq p$ onda važi
 		\[
-			det(AB) = \sum_{|S| = q} det(A_\{:,S\}) det(B_\{S,:\})
-		\], gdje se sumiranje vrsi po svim podskupovima S skupa kolona matrice A i skupa vrsta matrice B sa kardinalnosti q.
-		
-		Prema ovoj formuli, za matricu $A = I_{V \setminus \{q\},:}$ dimenzija $(n - 1) \times |E|$ i $B = (I_{V \setminus \{q\},:})^T\big)$ dimenzija $|E| \times (n - 1)$, pri cemu je sigurno $|E| \geq (n-1)$, jer u pitanju
-		povezan grafi, vazi
-		\[
-		det \big(I_{V \setminus \{q\},:} (I_{V \setminus \{q\},:})^T\big) = \sum_{|S| = n - 1} det\big((I_{V \setminus \{q\},:})_{:.S}\big) det\Big(\big((I_{V \setminus \{q\},:})^T\big)_{S,:}\Big)
-		\] 
-		Odavde imamo
-		\[
-		det \big(I_{V \setminus \{q\},:} (I_{V \setminus \{q\},:})^T\big) = k(G)
-		\] 
-		\end{custom_proof}
-	
-		Posmatrajmo proizvoljnu matricu 
-	
-		Ukoliko sada uzmemo u obzir jednu od karakterizacija Laplasove matrice $L_G = I_G I_G^T$ (pri cemu je za svaku granu odabrana proizvoljna orijentacija).
-		
-		\[
-		L_{ij} = \sum_{k=1}^{|E|} I_{ik}I_{k,j}
+			det(AB) = \sum_{|S| = q} det(A_{\{:,S\}}) det(B_{\{S,:\}})
 		\]
+		gdje se sumiranje vrši po svim podskupovima skupa kolona matrice A i skupa vrsta matrice B sa kardinalnosti q.
+		
+		Prema ovoj formuli, za matricu $A = I_{V \setminus \{q\},:}$ dimenzija $(n - 1) \times |E|$ i matricu $B = (I_{V \setminus \{q\},:})^T$ dimenzija $|E| \times (n - 1)$, pri čemu je $|E| \geq (n-1)$, jer u pitanju
+		povezan graf, važi
+		\[
+		det \big(I_{V \setminus \{q\},:} (I_{V \setminus \{q\},:})^T\big) = \sum_{|S| = n - 1} det\big((I_{V \setminus \{q\},:})_{:.S}\big) det\Big(\big((I_{V \setminus \{q\},:})^T\big)_{S,:}\Big) = k(G)
+		\] 
+		
+		Iskoristimo jednu od karakterizacija Laplasove matrice $L_G = I_G I_G^T$.
+		Matrica incidencije u prethodnom izrazu je kreirana prema proizvoljnoj orjentaciji koja je dodijeljena svakoj grani.
+		
+		\[
+			L_{ij} = \sum_{k=1}^{|E|} I_{ik}I_{k,j}
+		\]
+
 		Ukoliko pak posmatramo redukovnu matricu incidencije $I_{V \setminus \{q\},:}$, imamo
 		\[
 		\big(I_{V \setminus \{q\},:}(I_{V \setminus \{q\},:})^T\big)_{ij} = \sum_{k=1}^{|E|} I_{ik}I_{k,j} \text{ pri cemu } i,j \in \{1,2, \dots n-1\}
 		\]
-	, tj. kao rezultat dobijamo redukovanu Laplasovu matricu koja je dobijena izostavljanjem posljednje vrste i kolone Laplasove matrice. Oznacimo tu matricu sa $L_{V \setminus \{n\}, E \setminus \{m\}}$, gdje n odgovara posljednoj vrsti a m posljednoj koloni $L_G$.
-		Sada imamo
-	\[
-		det(L_{V \setminus \{n\}, E \setminus \{m\}}) = k(G)
-	\]
-		Kako n odgovara posljednoj vrsti, a m posljednkoj koloni matrice $L_G$ jasno je da $det(L_{V \setminus \{n\}, E \setminus \{m\}}) = L_{nn}$ gdje je $L_{nn}$ minor koji odgovara elementu $l_{nn}$ matrice $L_G$.
 	
-	-	Sada je jos potrebno uspostaviti vezu izmedju minora $L_{nn}$ i sopstvenih vrijednosti matrice $L_G$. Kako su sopstvene vrijednosti matrice sadrzane u okviru $det(L_G-xI)$, sasvim je prirodna da podje od matrice 
-		$L_G-xI$.
-	
-		Posmatrajmo sada matricu $L_G - xI_{n \times n}$, gdje $x \in \mathbb{R}$.
+		Množenjem redukovane matrice $I_G$ i odgovarajuće transponovane matrice kao rezultat dobijamo redukovanu Laplasovu matricu koja je dobijena izostavljanjem posljednje vrste i kolone Laplasove matrice.
+		Označimo tu matricu sa $L_{V \setminus \{n\}, E \setminus \{m\}}$, gdje n odgovara posljednoj vrsti a m posljednoj koloni Laplasove matrice.
 		\[
-				 (L_G - xI_{n \times n})_{ij} =
+			L_{V \setminus \{n\}, E \setminus \{m\}} = I_{V \setminus \{q\},:}(I_{V \setminus \{q\},:})^T
+		\]
+		\[
+			det(L_{V \setminus \{n\}, E \setminus \{m\}}) = k(G)
+		\]
+
+		Kako n odgovara posljednoj vrsti, a m posljednjoj koloni matrice $L_G$ jasno je da $det(L_{V \setminus \{n\}, E \setminus \{m\}}) = L_{nn} = k(G)$ gdje je $L_{nn}$ minor koji odgovara elementu $l_{nn}$ Laplasove matrice.
+	
+	 	Sada je još potrebno uspostaviti vezu između minora $L_{nn}$ i sopstvenih vrijednosti matrice $L_G$.
+		Pošto su u pitanju sopstvene vrijednosti Laplasove matrice, jasno je da će nam polazna tačka biti matrica $L_G-\vec{x} = \alpha \vec{x} $.
+	
+		Posmatrajmo matricu $ M = L_G - \alpha I_{n \times n}$, gdje $\alpha \in \mathbb{R}$.
+		\[
+				 (L_G - \alpha I_{n \times n})_{ij} =
 				 \begin{cases}
-				 deg(i) - x  & \text{ako } i = j  \land i \in \{v_1,v_2\} \\
-				 -1 & \text{ako } \{i,j\} = \{v_1,v_2\} \\ 
+				 deg(i) - \alpha  & \text{ako } i = j \\
+				 -1 & \text{ako } \{i,j\} \in E \\ 
 				 0  & \text{u suprotnom}
 				 \end{cases}
 		\]
+
+		Kako je zbir elemenata u svakoj vrsti/koloni matrice $L_G$ jednak nuli, onda je zbir elemenata u svakoj vrsti/koloni matrice $M$ jednak $-\alpha$.
+		Ukoliko izvršimo elementarnu transformaciju vrsta i prvih $n-1$ vrstu saberemo u n-tu vrstu matrice, dobijamo  $M_{nj} = \alpha$ za $ j \in \{1,2,3 \dots n\}$.
+		
+		Uradimo sada isto i sa kolonama. Nakon sumiranja prvih $n-1$ kolona u posljednju kolonu, dobijamo $m_{in} = x$ za $i \in \{1,2, \dots n-1\}$ i $m_{nn} = -n \alpha$.
+		\[
+			M =\begin{bmatrix}
+				deg(1) - \alpha & ? & ? & \dots & ? & \alpha \\
+				? & deg(2) - \alpha & ? & \dots & ? & \alpha \\
+				? & ? & deg(3) - \alpha & \dots & ? & \alpha \\
+				\vdots & \vdots & \vdots & \ddots & \vdots & \alpha \\
+				? & ? & ? & \dots &deg(n-1) - \alpha & \alpha \\
+				-\alpha & -\alpha & -\alpha & \dots &-\alpha & -n \alpha \\
+		\end{bmatrix}
+		\]
+		Kako svi elementi u n-toj vrsti imaju faktor $\alpha$, važi $det(M)=-\alpha det(M')$, gdje je M data sa
+		\[
+			M' =\begin{bmatrix}
+				deg(1) - \alpha & ? & ? & \dots & ? & \alpha \\
+				? & deg(2) - \alpha & ? & \dots & ? & \alpha \\
+				? & ? & deg(3) - \alpha & \dots & ? & \alpha \\
+				\vdots & \vdots & \vdots & \ddots & \vdots & \alpha \\
+				? & ? & ? & \dots &deg(n-1) - \alpha & \alpha \\
+				1 & 1 & 1 & 1 & \dots & n \\
+				\end{bmatrix}
+		\]
+
+		Iskoristimo sada Laplasov razvoj $det(M')$ po posljednjoj koloni.
+		\[ 
+		\begin{split}
+			det(L_G - \alpha I) & = det(M) = -\alpha det(M') \\
+			                    & = -\alpha \big( (-1)^{n+n}nM'_{nn} + \sum_{k=1}^{n-1}(-1)^{n+k}(-1) \alpha M'_{nk} \big)  \\
+			                    & = -\alpha \big( (-1)^{n+n}nM'_{nn} + \alpha \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_{nk} \big) \\
+					     	    & = (-1)^{2n+1} \alpha nM'_{nn} + \alpha \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_{nk}
+		\end{split}
+		\]
+		Sa $M'_{ij}$ predstavljen je minor koji odgovara elementu $M'_{ij}$. Svi minori $M'_{nk}$ za $k \neq n$ u posljednoj koloni imaju sve elemente jednake $\alpha$.
+		\[ 
+			det(L_G - \alpha I) = (-1)^{2n+1} \alpha nM'_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
+		\]
+		
+		Primijetimo da za minore važi $M'_{nn} = (L_G - \alpha I)_{nn}$, jer se matrice  $M'$ i $L_G - \alpha I$ razlikuju isključivo u n-toj vrsti i koloni.
+		\[
+		det(L_G - \alpha I) = (-1)^{2n+1} \alpha n (L_G- xI)_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
+		\]
+		
+		$(L_G- xI)_{nn}$ je polinom stepena $n-1$, pa važi $(L_G- \alpha I)_{nn} = a_{n-1}x^{n-1} + \dots + a_0$.
+		Uvrštavanjem u prethodni izraz dobijamo:
+		\[
+			\begin{split}
+				det(L_G - \alpha I) &= (-1)^{2n+1} n \alpha (a_{n-1}\alpha^{n-1} + a_{n-2}\alpha^{n-2} + \dots + a_0) + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk} \\
+									&= (-1)^{2n+1} n (a_{n-1}\alpha^n + a_{n-2}\alpha^{n-1} + \dots + a_0 \alpha) + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
+			\end{split}
+		\]
+
+		Primijetimo da je koeficijent uz $\alpha$ jednak $(-1)^{2n+1} n a_0$, gdje je $a_0$ slobodni član polinoma $(L_G- \alpha I)_{nn}$ koga dobijamo za $\alpha=0$.
+		\[
+		  a_0 = (L_G- 0I)_{nn} = (L_G- O)_{nn} = (L_G)_{nn}
+		\]
+		Konačno, koeficijent uz $\alpha$ jednak $ (-1)^{2n+1} n (L_G)_{nn} = - n (L_G)_{nn}$.
 	
-		Kako je $det(L_G - xI)$ u stvari karakteriscni polinom matrice $L_G$, imamo $det(L_G - xI) = (x - \alpha_1) \dots (\alpha - \alpha_n)$. Uzmimo u obzir da je $\alpha_1 = 0$ za svaki graf.
-		Sada dobijamo $det(L_G - xI) =\bigg(\prod_{i = 1}^{n}\big((-1)^{i + i} (-1)\bigg) x (x - \alpha_2) \dots (x - \alpha_n) = \big(\prod_{i = 1}^{n}(-1)^{2i + 1}\big) x (x - \alpha_2) \dots (x - \alpha_n) 
-		= (\prod_{i = 1}^{n}-1) x (x - \alpha_2) \dots (x - \alpha_n) = (-1)^n x (x - \alpha_2) \dots (x - \alpha_n) = (-1)^n(-1)^{n-1} \alpha_2 \dots \alpha_n x + \dots = (-1)^{2n-1} \alpha_2 \dots \alpha_n x + \dots
-		= (-1) \alpha_2 \dots \alpha_n x + \dots$.
-		 Jasno je da je koeficijent uz $x$ dat sa $- \alpha_2 \dots \alpha_n$. 
+		Kako je $det(L_G - \alpha I)$ karakteristični polinom matrice $L_G$, i $\alpha_1 = 0$ važi za svaki graf, dobijamo:
+		\[
+			\begin{split}
+				det(L_G - \alpha I)  & = (-1)^n \alpha (\alpha - \alpha_2) \dots (\alpha - \alpha_n) \\
+									 & = (-1)^n(-1)^{n-1} \alpha_2 \dots \alpha_n x + \dots \\
+									 & = (-1)^{2n-1} \alpha_2 \dots \alpha_n x + \dots \\
+								     & = (-1) \alpha_2 \dots \alpha_n x + \dots 
+									\end{split}
+									\]
+
+		Sada znamo da je koeficijent uz $\alpha$ dat izrazom $- \alpha_2 \dots \alpha_n$, gdje su $\alpha_i$ sopstvene vrijednosti Laplasove matrice. 
 	
-		S druge strane posmatrajmo matricu $M = L_G - xI_{n \times n})$.Kako je zbir elemenata u svakoj vrsti/koloni matrice $L_G$ jednak nuli, onda je zbir elemenata u svakoj vrsti/koloni matrice M jednak -x.
-		Ukoliko sada izvrsimo elementarnu transformaciju vrsta i prvih $n-1$ vrsta saberemo u n-tu vrstu matrice dobijamo  $m_{nj} = x$ .
-		Uradimo sada isto i sa kolonama. Nakon sumiranja prvih $n-1$ kolona u posljednju dobijamo $m_{in} = x$ za $i \in \{1,2, \dots n-1\}$ i $m_{nn} = -nx$.
-		Kako svi elementi u n-toj vrsti imaju faktor $-x$, vazi $det(M)=-x det(M')$, gdje je M' matrica jednaka M osim sto je $m'_{nj} = 1$ za $j \neq n$, $m'_{nn} = n$ i $m'_{in} = -x$ za $i \neq n$. Ukoliko sada iskoristimo 
-		Laplasov razvoj determinante $det(M')$ po posljednjoj koloni, dobijamo $det(L_G - xI) = det(M) = -x det(M') = -x \big( (-1)^{n+n}n M'_{nn} + \sum_{k=1}^{n-1}(-1)^{n+k}(-1)xM'_nk \big) = 
-		-x \big( (-1)^{n+n} nM'_{nn} + x\sum_{k=1}^{n-1}(-1)^{n+k+1}M'_nk \big) = (-1)^{2n+1} xnM'_{nn} + x^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_nk $. Sa $M'_{ij}$ predstavlljen je minor koji odgovara elementu $m_{ij}$.
-		Uocima sada da za minore vazi $M'_{nn} = (L_G - xI)_{nn}$, jer se matrice razlikuju iskljucivo u posljednjoj n-toj vrsti i koloni. Dobijamo $det(L_G - xI) = (-1)^{2n+1} xn(L_G- xI)_{nn} + x^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_nk $. $(L_G- xI)_{nn}$ je neki novi polinom stepena $n-1$, tj. $(L_G- xI)_{nn} = a_{n-1}x^{n-1} \dots a_0$. Uvrstavanjem dobijamo $det(L_G - xI) = (-1)^{2n+1} xn ( a_{n-1}x^{n-1} \dots a_0) + x^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_nk =  (-1)^{2n+1} n ( a_{n-1}x^n a_{n-2}x^{n-1 }\dots a_0x) + x^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_nk $
-	Odavde je jasno da koeficijent uz x jednak $ (-1)^{2n+1} n a_0$, gdje je $a_0$ slobodni clan polinom $(L_G- xI)_{nn}$ koga dobijamo za $x=0$, tj $a_0 = (L_G- 0I)_{nn} = (L_G- O)_{nn} = (L_G)_{nn}$. Konacno
-	koeficijent uz x jednak $ (-1)^{2n+1} n (L_G)_{nn} = - n (L_G)_{nn}$.
-	
-	
-		Poredjenjem dva dobijena izraza za $det(L_G - xI)$ dobijamo $- (L_G)_{nn} = - \alpha_2 \dots \alpha_n$, tj. $(L_G)_{nn} = L_{nn} = n^{-1} \alpha_2 \dots \alpha_n$. 
-		Ovime je dokaz zavrsen.
+		
+		
+		Poređenjem dva dobijena izraza za koeficijent uz $\alpha$ dobijamo 
+		\[
+			\begin{split} 
+				-(L_G)_{nn}  = &  - \alpha_2 \dots \alpha_n \\
+				(L_G)_{nn}  = &  L_{nn} = n^{-1} \alpha_2 \dots \alpha_n 
+			\end{split} 
+		\]
+		Ako zada iskoristimo izraz do kojeg smo prethodno došli, $ L_{nn} = k(G)$, dolazimo do kraja dokaza $k(G) = n^{-1} \alpha_2 \dots \alpha_n$
+		Ovime je dokaz završen.
+		
+	\end{custom_proof} 
 		
 	\section{Ispitivanje povezanosti grafa}
 	\paragraph{}
