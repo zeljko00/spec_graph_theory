@@ -800,7 +800,15 @@
 		Kako n odgovara posljednoj vrsti, a m posljednjoj koloni matrice $L_G$ jasno je da $det(L_{V \setminus \{n\}, E \setminus \{m\}}) = L_{nn} = k(G)$ gdje je $L_{nn}$ minor koji odgovara elementu $l_{nn}$ Laplasove matrice.
 	
 	 	Sada je još potrebno uspostaviti vezu između minora $L_{nn}$ i sopstvenih vrijednosti matrice $L_G$.
-		Pošto su u pitanju sopstvene vrijednosti Laplasove matrice, jasno je da će nam polazna tačka biti matrica $L_G-\vec{x} = \alpha \vec{x} $.
+		Pošto su u pitanju sopstvene vrijednosti, jasno je da će nam polazna tačka biti karakteristična jednačina $L_G \vec{x} = \alpha \vec{x}$.
+
+		\[
+			\begin{split}
+				L_G \vec{x} &= \alpha \vec{x} \\
+				L_G \vec{x} - \alpha \vec{x} &= \vec{0}  \\
+				(L_G - \alpha I) \vec{x} &= \vec{0}  
+			\end{split}
+		\]
 	
 		Posmatrajmo matricu $ M = L_G - \alpha I_{n \times n}$, gdje $\alpha \in \mathbb{R}$.
 		\[
@@ -813,51 +821,48 @@
 		\]
 
 		Kako je zbir elemenata u svakoj vrsti/koloni matrice $L_G$ jednak nuli, onda je zbir elemenata u svakoj vrsti/koloni matrice $M$ jednak $-\alpha$.
-		Ukoliko izvršimo elementarnu transformaciju vrsta i prvih $n-1$ vrstu saberemo u n-tu vrstu matrice, dobijamo  $M_{nj} = \alpha$ za $ j \in \{1,2,3 \dots n\}$.
+		Ukoliko izvršimo elementarnu transformaciju vrsta i prvih $n-1$ vrsta saberemo u n-tu vrstu matrice, dobijamo  $M_{nj} = -\alpha$ za $ j \in \{1,2,3 \dots n\}$.
 		
-		Uradimo sada isto i sa kolonama. Nakon sumiranja prvih $n-1$ kolona u posljednju kolonu, dobijamo $m_{in} = x$ za $i \in \{1,2, \dots n-1\}$ i $m_{nn} = -n \alpha$.
+		Uradimo sada isto i sa kolonama. Nakon sumiranja prvih $n-1$ kolona u posljednju kolonu, dobijamo $m_{in} = -\alpha$ za $i \in \{1,2, \dots n-1\}$ i $m_{nn} = -n \alpha$.
 		\[
-			M =\begin{bmatrix}
-				deg(1) - \alpha & ? & ? & \dots & ? & \alpha \\
-				? & deg(2) - \alpha & ? & \dots & ? & \alpha \\
-				? & ? & deg(3) - \alpha & \dots & ? & \alpha \\
-				\vdots & \vdots & \vdots & \ddots & \vdots & \alpha \\
-				? & ? & ? & \dots &deg(n-1) - \alpha & \alpha \\
+			M' =\begin{bmatrix}
+				deg(1) - \alpha & ? & ? & \dots & ? & -\alpha \\
+				? & deg(2) - \alpha & ? & \dots & ? & -\alpha \\
+				? & ? & deg(3) - \alpha & \dots & ? & -\alpha \\
+				\vdots & \vdots & \vdots & \ddots & \vdots & -\alpha \\
+				? & ? & ? & \dots &deg(n-1) - \alpha & -\alpha \\
 				-\alpha & -\alpha & -\alpha & \dots &-\alpha & -n \alpha \\
 		\end{bmatrix}
 		\]
-		Kako svi elementi u n-toj vrsti imaju faktor $\alpha$, važi $det(M)=-\alpha det(M')$, gdje je M data sa
+		Kako se radi o elementarnim transformacija jasno je da važi $det(M) = det(M')$.
+		Kako svi elementi u n-toj vrsti imaju faktor $\alpha$, važi $det(M')=-\alpha det(M")$, gdje je M" data sa
 		\[
-			M' =\begin{bmatrix}
-				deg(1) - \alpha & ? & ? & \dots & ? & \alpha \\
-				? & deg(2) - \alpha & ? & \dots & ? & \alpha \\
-				? & ? & deg(3) - \alpha & \dots & ? & \alpha \\
-				\vdots & \vdots & \vdots & \ddots & \vdots & \alpha \\
-				? & ? & ? & \dots &deg(n-1) - \alpha & \alpha \\
-				1 & 1 & 1 & 1 & \dots & n \\
+			M" =\begin{bmatrix}
+				deg(1) - \alpha & ? & ? & \dots & ? & -\alpha \\
+				? & deg(2) - \alpha & ? & \dots & ? & -\alpha \\
+				? & ? & deg(3) - \alpha & \dots & ? & -\alpha \\
+				\vdots & \vdots & \vdots & \ddots & \vdots & -\alpha \\
+				? & ? & ? & \dots &deg(n-1) - \alpha & -\alpha \\
+				1 & 1 & 1 & \dots & 1 & n \\
 				\end{bmatrix}
 		\]
 
-		Iskoristimo sada Laplasov razvoj $det(M')$ po posljednjoj koloni.
+		Iskoristimo sada Laplasov razvoj $det(M")$ po posljednjoj koloni.
 		\[ 
 		\begin{split}
-			det(L_G - \alpha I) & = det(M) = -\alpha det(M') \\
-			                    & = -\alpha \big( (-1)^{n+n}nM'_{nn} + \sum_{k=1}^{n-1}(-1)^{n+k}(-1) \alpha M'_{nk} \big)  \\
-			                    & = -\alpha \big( (-1)^{n+n}nM'_{nn} + \alpha \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_{nk} \big) \\
-					     	    & = (-1)^{2n+1} \alpha nM'_{nn} + \alpha \sum_{k=1}^{n-1}(-1)^{n+k+1}M'_{nk}
+			det(L_G - \alpha I) & = det(M) = -\alpha det(M") \\
+			                    & = -\alpha \big( (-1)^{n+n}nM"_{nn} + \sum_{k=1}^{n-1}(-1)^{n+k}(-\alpha) M"_{nk} \big)  \\
+			                    & = -\alpha \big( (-1)^{n+n}nM"_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k}(-1)M"_{nk} \big) \\
+					     	    & = (-1)^{2n+1} \alpha nM"_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
 		\end{split}
 		\]
-		Sa $M'_{ij}$ predstavljen je minor koji odgovara elementu $M'_{ij}$. Svi minori $M'_{nk}$ za $k \neq n$ u posljednoj koloni imaju sve elemente jednake $\alpha$.
-		\[ 
-			det(L_G - \alpha I) = (-1)^{2n+1} \alpha nM'_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
-		\]
-		
-		Primijetimo da za minore važi $M'_{nn} = (L_G - \alpha I)_{nn}$, jer se matrice  $M'$ i $L_G - \alpha I$ razlikuju isključivo u n-toj vrsti i koloni.
+		Sa $M"_{ij}$ predstavljen je minor koji odgovara elementu $m"_{ij}$ matrice $M"$.
+		Primijetimo da za minore važi $M"_{nn} = (L_G - \alpha I)_{nn}$, jer se matrice  $M"$ i $L_G - \alpha I$ razlikuju isključivo u n-toj vrsti i koloni.
 		\[
-		det(L_G - \alpha I) = (-1)^{2n+1} \alpha n (L_G- xI)_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
+		det(L_G - \alpha I) = (-1)^{2n+1} \alpha n (L_G- \alpha I)_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
 		\]
 		
-		$(L_G- xI)_{nn}$ je polinom stepena $n-1$, pa važi $(L_G- \alpha I)_{nn} = a_{n-1}x^{n-1} + \dots + a_0$.
+		$(L_G- xI)_{nn}$ je polinom stepena $n-1$, pa važi $(L_G- \alpha I)_{nn} = a_{n-1}\alpha^{n-1} + \dots + a_0$.
 		Uvrštavanjem u prethodni izraz dobijamo:
 		\[
 			\begin{split}
@@ -884,23 +889,46 @@
 
 		Sada znamo da je koeficijent uz $\alpha$ dat izrazom $- \alpha_2 \dots \alpha_n$, gdje su $\alpha_i$ sopstvene vrijednosti Laplasove matrice. 
 	
-		
-		
 		Poređenjem dva dobijena izraza za koeficijent uz $\alpha$ dobijamo 
 		\[
 			\begin{split} 
-				-(L_G)_{nn}  = &  - \alpha_2 \dots \alpha_n \\
-				(L_G)_{nn}  = &  L_{nn} = n^{-1} \alpha_2 \dots \alpha_n 
+				-n (L_G)_{nn}  = &  - \alpha_2 \dots \alpha_n \\
+				(L_G)_{nn}  = & n^{-1} \alpha_2 \dots \alpha_n \\
+				 L_{nn} = & n^{-1} \alpha_2 \dots \alpha_n \\ 
 			\end{split} 
 		\]
-		Ako zada iskoristimo izraz do kojeg smo prethodno došli, $ L_{nn} = k(G)$, dolazimo do kraja dokaza $k(G) = n^{-1} \alpha_2 \dots \alpha_n$
-		Ovime je dokaz završen.
+		Ako sada iskoristimo izraz do kojeg smo prethodno došli, $ L_{nn} = k(G)$, dolazimo do kraja dokaza $k(G) = n^{-1} \alpha_2 \dots \alpha_n$
 		
 	\end{custom_proof} 
 		
-	\section{Ispitivanje povezanosti grafa}
+	\section{Povezanost grafa}
 	\paragraph{}
-	Kako bismo došli do informacija o povezanosti grafova $G$, potrebno je ispitati odgovarajuću Laplasovu matricu $L_G$. U nastavku ćemo detaljnije proučiti svojstva odgovrajauće Laplasove matrice, a zatim dati nekoliko teorema koje daju relaciju izmedju odredjenih svojstava Laplasove matrice i povezanosti grafa $G$.
+	Već smo upoznati sa pojmom povezanog grafa koji nam sugeriše da graf ima samo jednu komponentu povezanoti, tj. da postoji šetnja između svaka dva čvora u datom grafu.
+	Iako je sama definicija povezanog grafa veoma jasno, često je za grafove sa većim brojem čvorova i grana uvidom u njegovu grafičku reprezentaciju ili neku od pridruženih matrica jako teško utvrditi
+	da li je graf povezan. Naravno da tu nije kraj problemima i izazovima. Šta ukoliko bismo željeli da na neki način uspostavimo poredak među povezanim grafovima i odredimo koji od grafovi su bolje povezani od drugih.
+	Relacija "biti bolje povezan graf" bi se mogla interpretirati i iz drugog ugla posmatranja, na način da je to graf kojeg je teže dovesi u stanje nepovezanosti.
+	Ova ideja je blisko povezana sa pojmom "graph edge connectivity" koji se označava sa $\alpha(G)$ i predstavlja broj grana koje je potrebno ukloniti iz grafa kako bi graf postao nepovezan.
+	
+	Na prvi pogled, pomislili bismo da veći broj grana kod grafova sa istim brojem čvorova ukazuje na bolju povezanost grafa, međutim, to nije slučaj.
+	Posmatrajmo sljedeći graf za koga važi $\alpha(G)=1$.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Figure_3.png}
+	\end{figure}
+	
+	Dodavanjem još jedne grane između čvorova 1 i 3, ne utičemo na vrijednost $\alpha(G)=1$. Razlog zbog kojeg je vrijednost $\alpha(G)$ ostala nepromijenjena je taj što povezanost grafa potiče, tj. zavisi isključivo od najslabije povezanog dijela grafa, koji je u ovom slučaju ostao netaknut.
+	Primijetimo da ni vrijednost $\alpha(G)$ kod grafova sa velikim brojem čvorova i grana u velikom broju slučajeva nije očigledna.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Figure_4.png}
+	\end{figure}
+
+	Klasična teorija grafova nam ne nudi rješenja za postavljene probleme i zbog toga se okrećemo spektralnoj teoriji grafova. 
+	Kako bismo došli do informacija o mjeri povezanosti grafova, potrebno je prethodno ispitati odgovarajuću Laplasovu matricu $L_G$ i odrediti njen spektar.
+	U nastavku ćemo detaljnije proučiti svojstva Laplasove matrice, a zatim dati nekoliko teorema koje uspostavljaju relaciju između pojedinih svojstava Laplasove matrice i povezanosti grafa.
+	Napomenimo da mjera povezanosti grafa koju nam daje spektralna teorija grafova nije isto što i graph edge connectivity. Iako su ove dvije vrijednosti idejno bliske, do danas nije uspostavljena relacija između njih.
 	
 	\subsection{Svojstva Laplasove matrice}
 	
@@ -912,13 +940,13 @@
 	
 	\begin{custom_proof}
 	\[
-	\forall i,j \in \{1, 2, \dots, n\} \text{ vazi } a_{ij} \in (\mathbb{N}_0 \cup \{-1\}) \Rightarrow L_G \text{ je realna matrica}
+	\text{za }\forall i,j \in \{1, 2, \dots, n\} \text{ važi } a_{ij} \in (\mathbb{N}_0 \cup \{-1\}) \Rightarrow L_G \text{ je realna matrica}
 	\]
 	\[
 	 L_G \text{ je realna matrica} \Rightarrow \overline{L_G} = L_G 
 	\]
 	\[
-	\text{Iz definicije Laplasove matrice se vidi } \forall i,j \in \{1, 2, \dots, n\} \text{ vazi } a_{ij} = a_{ji} \Rightarrow L_G^T = L_G 
+	\text{Iz definicije Laplasove matrice se vidi da za } \forall i,j \in \{1, 2, \dots, n\} \text{ važi } a_{ij} = a_{ji} \Rightarrow L_G^T = L_G 
 	\]
 	\[
 	  L_G^T = L_G \Rightarrow L_G \text{ je simetrična matrica}
@@ -931,26 +959,23 @@
 	\]
 	\end{custom_proof}
 	
-	\begin{theorem} Laplasova matrica $L_G$ je pozitivno poluodredjena matrica.
-	$G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$ i njegova Laplasova matrica $L_G$. 
+	\begin{theorem} Laplasova matrica $L_G$ je pozitivno poluodređena matrica. 
 	\[
 	  \vec{x}^TL_G\vec{x} \geq 0 \text{ za } \forall \vec{x} \in \mathbb{R}^n
 	\] 
 	\end{theorem}
 	\begin{custom_proof}
-	Neka je $\vec{x}$ proizvoljan vektor is vektorskog prostora $\mathbb{R}^n$. Koristicemo definiciju Laplasove matrice u vidu sume matrica $L_{\{v_1,v_2\}}$.
+	Neka je $\vec{x}$ proizvoljan vektor is vektorskog prostora $\mathbb{R}^n$. Iskoristićemo prvu karakterizaciju Laplasove matrice.
 	\[
 	\vec{x} = 
 	\begin{bmatrix} 
 	x_1 \\ x_2 \\ \dots \\ x_{n-1} \\ x_n
 	\end{bmatrix}
 	\]
+
 	\[
-	  \vec{x}^TL_G\vec{x} = \vec{x}^T (\sum_{\{v_1,v_2\} \in E} L_{\{v_1,v_2\}}) \vec{x}  =  \sum_{\{v_1,v_2\} \in E} \vec{x}^TL_{\{v_1,v_2\}} \vec{x}
+	  \vec{x}^TL_G\vec{x} = \vec{x}^T (\sum_{\{v_1,v_2\} \in E} L_{\{v_1,v_2\}}) \vec{x}  =  (\sum_{\{v_1,v_2\} \in E} \vec{x}^TL_{\{v_1,v_2\}}) \vec{x}
 	\]
-	\[
-	  \vec{x}^TL_G\vec{x} =\vec{x}^T (\sum_{\{v_1,v_2\} \in E} L_{\{v_1,v_2\}}) \vec{x} 
-	\]  
 	
 	Posmatrajmo proizvod $\vec{x}^T L_{\{v_1,v_2\}}$. Rezultantna matrica je matrica vrsta dimenzije $1 \times n$.
 	\[
@@ -964,12 +989,12 @@
 	 m_{1j} =
 	 \begin{cases}
 	 \vec{x} L_{\{v_1,v_2\} . v_1}  & \text{ako } j = v_1 \\ 
-	 \vec{x} L_{\{v_1,v_2\} . v_1}  & \text{ako } j = v_2  \\ 
+	 \vec{x} L_{\{v_1,v_2\} . v_2}  & \text{ako } j = v_2  \\ 
 	 0  & \text{u suprotnom}
 	 \end{cases}
 	\]
 	Kolona matrice $L_{\{v_1,v_2\}}$ indeksom $v_1$ ima vrijednost 1 na poziciji $v_1$, tj. $a_{v_1 v_1} = 1$, a vrijednost -1 na poziciji $v_2$, tj. $a_{v_2 v_1} = -1$ .
-	Kolona matrice $L_{\{v_1,v_2\}}$ indeksom $v_2$ ima vrijednost 1 na poziciji $v_2$, tj. $a_{v_2 v_2} = 1$, a vrijednost -1 na poziciji $v_1$, tj. $a_{v_1 v_1} = -1$ .
+	Kolona matrice $L_{\{v_1,v_2\}}$ indeksom $v_2$ ima vrijednost 1 na poziciji $v_2$, tj. $a_{v_2 v_2} = 1$, a vrijednost -1 na poziciji $v_1$, tj. $a_{v_1 v_2} = -1$ .
 	Svi ostali elementi matrice su 0.
 	\[
 	 m_{1j} =
@@ -986,45 +1011,52 @@
 	\end{bmatrix}
 	_{1 \times n}
 	\]
+	Posmatrajmo sada proizvod $M \vec{x}$.
 	\[
-	  \vec{x}^TL_G\vec{x} = M \vec{x} =\begin{bmatrix} 
+	  M \vec{x} =\begin{bmatrix} 
 	0 & \dots &  \vec{x}_{v_1} - \vec{x}_{v_2} & \dots &  \vec{x}_{v_2} - \vec{x}_{v_1} & \dots
 	\end{bmatrix}
 	_{1 \times n} \vec{x}  
 	\]
 	
-	Posmatrajmo proizvod $M \vec{x}$. Rezultantna matrica je matrica vrsta dimenzije $1 \times 1$, tj. skalarna vrijednost. Matrica vrsta $M$ ima nenula vrijednost samo u kolonama $v_1$ i $v_2$.
+	Rezultantna matrica je matrica vrsta dimenzije $1 \times 1$, tj. skalarna vrijednost. Matrica vrsta $M$ ima nenula vrijednost samo u kolonama $v_1$ i $v_2$.
 	\[
 	M \vec{x} = m_{1 v_1} * \vec{x}_{v_1} + m_{1 v_2} * \vec{x}_{v_2} =  (\vec{x}_{v_1} - \vec{x}_{v_2}) * \vec{x}_{v_1} + (\vec{x}_{v_2} - \vec{x}_{v_1}) * \vec{x}_{v_2} 
 	\] 
 	\[
-	M \vec{x} =  \vec{x}_{v_1}^2 - \vec{x}_{v_1} * \vec{x}_{v_2} + \vec{x}_{v_2}^2 - \vec{x}_{v_1} * \vec{x}_{v_2} = \vec{x}_{v_1}^2 - 2 *(\vec{x}_{v_1} * \vec{x}_{v_2}) \vec{x}_{v_2}^2 = (\vec{x}_{v_1} - \vec{x}_{v_2})^2   
+	M \vec{x} =  \vec{x}_{v_1}^2 - \vec{x}_{v_1} * \vec{x}_{v_2} + \vec{x}_{v_2}^2 - \vec{x}_{v_1} * \vec{x}_{v_2} = \vec{x}_{v_1}^2 - 2 *\vec{x}_{v_1} * \vec{x}_{v_2} + \vec{x}_{v_2}^2 = (\vec{x}_{v_1} - \vec{x}_{v_2})^2   
 	\] 
-	Kada dobijeni rezultat uvrstimo u pocetni izraz dobijamo:
+
+	Kada dobijeni rezultat uvrstimo u početni izraz dobijamo:
 	\[
 	  \vec{x}^TL_G\vec{x} = \sum_{\{v_1,v_2\} \in E} (\vec{x}_{v_1} - \vec{x}_{v_2})^2
 	\]
 	\[
-	  (\vec{x}_{v_1} - \vec{x}_{v_2})^2 \geq 0 \text{ za } \forall v_i \in \mathbb{R} \Rightarrow \vec{x}^TL_G\vec{x} \geq 0 \text{ za } \forall \vec{x} \in \mathbb{R}^n
+	  (\vec{x}_{v_1} - \vec{x}_{v_2})^2 \geq 0 \text{ za } \forall v_i \in \{1,2,3 \dots n\} 
 	\]
-	Pokazali smo da je proizvod $\vec{x}^TL_G\vec{x}$ nenegativan, cime smo dokazali da je Laplasova matrica $L_G$ pozitivno poludodredjena.
+
+	Kako je odabrani vektor $\vec{x}$ proizvoljan, dobijamo:
+	\[
+	  \Rightarrow \vec{x}^TL_G\vec{x} \geq 0 \text{ za } \forall \vec{x} \in \mathbb{R}^n
+	\]
+
+	Pokazali smo da je proizvod $\vec{x}^TL_G\vec{x}$ nenegativan za svaki vektor $\vec{x}$, čime smo dokazali i da je Laplasova matrica $L_G$ pozitivno poludodređena.
 	\end{custom_proof}
 	
-	\begin{theorem} Sve sopstvene vrijednosti Laplasove matrice $L_G$ su realni brojevi.
-	Neka je data Laplasova matrica $L_G \in  \mathbb{M}_{n \times n}(\mathbb{R})$.
+	\begin{theorem} Sve sopstvene vrijednosti Laplasove matrice su realni brojevi.
 	\[
 	 L_G\vec{x} = \alpha \vec{x} \text{ gdje je } \vec{x} \in ( \mathbb{R}^n \setminus \{\vec{0}\}) \text{ nenula vektor} \Rightarrow \alpha \in \mathbb{R}
 	\]
 	\end{theorem}
 	
 	\begin{custom_proof}
-	Iako je data teorema direktna posljedica teoreme koja govori da su sve sopstvene vrijednosti ermitske matrice realni brojevi, u nastavku ce biti izlozen dokaz ovoga tvrdjenja.
+	Iako je data teorema direktna posljedica teoreme koja govori da su sve sopstvene vrijednosti ermitske matrice realni brojevi, u nastavku će biti izložen dokaz ovog tvrđenja.
 	
-	Pretpostavimo da je $\alpha \in \mathbb{C}$ proizvoljna sopstvena vrijednost matrice $l_G$ i da je $\vec{x} \in (\mathbb{R}^n \setminus \{\vec{0}\})$ odgovarajuci sopstveni vektor. Tada vazi:
+	Pretpostavimo da je $\alpha \in \mathbb{C}$ proizvoljna sopstvena vrijednost matrice $L_G$ i da je $\vec{x} \in (\mathbb{R}^n \setminus \{\vec{0}\})$ odgovarajući sopstveni vektor. Tada važi:
 	\[
 		L_G\vec{x} = \alpha \vec{x}
 	\]
-	Pomnozimo izraz s lijeva vektorom $\vec{x}^*$.
+	Pomnožimo izraz s lijeva vektorom $\vec{x}^*$.
 	\[
 		\vec{x}^*L_G\vec{x} = \vec{x}^*\alpha \vec{x}
 	\]
@@ -1032,40 +1064,43 @@
 		\vec{x}^*L_G\vec{x} = (\vec{x}^* \vec{x}) \alpha
 	\]
 	\[
-		\vec{x}^*L_G\vec{x} = \sum_{i=1}^{n}(Re(x_i)^2 + Im(x_i)^2 ) \alpha =  \sum_{i=1}^{n}|x_i|^2 \alpha= |\vec{x}|^2 \alpha  
+		\vec{x}^*L_G\vec{x} = \sum_{i=1}^{n}(Re(x_i)^2 + Im(x_i)^2 ) \alpha =  \sum_{i=1}^{n}|x_i|^2 \alpha= ||\vec{x}||_2^2 \alpha  
 	\]
 	\begin{equation}
-		 \alpha =   \frac{\vec{x}^*L_G\vec{x}}{|\vec{x}|^2}
+		 \alpha =   \frac{\vec{x}^*L_G\vec{x}}{||\vec{x}||_2^2}
 	\label{eq:alpha}
 	\end{equation}
-	Izraz $\vec{x}^* \vec{x}$ prestavlja kvadrat modula vektora $\vec{x}$, a modul vektora je uvijek nenegativan realan broj,tj. vazi
+
+	Izraz $||\vec{x}||_2^2$ prestavlja kvadrat euklidske vektorkse norme u prostoru $\mathbb{R}$, a vektorska norma je uvijek nenegativan realan broj, tj. važi
 	\[
-		\vec{x}^* \vec{x} = |\vec{x}|^2 \land |\vec{x}| \in (\mathbb{R}^+ \cup \{0\})  
+		||\vec{x}||_2^2 \land |\vec{x}| \in (\mathbb{R}^+ \cup \{0\})  
 	\]
-	U nasem slucaju $\vec{x}$ je nenula vektor pa vazi jos stroziji uslov $|\vec{x}| \ge 0$, koji nam je omogucio da se modul vektora $\vec{x}$ nadje u imeniocu razlomka.  \\
-	Posmatrajamo sada lijevu stranu jednakosti, tj. proizvod matrica $\vec{x}^*L_G\vec{x}$ i pokusajmo izracunati adjugovanu vrijednost rezultantne matrice.
+	U našem slučaju $\vec{x}$ je nenula vektor pa važi još strožiji uslov $||\vec{x}||_2^2 \ge 0$, koji nam je omogućio da se vektorska norma nađe u imeniocu razlomka.
+	
+	Sada je još potrebno pokazati da je proizvod matrica $\vec{x}^*L_G\vec{x}$ realan broj. Pokušajmo izračunati adjungovanu vrijednost rezultantne matrice.
 	\[
 		\overline{\vec{x}^*L_G\vec{x}} = ?
 	\] 
-	Kako je desna strana jednakosti $|\vec{x}| * \alpha$ proizvod realnog i kompleksnog broja, odatle se lako zakljucuje da je rezultat proizvoda na desnoj strani jednakosti kompleksan broj tj. matrica iz vektorskog prostora  $\mathbb{M}_{1 \times 1}(\mathbb{C})$. Transponovanje matrice dimenzija $1 \times 1$ nema nikakav uticaj na matricu, sto znaci
+
+	Jasno je da je rezultantna matrica dimenzije $1 \times 1$, tj. da je u pitanju kompleksan broj.
+	Kako transponovanje nema nikakav uticaj na matrice ovih dimenzija, možemo to i uraditi. 
 	\[
 	(\vec{x}^*L_G\vec{x})^T = \vec{x}^*L_G\vec{x}
 	\]
-	Ukoliko sada to uvrstimo i uzmemo u obzir da je $M^*=\overline{M^T} =\overline{M}^T$, gdje je $M$ proizvolja matrica, dobijamo
+	Ukoliko sada uzmemo u obzir da je $A^*=\overline{A^T} =\overline{A}^T$ i $(AB)^* = B^* A^*$, gdje su A i B proizvoljne matrice, dobijamo
 	\[
 		\overline{\vec{x}^*L_G\vec{x}} = \overline{(\vec{x}^*L_G\vec{x})^T} = (\vec{x}^*L_G\vec{x})^* = \vec{x}^*L_G^*(\vec{x}^*)^*= \vec{x}^*L_G^*\vec{x}
 	\] 
-	Ukoliko sada iskoristimo tvrdjenje da je Laplasova matrica $L_G$ ermitska, tj. da vazi $L_G^*=L_G$. dobijamo
+	Iskoristimo činjenicu da je Laplasova matrica $L_G$ ermitska, tj. da važi $L_G^*=L_G$.
 	\[
-		\overline{\vec{x}^*L_G\vec{x}} = \vec{x}^*L_G\vec{x}
+		\overline{\vec{x}^*L_G\vec{x}} = \vec{x}^*L_G\vec{x} \in \mathbb{C}
 	\] 
-	
-	Iskoristimo sada tvrdjenje vezano za kompleksne brojeve. Neka je $x \in \mathbb{C}$.
+	Za proizvoljan kompleksan broj $z \in \mathbb{C}$ važi
 	\[
-	 |x| = x \Rightarrow x \in \mathbb{R}
+	 \overline{z} = z \Rightarrow z \in \mathbb{R}
 	\]
-	Odatle dobijamo da  $\vec{x}^*L_G\vec{x} \in \mathbb{R}$ \\
-	Kako su i imenilac i brojilac na desnoj strani jednakosti \ref{eq:alpha} realni brojevi i lijeva strana jednakosti mora biti realan broj, tj. $\alpha \in \mathbb{R}$. Ovime je dokaz zavrsen.
+
+	Dobijamo da  $\vec{x}^*L_G\vec{x} \in \mathbb{R}$. Kako su i imenilac i brojilac na desnoj strani jednakosti \ref{eq:alpha} realni brojevi i lijeva strana jednakosti mora biti realan broj, tj. $\alpha \in \mathbb{R}$. Ovime je dokaz završen.
 	\end{custom_proof}
 	
 	\begin{theorem} Sopstvene vrijednosti Laplasove matrice $L_G$ su nenegativni realni brojevi.
