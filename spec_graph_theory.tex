@@ -1043,14 +1043,14 @@
 	Pokazali smo da je proizvod $\vec{x}^TL_G\vec{x}$ nenegativan za svaki vektor $\vec{x}$, čime smo dokazali i da je Laplasova matrica $L_G$ pozitivno poludodređena.
 	\end{custom_proof}
 	
-	\begin{theorem} Sve sopstvene vrijednosti Laplasove matrice su realni brojevi.
+	\begin{theorem} Sve sopstvene vrijednosti Laplasove matrice su nenegativni realni brojevi.
 	\[
-	 L_G\vec{x} = \alpha \vec{x} \text{ gdje je } \vec{x} \in ( \mathbb{R}^n \setminus \{\vec{0}\}) \text{ nenula vektor} \Rightarrow \alpha \in \mathbb{R}
+	 L_G\vec{x} = \alpha \vec{x} \text{ gdje je } \vec{x} \in ( \mathbb{C}^n \setminus \{\vec{0}\}) \text{ nenula vektor} \Rightarrow \alpha \in (\mathbb{R}^+ \cup \{0\})
 	\]
 	\end{theorem}
 	
 	\begin{custom_proof}
-	Iako je data teorema direktna posljedica teoreme koja govori da su sve sopstvene vrijednosti ermitske matrice realni brojevi, u nastavku će biti izložen dokaz ovog tvrđenja.
+	Iako je data teorema direktna posljedica svojstava Laplasove matrice, u nastavku će biti izložen dokaz ovog tvrđenja.
 	
 	Pretpostavimo da je $\alpha \in \mathbb{C}$ proizvoljna sopstvena vrijednost matrice $L_G$ i da je $\vec{x} \in (\mathbb{R}^n \setminus \{\vec{0}\})$ odgovarajući sopstveni vektor. Tada važi:
 	\[
@@ -1071,9 +1071,9 @@
 	\label{eq:alpha}
 	\end{equation}
 
-	Izraz $||\vec{x}||_2^2$ prestavlja kvadrat euklidske vektorkse norme u prostoru $\mathbb{R}$, a vektorska norma je uvijek nenegativan realan broj, tj. važi
+	Izraz $||\vec{x}||_2^2$ prestavlja kvadrat euklidske vektorkse norme u prostoru $\mathbb{R}^n$, a vektorska norma je uvijek nenegativan realan broj, tj. važi
 	\[
-		||\vec{x}||_2^2 \land |\vec{x}| \in (\mathbb{R}^+ \cup \{0\})  
+		||\vec{x}||_2^2 \in (\mathbb{R}^+ \cup \{0\})  
 	\]
 	U našem slučaju $\vec{x}$ je nenula vektor pa važi još strožiji uslov $||\vec{x}||_2^2 \ge 0$, koji nam je omogućio da se vektorska norma nađe u imeniocu razlomka.
 	
@@ -1100,206 +1100,185 @@
 	 \overline{z} = z \Rightarrow z \in \mathbb{R}
 	\]
 
-	Dobijamo da  $\vec{x}^*L_G\vec{x} \in \mathbb{R}$. Kako su i imenilac i brojilac na desnoj strani jednakosti \ref{eq:alpha} realni brojevi i lijeva strana jednakosti mora biti realan broj, tj. $\alpha \in \mathbb{R}$. Ovime je dokaz završen.
-	\end{custom_proof}
-	
-	\begin{theorem} Sopstvene vrijednosti Laplasove matrice $L_G$ su nenegativni realni brojevi.
-	Neka je data Laplasova matrica $L_G \in  \mathbb{M}_{n \times n}(\mathbb{R})$.
+	Dobijamo da $\vec{x}^*L_G\vec{x} \in \mathbb{R}$. Kako su i imenilac i brojilac na desnoj strani jednakosti (\ref{eq:alpha}) realni brojevi i lijeva strana jednakosti mora biti realan broj, tj. $\alpha \in \mathbb{R}$.
+
+	S obzirom da su sve sopstvene vrijednosti Laplasove matrice realni brojevi i da je i sama matrica realna, svi sopstveni vektori pripadaju vektorskom prostoru $\mathbb{R}^n$. 
+	Za realne vektore važi:
 	\[
-	 L_G\vec{x} = \alpha \vec{x} \text{ gdje je } \vec{x} \in ( \mathbb{R}^n \setminus \{\vec{0}\}) \text{ nenula vektor} \Rightarrow \alpha \in (\mathbb{R}^+ \cup \{0\})
+		\vec{x} \in \mathbb{R}^n \Rightarrow \vec{x}^* = \vec{x}^T
 	\]
-	\end{theorem}
-	
-	\begin{custom_proof}
-	Iako je data teorema direktna posljedica teoreme koja govori da su sopstvene vrijednosti matrice nenegativni realni brojevi ako i samo ako je matrica pozitivno poluodredjena, u nastavku ce biti izlozen dokaz ovoga tvrdjenja ali samou jednom smjeru. \\
-	
-	Neka je $\alpha$ proizvoljna sopstvena vrijednost matrice $L_G$ i da je $\vec{x} \in (\mathbb{R}^n \setminus \{\vec{0}\})$ odgovarajuci sopstveni vektor. Tada vazi
-	
+
+	Iskoristimo prethodno svojstvo realnih vektora i činjenicu da je Laplasova matrica pozitivno poludodređena.
 	\[
-		L_G\vec{x} = \alpha \vec{x}
+		\vec{x}^* L_G \vec{x} = \vec{x}^T L_G \vec{x} \geq 0
 	\]
-	Pomnozimo izraz s lijeva vektorom $\vec{x}^T$.
-	\[
-		\vec{x}^TL_G\vec{x} = \vec{x}^T\alpha \vec{x} = \vec{x}^T \vec{x} \alpha = \vec{x}^2 \alpha 
-	\]
-	Kako je $\vec{x}$ je nenula vektor, mozemo pisati
-	\[
-	 \alpha = \frac{\vec{x}^TL_G\vec{x}}{|\vec{x}|^2}
-	\]
-	Ukoliko sada iskoristimo cinjenicu da je $|\vec{y}| > 0$ i da je Laplasova matrica pozitivno poluodredjena, tj. da vazi $\vec{y}^TL_G\vec{y}$, gdje je $\vec{y} \in \mathbb{R}^n$, dolazimo dolazimo do zakljucka da lijeva strana jednakosti mora biti nenegativna jer je takva desna strana, tj. da vazi
-	\[
-		L_G\vec{x} = \alpha \vec{x} \text{ gdje je } \vec{x} \in (\mathbb{R}^n \setminus \{\vec{0}\}) \Rightarrow \alpha \geq 0
-	\] 
+	Kako je desna strana jednakosti (\ref{eq:alpha}) nenegativan broj i lijeva strana jednakosti mora biti isto nenegativan  broj, tj. $\alpha \geq 0$. Ovime je dokaz završen. 
 	\end{custom_proof}
 	
 	\begin{consequence}
-	S obzirom da su sve sopstvene vrijednosti matrice $L_G$ dimenzije $n \times n$ neneagativni realni brojevi i da sopstvenih vrijednosti ima maksimalno $n$ (jer je minimum dimenzija Laplasove matrica upravo $n$), mozemo uspostaviti sljedecu relaciju izmedju sopstvenih vrijednosti matrice $L_G$ 
+	S obzirom da su sve sopstvene vrijednosti matrice Laplasove matrice dimenzije $n \times n$ nenegativni realni brojevi i da sopstvenih vrijednosti ima tačno $n$
+	(računajući i njihove višestrukosti), možemo uspostaviti sljedeci poredak između sopstvenih vrijednosti Laplasove matrice 
 	\[
 	0 \leq \alpha_1 \leq \alpha_2 \leq \dots \leq \alpha_{n-1} \leq \alpha_n
 	\]
 	\end{consequence}
 	
-	\begin{theorem} Najmanja sopstvena vrijednost Laplasove matrice $L_G$ je $\alpha_1=0$
-	\[
-	L_G \text{ je Laplasova matrica proizvoljnog grafa } G \Rightarrow \alpha_1=0
-	\]
+	\begin{theorem} Nula je najmanja sopstvena vrijednost Laplasove matrice.
 	\end{theorem}
 	
 	\begin{custom_proof}
-	Posmatrajmo proizvod Laplasove matrice $L_G$ i vektora $\vec{x} \in \mathbb{R}^n$.
-	\[
-	\vec{x} = 
-	\begin{bmatrix} 
-	1 \\ 1 \\ \dots \\ 1 \\ 1
-	\end{bmatrix}
-	_{n \times 1}
-	\]
+	Posmatrajmo proizvod Laplasove matrice i jediničnog vektora $\vec{x}=\begin{bmatrix} 1 & 1 & \cdots & 1 & 1  \end{bmatrix}^T_{n \times n}$.
 	\[
 	L_G\vec{x} = [a_{ij}]_{n \times 1}
 	\]
 	\[
-		a_{ij} = \sum_{i=1}^{n}L_{i.}\vec{x} = \sum_{j=1}^{n}\sum_{i=1}^{n}L_{ij} \vec{x}_j 
+		a_{ij} = L_{i.}\vec{x} = \sum_{j=1}^{n}L_{ij} \vec{x}_j 
 	\]
-	Ukoliko sada iskoristimo cinjenicu da su sve kordinate vektora $\vec{x}$ jednake 1, dobijamo
+	Ukoliko sada iskoristimo činjenicu da su sve koordinate vektora $\vec{x}$ jednake 1 i da je zbir elemenata svake vrste/kolone Laplasove matrice jednak 0, dobijamo
 	\[
-		a_{ij} = \sum_{i=1}^{n}L_{i.}\vec{x} = \sum_{j=1}^{n}\sum_{i=1}^{n}L_{ij} * 1 = \sum_{j=1}^{n}\sum_{i=1}^{n}L_{ij}
+		a_{ij} = \sum_{j=1}^{n}L_{ij} \vec{x}_j = \sum_{j=1}^{n}L_{ij} * 1 = \sum_{j=1}^{n}L_{ij} = 0
 	\]
-	Ukoliko sada iskoristimo cinjenicu da je zbir elemenata svake vrste/kolone Laplasove matrice jednak 0, dobijamo
-	\[
-		a_{ij} = \sum_{j=1}^{n}\sum_{i=1}^{n}L_{ij} = \sum_{j=1}^{n} 0 = 0
-	\]
-	Sada se vidi da je svaka koordinata rezultujuce vrsta matrica jednaka 0, tj. je je rezultat mnozena Laplasove matrice i vektora $\vec{x}$ nula vektor.
+	Sada je jasno da je svaka koordinata rezultujuće vrsta matrica jednaka 0, tj. da je rezultat množenja Laplasove matrice i jediničnog vektora nula vektor.
 	\[
 	L_G\vec{x} = \vec{0} = 0 * \vec{x}
 	\]
-	S obzirom da je proizvod bilo kog vektora i 0 jednak nula vektoru $0 * \vec{y} = \vec{0}$, imamo
+	Kako vektor $\vec{x}$ nije nula vektor zaključujemo da je $\alpha = 0$ sopstvena vrijednost proizvoljne Laplasove matrice.
 	\[
-	L_G\vec{x} = 0 * \vec{x}
+		0 \leq \alpha_1 \leq \alpha_2 \leq \dots \leq \alpha_{n-1} \leq \alpha_n \land 0 \in \{\alpha_1, \alpha_2, \dots, \alpha_n\} \Rightarrow \alpha_1 = 0
 	\]
-	Kako vektor $\vec{x}$ nije nula vektor zakljucujemo da je $\alpha = 0$ sopstvena vrijednost proizvoljne Laplasove matrice. Uzimajuci u obzir da smo vec uspostavili relaciju izmedju sopstvenih vrijednosti Laplasove matrice, imamo
-	\[
-		0 \leq \alpha_1 \leq \alpha_2 \leq \dots \leq \alpha_{n-1} \leq \alpha_n \land 0 in \{\alpha_1, \alpha_2, \dots, \alpha_n\} \Rightarrow \alpha_1 = 0
-	\]
-	Ovime tvrdnja je dokazana.
 	\end{custom_proof}
 	
-	\begin{theorem} Za sopstvenu vrijednost $\alpha_2$ Laplasove matrice $L_G$ koja odgovara povezanom grafu $G$ vazi $\alpha_2>0$
+	\begin{theorem} Druga najmanja sopstvena vrijednost Laplasove matrice je veća od nule.
 	\paragraph{}
-	Navedena tvrdja je ekvivalentna tvrdnji da je algebarska visetrukost 0 kao sopstvene vrijednosti Laplasove matrice $L_G$ proizvoljnog poveyanog grafa $G$ jednaka 1.
+	Navedena tvrdnja je ekvivalentna tvrdnji da je algebarska višestrukost nule kao sopstvene vrijednosti Laplasove matrice jednaka jedan.
 	\end{theorem}
 	
 	\begin{custom_proof}
-	Neka je dat graf $G=(V,E).$ Neka je $\vec{z} \in \mathbb{R}^n$ sopstveni vektor koji odgovara sopstvenoj vrijednosti $\alpha = 0$ Laplasove matrice $L_G$.
-	Pokusajmo odrediti neka svojstva vekora $\vec{z}$
+	Neka je dat proizvoljan graf $G=(V,E)$ i neka je $\vec{z} \in \mathbb{R}^n$ sopstveni vektor Laplasove matrice koji odgovara sopstvenoj vrijednosti $\alpha_1 = 0$.
+	Pokušajmo odrediti neka svojstva vektora $\vec{z}$
 	\[
 		L_G\vec{z} = 0 * \vec{z} = \vec{0}
 	\]
-	Pomnozimo izraz s lijeva vektorom $\vec{z}^T$.
+	Pomnožimo izraz s lijeva vektorom $\vec{z}^T$.
 	\[
-		\vec{z}^TL_G\vec{z} = \vec{x}^T * \vec{0} = 0
-	\]
-	Iz dokaza prethodnih teorema imamo 
-	\[
-	\vec{z}^TL_G\vec{z} = \sum_{\{v_1,v_2\} \in E} (z_{v_1} - z_{v_2})
+		\begin{split}
+			\vec{z}^T L_G \vec{z} = \vec{z}^T * \vec{0} = &0 \\
+			\sum_{\{v_1,v_2\} \in E} (z_{v_1} - z_{v_2})^2 &= 0
+		\end{split}
 	\]
 	
-	Iz datog izraza se vidi da su koordinate sopstvenog vektora $\vec{z}$, koje odgovaraju susjednim cvorovima grafa $G$, jednake. S obzirom da je graf $G$ povezan, tj. da po definiciji povezanog grafa postoji put izmedju bilo koja dva cvora u grafu, dolazimo do zakljucka da su sve koordinate sopstvenog vektora $\vec{z}$, koji odgovara sopstvenoj vrijednosti 0, jednake. 
-	
+	Zaključujemo da su koordinate sopstvenog vektora $\vec{z}$, koje odgovaraju susjednim čvorovima grafa G, jednake.
+	S obzirom da je graf G povezan, tj. da po definiciji povezanog grafa postoji šetnja između bilo koja dva čvora u grafu,
+	dolazimo do zaključka da su sve koordinate sopstvenog vektora $\vec{z}$ jednake. 
 	\[
 	\begin{split}
-	 \vec{z} \text{  je sopstveni vektor koji odgovara sopstvenoj vrijednosti } & \alpha = 0 \text{ matrice}  L_G \Rightarrow \\
+	 \vec{z} \text{ je sopstveni vektor koji odgovara sopstvenoj vrijednosti } & \alpha_1 = 0 \text{ matrice }  L_G \Rightarrow \\
 	 \vec{z} =p *
 	\begin{bmatrix} 
 	1 \\ 1 \\ \vdots \\ 1 \\ 1
 	\end{bmatrix}_{n \times 1}
-	\text{ gdje je } p \in (\mathbb{C} \setminus \{\vec{0}\})
+	\text{ gdje je } p \in (\mathbb{R} \setminus \{\vec{0}\})
 	\end{split}
 	\]
-	Odredimo sada sopstveni prostor Laplasove matrice $L_G$ koji odgovara sopstvenoj vrijednosti $\alpha = 0$
-	Kako smo odredili opsti izraz sopstvenog vektora Laplasove matrice koji odgovara sopstvenoj vrijednosti $\alpha = 0$, mi smo pronasli sve sopstvene vektore koji odgovaraju sopstvenoj vrijednosti $\alpha = 0$.
+
+	Kako smo odredili opšti izraz sopstvenog vektora Laplasove matrice koji odgovara sopstvenoj vrijednosti $\alpha_1 = 0$,
+	mi smo odredili skup svih sopstvenih vektora koji odgovaraju datoj sopstvenoj vrijednosti.
 	
 	\[
-	S_{\alpha} = \{p *
+	S_{\alpha_1} = \{p *
 	\begin{bmatrix} 
 	1 \\ 1 \\ \vdots \\ 1 \\ 1
-	\end{bmatrix}_{n \times 1} : p \in (\mathbb{C} \setminus \{0\}) \} 
+	\end{bmatrix}_{n \times 1} : p \in (\mathbb{R} \setminus \{0\}) \} 
 	\]
-	Ukoliko dozvolimo da $p=0$, tj. odradimo uniju skupa sopstvenih vektora $S_{\alpha}$ i skupa koji sadrzi nula vektor, dobicemo sopstveni vektorski prostor koji odgovara $\alpha = 0$.
+	Ukoliko dozvolimo da $p=0$, tj. odradimo uniju skupa sopstvenih vektora $S_{\alpha_1}$ i skupa koji sadrži nula vektor,
+	dobićemo sopstveni vektorski prostor koji odgovara $\alpha_1$.
 	\[
-	U_{\alpha} = S_{\alpha} \cup \{\vec{0}\}= \{
+	U_{\alpha_1} = S_{\alpha} \cup \{\vec{0}\}= \{
 	\begin{bmatrix} 
 	1 \\ 1 \\ \vdots \\ 1 \\ 1
-	\end{bmatrix}_{n \times 1}  : p \in (\mathbb{C} \setminus \{0\}) \} \cup \{\vec{0}\}= \{
+	\end{bmatrix}_{n \times 1}  : p \in (\mathbb{R} \setminus \{0\}) \} \cup \{\vec{0}\}= \{
 	\begin{bmatrix} 
 	1 \\ 1 \\ \vdots \\ 1 \\ 1
-	\end{bmatrix}_{n \times 1} :  p \in \mathbb{C}\} 
+	\end{bmatrix}_{n \times 1} :  p \in \mathbb{R}\} 
 	\]
-	Dobijeni izraz predstavlja nista drugo do linearnu kombinaciju jednog vektora, tj. linearni vektorski omotac nad jednim vektorom.
+	Dobijeni izraz predstavlja ništa drugo do linearnu kombinaciju jednog vektora, tj. linearni vektorski omotač nad jednim vektorom.
 	\[
-	U_{\alpha} = S_{\alpha} \cup \{\vec{0}\}= \{
+	U_{\alpha_1} = S_{\alpha_1} \cup \{\vec{0}\}= \{
 	\begin{bmatrix} 
 	1 \\ 1 \\ \vdots \\ 1 \\ 1
 	\end{bmatrix}_{n \times 1} :  p \in \mathbb{C}\} = L (\begin{bmatrix} 
 	1 \\ 1 \\ \vdots \\ 1 \\ 1
 	\end{bmatrix}_{n \times 1})
 	\]
-	Kako je sopstveni prostor jednak linearnom vektorskom omotacu nad jednim vektorom, ocito da se baze sopstvenog vektorskog prostora koji odgovara $\alpha = 0$ se sastoji od jednog vektora, sto nadalje znaci da je geometrijska visestrukost $\alpha = 0$ jednaka 1.
-	Ukoliko sada iskoristimo cinjenicu da je geometrijska visestrukost manja ili jednaka algebarskoj visestrukosti sopstvene vrijednosti, dolazimo do zakljucka da sopstvene vrijednost $\alpha = 0 $ ima algebarsku visestrukost 1. Iz relacije koju smo uspostavili izmedju sopstvenih vrijednosti imamo $\alpha_1 \leq \alpha_2$.
+
+	Kako je sopstveni vektorski prostor jednak linearnom vektorskom omotaču nad jednim vektorom, 
+	očito da se baza sopstvenog vektorskog prostora koji odgovara $\alpha_1$ se sastoji od jednog vektora,
+	što nadalje znači da je geometrijska višestrukost $\alpha_1$ jednaka 1.
+	Geometrijska višestrukost je uvijek manja ili jednaka algebarskoj višestrukosti sopstvene vrijednosti,
+	pa dolazimo do zaključka da sopstvena vrijednost $\alpha_1$ ima algebarsku višestrukost 1.
 	\[
-	\alpha_1 = 0 \text{ ima algebarsku visestrukost 1 } \Rightarrow \alpha_1 \neq \alpha_2
+	\alpha_1 = 0 \text{ ima algebarsku višestrukost 1 } \Rightarrow \alpha_1 \neq \alpha_2
 	\]
 	\[
-	\alpha_1 = 0  \land \alpha_1 \neq \alpha_2 \land \alpha_1 \leq \alpha_2 \Rightarrow \alpha_2 \ge 0
+	\alpha_1 = 0  \land \alpha_1 \neq \alpha_2 \land \alpha_1 \leq \alpha_2 \Rightarrow \alpha_2 \ge \alpha_1 \Rightarrow \alpha_2 \ge 0
 	\]
-	Ovime dokaz je zavrsen.
+	Ovime je dokaz završen.
 	\end{custom_proof}
 	
 	\begin{theorem} 
-	Geometrijska visestrukost sopstvene vrijednosti $\alpha_1 = 0$ Laplasove matrice $L_G$ predstavlja broj povezanih komponenti u grafu $G$
+	Geometrijska višestrukost sopstvene vrijednosti $\alpha_1 = 0$ Laplasove matrice predstavlja broj povezanih komponenti u grafu.
 	\end{theorem}
 	
 	\begin{custom_proof}
-	Pretpostavimo da graf  $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$, ima $k$ povezanih komponenti. Neka su $G_i = \{V_i,E_i\} i \in \{1,2, \dots n\}$ te povezane komponente grafa $G$.
-	
-	Za svaku od povezanih komponenti konstruisimo vektor $\vec{w_i}$ takav da njegove koordinate ciji je indeks se ne nalazi u skupu cvorova odgovarajuce povezane komponente ima vrijednost 1, u suprotnom 0.
+	Pretpostavimo da graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$, ima k povezanih komponenti. Neka su $G_i = \{V_i,E_i\}$, $i \in \{1,2, \dots n\}$ te povezane komponente.
+
+	Za svaku od povezanih komponenti konstruišimo vektor $\vec{w_i}$ takav da njegove koordinate čiji se indeksi nalaze u skupu čvorova odgovarajuće povezane komponente imaju vrijednost 1, a u suprotnom 0.
 	\[
-	 w_{i_j} =
+	 (w_{i})_j =
 	 \begin{cases}
-	 1  & \text{ako } j \in V_i \\ 
-	 0  & \text{ako } j \notin V_i
+	 1  & \text{ za } j \in V_i \\ 
+	 0  & \text{ za } j \notin V_i
 	 \end{cases}
 	\]
 	
-	Posmatrajmo sada proizvod Laplasove matrice $L_G$ i vektora $w_i$.
+	Posmatrajmo sada proizvod Laplasove matrice i vektora $w_i$.
 	\[
 	L_G\vec{w_i} = \vec{r}
 	\]
 	\[
-	\vec{r}_j = L_{j.} \vec{w_i} = \sum_{ k  \in V} L_{jk}\vec{w_{i_k}} 
+	\vec{r}_j = L_{j.} \vec{w_i} = \sum_{ k  \in V} L_{jk}(\vec{w_{i}})_k 
 	\]
-	Kako su koordinate vektora $w_i$ ciji se indeks ne nalazi u skupu cvorova povezane komponente jdnake 0, mozemo sumirati po cvorovima poveyane komponente $G_i$. 
+	Kako su koordinate vektora $w_i$ čiji se indeksi ne nalaze u skupu čvorova povezane komponente jednake 0, možemo sumirati samo po čvorovima povezane komponente $G_i$. 
 	\[
-	\vec{r}_j = \sum_{ k  \in V_i} L_{jk}\vec{w_{i_k}} = \sum_{ k  \in V_i} L_{jk} * 1 = \sum_{ k  \in V_i} L_{jk}
+	\vec{r}_j = \sum_{ k  \in V_i} L_{jk}(\vec{w_{i}})_k = \sum_{ k  \in V_i} L_{jk} * 1 = \sum_{ k  \in V_i} L_{jk}
 	\]
-	Ponovo, iskoristimo cinjenicu da je suma elemenata po kolonama/vrstama Laplasove matrice jednaka 0.
-	\[
-	\vec{r}_j = \sum_{ k  \in V_i} L_{jk}\vec{w_{i_k}} = \sum_{ k  \in V_i} L_{jk} * 1 = \sum_{ k  \in V_i} L_{jk}
-	\]
-	\[
-	\vec{r} = \vec{0}
-	\]
+
+	Sagledajmo sada dva slučaja. Prvi slučaj je kada čvor j nije sadržan u komponenti povezanosti, tj. $j \notin V_i$.
+	U tom slučaju ne postoji ni jedna grana koja povezuje čvor j sa nekim od čvorova iz $V_i$, pa samim tim za $k \in V_i$ važi $L_{jk} = 0$.
+	S toga važi $\vec{r}_j = 0$ za $j \notin V_i$.
+	Drugi slučaj je kada je čvor j sadržan u komponenti povezanosti, tj. $j \in V_i$.
+	U tom slučaju ne postoji niti jedna grana koja povezuje čvor j sa nekim od čvorova van $V_i$, pa samim tim za $k \notin V_i$ važi $L_{jk} = 0$.
+	S toga važi $ \sum_{k \in V_i}L_{jk} = \sum_{k \in V}L_{jk} = 0 \Rightarrow \vec{r}_j = 0$ za $j \in V_i$. Konačno, zaključujemo da je $\vec{r}$ nula vektor.
 	
-	Posto je rezultantni vektor nula vektor, to nam ukazuje da su vektori $\vec{w_i}$ sopstveni vektori koji odgovaraju sopstvenoj vrijednosti  $\alpha_1 = 0$ Laplasove matrice.
-	Kako su skupovi cvorova pojedinih povezanih komponenti grafa disjunktni skupovi, jasno je i da su vektoru $w_i i \in \{1,2 \dots k\}$. Kako smo odredili opstu formulu za sopstvene vektore koji  odgovaraju sopstvenoj vrijednosti  $\alpha_1 = 0$ Laplasove matrice grafa $G$ sa $k$ povezanih komponenti, mi smo odredili sve vektore u skupu $S_{\alpha_1}$. Odatle, imamo da je sopstveni vektorski prostor koji  odgovara $\alpha_1 = 0$ jednak linearnom vektorskom omotacu vektora $w_i$ za $i \in \{1,2 \dots k\}$
+	Pošto je rezultantni vektor nula vektor, to nam ukazuje da su vektori $\vec{w_i}$ sopstveni vektori koji odgovaraju sopstvenoj vrijednosti $\alpha_1 = 0$ Laplasove matrice.
+	Kako su skupovi čvorova komponenti povezanosti grafa disjunktni skupovi, jasno je i da su vektori $w_i$ $i \in \{1,2 \dots k\}$ linearno nezavisni vektori.
+	Odredivši opštu formulu za sopstvene vektore koji odgovaraju sopstvenoj vrijednosti $\alpha_1 = 0$ Laplasove matrice grafa k komponenti povezanosti, mi smo odredili sve vektore u skupu $S_{\alpha_1}$.
+	Sopstveni vektorski prostor koji odgovara $\alpha_1 = 0$ jednak linearnom vektorskom omotaču nad vektorima $w_i$ za $i \in \{1,2 \dots k\}$.
 	\[
 	U_{\alpha_1} = S_{\alpha_1} \cup \{\vec{0}\}= L (\{ w_i : i \in \{1,2 \dots k\}\})
 	\]
+	\[
+	|U_{\alpha_1}| = k
+	\]
 	
-	Odavde mozemo zakljuciti da je geometerijska visestrukost sopstvene vrijednosti $\alpha_1 = 0$ jednaka $k$, sto odgovara broju povezanih komponenti grafa $G$, cime je tvrdnja dokazana.
+	Odavde možemo zaključiti da je geometrijska višestrukost sopstvene vrijednosti $\alpha_1 = 0$ jednaka k, što odgovara broju povezanih komponenti grafa.
 	\end{custom_proof}
 	
-	\begin{example}{Odrediti spektar Laplasove matrice kompletnog grafa $K_n$}
-	U kompletnon grafu sa $n$ cvorova $K_n =(V,E)$ svaki cvor je susjedan sa svim ostalim cvorovima, tj. vazi $deg(v)=n-1$ za $\forall v \in V$. To znaci da su svi elementi na glavnoj dijagonali Laplasove matrice jednaki $n-1$, a ostali elementi jedanki $-1$.
+	\begin{example}{Odrediti spektar Laplasove matrice kompletnog grafa $K_n$}.
+
+	U kompletnom grafu sa $n$ čvorova $K_n =(V,E)$ svaki čvor je susjedan sa svim ostalim čvorovima, 
+	tj. važi $deg(v)=n-1$ za $\forall v \in V$. To znači da su svi elementi na glavnoj dijagonali Laplasove matrice jednaki $n-1$,
+	a svi ostali elementi jedanki $-1$.
 	\[
 	L_G =
 	\begin{bmatrix}
@@ -1311,15 +1290,18 @@
 	\end{bmatrix}_{n \times n}
 	\]
 	
-	Posmatracemo matricu $L_{K_n} - nI$. Motivacija za posmatranje ove matrice je ta sto je ovo matrica kod koje su svi elementi jednaki $-1$, tj. $L_{K_n} - nI = [-1]_{n \times n}$, sto bi nam trebalo omoguciti da lako pronadjemo njene sopstvene vrijednosti.
+	Posmatraćemo matricu $L_{K_n} - nI$. Motivacija za posmatranje ove matrice je ta što je ovo matrica kod koje su svi elementi jednaki $-1$, tj. $L_{K_n} - nI = [-1]_{n \times n}$,
+	što bi nam trebalo omogućiti da lako odredimo njen spektar.
 	
-	Kako su sve vrste/kolone matrice $L_{K_n} - nI$ jednake, jasno je da $rank(L_{K_n} - nI) = 1$ i $det(L_{K_n} - nI) = 0$. Ako uzmemo u obzir da 
+	Kako su sve vrste/kolone matrice $L_{K_n} - nI$ jednake, jasno je da $rank(L_{K_n} - nI) = 1$ i $det(L_{K_n} - nI) = 0$. 
+	Ako uzmemo u obzir da 
 	\[
-	det(M) = 0 \Leftrightarrow \alpha = 0 \text{ je sopstvena vrijednost matrice} M \text{ za } \forall M \in \mathbb{M}_{n \times n}
+	det(M) = 0 \Leftrightarrow \alpha = 0 \text{ je sopstvena vrijednost matrice M za } \forall M \in \mathbb{M}_{n \times n}
 	\]
-	dolazimo do zakljucka $\alpha = 0$ je sopstvena vrijednost matrice $L_{K_n} - nI$. 
-	Sada je potrebno odrediti geometrijsku visestrukost sopstvene vrijednosti $\alpha = 0$. Geometrijska visestrukost sopstvene vrijednosti matrice $M$  je jednaka dimenziji sopstvenog vektorskog prostora koji joj odgovara.
-	Da bi $\alpha'$ bila sopstvena vrijednost matrice $L_{K_n} - nI$, mora da vazi
+	dolazimo do zaključka je $\alpha = 0$ je sopstvena vrijednost matrice $L_{K_n} - nI$. 
+	Sada je potrebno odrediti geometrijsku višestrukost sopstvene vrijednosti $\alpha$. Geometrijska višestrukost sopstvene vrijednosti jednaka je dimenziji sopstvenog vektorskog prostora koji joj odgovara.
+	
+	Da bi $\alpha'$ bila sopstvena vrijednost matrice $L_{K_n} - nI$, mora da važi:
 	\[
 	\begin{split}
 	(L_{K_n} - nI)\vec{x} &= \alpha' \vec{x} \\
@@ -1329,26 +1311,27 @@
 	[L_{K_n} - (n + \alpha') I] \vec{x} &= \vec{0}  \\
 	\end{split}
 	\]
-	Dimenzijia sopstvenog vektorskog prostora koji joj odgovara $\alpha = 0$ jednaka je dimenziji nula prostora matrice $L_{K_n} - (n + \alpha') I$.
-	Ako sada uvrstitmo $\alpha = 0$, dobijamo da je geometrijska visestrukost $\alpha = 0$ je $dim N(L_{K_n} - (n + 0) I) = dim N(L_{K_n} - n I)$. Ako iskoristimo sada rank nullity teoremo koja kaze: $rank(M) + N(m) = n$ za $\forall M \in M_{n \times n}$, dobijamo da je  geometrijska visestrukost $\alpha = 0$ jednala $n - rank(L_{K_n} - n I) = n - 1$.
+	Na osnovu izraza, može se zaključiti da ako je $\alpha'$ sopstvena vrijednost matrice $L_{K_n} - nI$, onda je $n + \alpha'$ sopstvena vrijednost matrice $L_{K_n}$.
+
+	Dimenzija sopstvenog vektorskog prostora koji odgovara $\alpha'$ jednaka je dimenziji nula prostora matrice $L_{K_n} - (n + \alpha') I$.
+	Dakle,
+	\[
+	\text{geometrijska višestrukost za } \alpha \text{' jednaka je } \dim \ker(L_{K_n} - (n + \alpha') I)
+	\] 
+	Ako iskoristimo sada Rank-Nullity teoremu koja kaže:
+	$rank(M) + \dim ker(m) = n$ za $\forall M \in M_{n \times n}$, dobijamo 
+	\[
+	\text{geometrijska višestrukost za } \alpha \text{' jednaka je } n - rank(L_{K_n} - (n + \alpha') I)
+	\] 
+	Za $\alpha' = \alpha = 0$ dobijamo vrijednost $n-1$.
 	
-	Posmatrajmo sada sopstvene vrijednosti matrice $L_G$. Za njih mora da vazi \[
-	\begin{split}
-	L_{K_n} \vec{x} &= \alpha \vec{x} \\
-	L_{K_n} \vec{x} &= \alpha I \vec{x} \\
-	L_{K_n} \vec{x} - \alpha I \vec{x} &= \vec{0}  \\
-	(L_{K_n} - \alpha I) \vec{x} &= \vec{0}  \\
-	\end{split}
-	\]
+	Na osnovu svega navedenog zaključujemo da je $n + \alpha' = n + \alpha = n + 0 = n$ sopstvena vrijednost matrice $L_{K_n}$ sa geometrijskom višestrukošću $n-1$. Ne zaboravimo da je $\alpha_1=0$ takođe sopstvena vrijednost Laplasove matrice, svakog, pa tako i ovog grafa.
 	
-	Poredeci izraze $[L_{K_n} - (n + \alpha') I] \vec{x} = \vec{0}$ i $(L_{K_n} - \alpha I) \vec{x} = \vec{0}$, zakljucujemo da ako je $\alpha$ sopstvena vrijednost matrice $L_G$ onda je $n + \alpha'$ sopstvena vrijednost te matrice, tj $\alpha = n - \alpha'$. Odatle dobijamo sa ke $\alpha = n $ sopstvena vrijednost matrice $L_G$ da algebarskom vissetrukoscu $n-1$.
-	  
-	
-	Drugi nacin da potvrdimo da je 0 sopstvena vrijednost matrice $L_{K_n} - n I$ jeste da, uocim sljedeci vektor
+	Drugi način da potvrdimo da je 0 sopstvena vrijednost matrice $L_{K_n} - n I$ jeste da, uočimo sljedeći vektor
 	\[
 	\vec{x} =
 	\begin{bmatrix}
-	 n-1 \\ 
+	 1-n \\ 
 	1 \\
 	1 \\
 	\vdots \\
@@ -1367,7 +1350,7 @@
 	-1 & -1 & -1 & \dots & -1
 	\end{bmatrix}
 	\begin{bmatrix}
-	n-1 \\
+	-(n-1) \\
 	1 \\
 	1 \\
 	\vdots \\
@@ -1407,7 +1390,7 @@
 	\end{bmatrix}
 	= 0 *
 	\begin{bmatrix}
-	n-1 \\
+	-(n-1) \\
 	1 \\
 	1 \\
 	\vdots \\
@@ -1420,7 +1403,7 @@
 	\begin{split}
 	(L_{K_n} - nI) 
 	\begin{bmatrix}
-	n-1 \\
+	1-n \\
 	1 \\
 	1 \\
 	\vdots \\
@@ -1428,7 +1411,7 @@
 	\end{bmatrix}_{n \times 1}
 	= 0 *
 	\begin{bmatrix}
-	n-1 \\
+	1-n \\
 	1 \\
 	1 \\
 	\vdots \\
@@ -1436,7 +1419,7 @@
 	\end{bmatrix}_{n \times 1} 
 	\end{split}
 	\]
-	Odavdje dobijamo da je 0 sopstvena vrijednost matrice $L_{K_n} - nI$. 
+	Odavde dobijamo da je 0 sopstvena vrijednost matrice $L_{K_n} - nI$. 
 	\end{example}
 	
 	\begin{example}
