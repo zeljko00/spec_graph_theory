@@ -581,7 +581,7 @@
 				\end{split}
 			\]
 
-			Prethodni izraz prestavlja broj prostih puteva $i-j$ dužine 3 za $i \neq j$. 
+			Prethodni izraz predstavlja broj prostih puteva $i-j$ dužine 3 za $i \neq j$. 
 			Za $i = j$ broj prostih puteva je nula pa mora da važi $s_{ii} = 0$ za $\forall i \in V$. 
 			Da bismo to postigli za elemente na glavnoj dijagonali moramo anulirati vrijednost $\sum_{v \in E} (s_{iv}^{(2)} * a_{vj}) - a_{ij} * (deg(j)  - 1)$.
 			Kako je $a_{ij} = 0$ za elemente na glavnoj dijagonali matrice susjedstva, ostaje nam da anuliramo vrijednost $\sum_{v \in E} (s_{iv}^{(2)}*a_{vj}) = \sum_{v = 1}^{n} (s_{iv}^{(2)}*a_{vj}) = S_{i.}^{(2)} A_{.j}$.
@@ -1052,72 +1052,53 @@
 	\begin{custom_proof}
 	Iako je data teorema direktna posljedica svojstava Laplasove matrice, u nastavku će biti izložen dokaz ovog tvrđenja.
 	
-	Pretpostavimo da je $\alpha \in \mathbb{C}$ proizvoljna sopstvena vrijednost matrice $L_G$ i da je $\vec{x} \in (\mathbb{R}^n \setminus \{\vec{0}\})$ odgovarajući sopstveni vektor. Tada važi:
+	Pretpostavimo da je $\alpha \in \mathbb{C}$ proizvoljna sopstvena vrijednost matrice $L_G$ i da je $\vec{x} \in (\mathbb{C}^n \setminus \{\vec{0}\})$ odgovarajući sopstveni vektor. Tada važi:
 	\[
 		L_G\vec{x} = \alpha \vec{x}
 	\]
-	Pomnožimo izraz s lijeva vektorom $\vec{x}^*$.
+	Pomnožimo izraz s lijeva vektorom $\vec{x}^T$.
 	\[
-		\vec{x}^*L_G\vec{x} = \vec{x}^*\alpha \vec{x}
+		\vec{x}^TL_G\vec{x} = \vec{x}^T\alpha \vec{x}
 	\]
 	\[
-		\vec{x}^*L_G\vec{x} = (\vec{x}^* \vec{x}) \alpha
+		\vec{x}^TL_G\vec{x} = (\vec{x}^T \vec{x}) \alpha
 	\]
 	\[
-		\vec{x}^*L_G\vec{x} = \sum_{i=1}^{n}(Re(x_i)^2 + Im(x_i)^2 ) \alpha =  \sum_{i=1}^{n}|x_i|^2 \alpha= ||\vec{x}||_2^2 \alpha  
+		\vec{x}^TL_G\vec{x} = \sum_{i=1}^{n}(Re(x_i)^2 + Im(x_i)^2 ) \alpha =  \sum_{i=1}^{n}|x_i|^2 \alpha= ||\vec{x}||_2^2 \alpha  
 	\]
 	\begin{equation}
-		 \alpha =   \frac{\vec{x}^*L_G\vec{x}}{||\vec{x}||_2^2}
+		 \alpha =   \frac{\vec{x}^TL_G\vec{x}}{||\vec{x}||_2^2}
 	\label{eq:alpha}
 	\end{equation}
 
-	Izraz $||\vec{x}||_2^2$ prestavlja kvadrat euklidske vektorkse norme u prostoru $\mathbb{R}^n$, a vektorska norma je uvijek nenegativan realan broj, tj. važi
+	Izraz $||\vec{x}||_2^2$ predstavlja kvadrat euklidske vektorkse norme u prostoru $\mathbb{R}^n$, a vektorska norma je uvijek nenegativan realan broj, tj. važi
 	\[
 		||\vec{x}||_2^2 \in (\mathbb{R}^+ \cup \{0\})  
 	\]
-	U našem slučaju $\vec{x}$ je nenula vektor pa važi još strožiji uslov $||\vec{x}||_2^2 \ge 0$, koji nam je omogućio da se vektorska norma nađe u imeniocu razlomka.
+	U našem slučaju $\vec{x}$ je nenula vektor pa važi još strožiji uslov $||\vec{x}||_2^2 > 0$, koji nam je omogućio da se vektorska norma nađe u imeniocu razlomka.
 	
-	Sada je još potrebno pokazati da je proizvod matrica $\vec{x}^*L_G\vec{x}$ realan broj. Pokušajmo izračunati adjungovanu vrijednost rezultantne matrice.
-	\[
-		\overline{\vec{x}^*L_G\vec{x}} = ?
-	\] 
+	Sada je još potrebno pokazati da je proizvod $\vec{x}^TL_G\vec{x}$ nenegativan broj.
 
-	Jasno je da je rezultantna matrica dimenzije $1 \times 1$, tj. da je u pitanju kompleksan broj.
-	Kako transponovanje nema nikakav uticaj na matrice ovih dimenzija, možemo to i uraditi. 
+	To ne moramo ni dokazivati, jer već znamo da je Laplasova matrica pozitivno poludodređena.
 	\[
-	(\vec{x}^*L_G\vec{x})^T = \vec{x}^*L_G\vec{x}
+		\vec{x}^* L_G \vec{x} = \vec{x}^T L_G \vec{x} \geq 0
 	\]
-	Ukoliko sada uzmemo u obzir da je $A^*=\overline{A^T} =\overline{A}^T$ i $(AB)^* = B^* A^*$, gdje su A i B proizvoljne matrice, dobijamo
-	\[
-		\overline{\vec{x}^*L_G\vec{x}} = \overline{(\vec{x}^*L_G\vec{x})^T} = (\vec{x}^*L_G\vec{x})^* = \vec{x}^*L_G^*(\vec{x}^*)^*= \vec{x}^*L_G^*\vec{x}
-	\] 
-	Iskoristimo činjenicu da je Laplasova matrica $L_G$ ermitska, tj. da važi $L_G^*=L_G$.
-	\[
-		\overline{\vec{x}^*L_G\vec{x}} = \vec{x}^*L_G\vec{x} \in \mathbb{C}
-	\] 
 	Za proizvoljan kompleksan broj $z \in \mathbb{C}$ važi
 	\[
 	 \overline{z} = z \Rightarrow z \in \mathbb{R}
 	\]
 
-	Dobijamo da $\vec{x}^*L_G\vec{x} \in \mathbb{R}$. Kako su i imenilac i brojilac na desnoj strani jednakosti (\ref{eq:alpha}) realni brojevi i lijeva strana jednakosti mora biti realan broj, tj. $\alpha \in \mathbb{R}$.
+	Dobijamo da $\vec{x}^*L_G\vec{x} \in (\mathbb{R} \cup \{0\})$. Kako su i imenilac i brojilac na desnoj strani jednakosti (\ref{eq:alpha}) realni nenegativni brojevi i lijeva strana jednakosti mora biti nenegativan realan broj, tj. $\alpha \in \mathbb{R}$.
 
-	S obzirom da su sve sopstvene vrijednosti Laplasove matrice realni brojevi i da je i sama matrica realna, svi sopstveni vektori pripadaju vektorskom prostoru $\mathbb{R}^n$. 
-	Za realne vektore važi:
 	\[
 		\vec{x} \in \mathbb{R}^n \Rightarrow \vec{x}^* = \vec{x}^T
 	\]
 
-	Iskoristimo prethodno svojstvo realnih vektora i činjenicu da je Laplasova matrica pozitivno poludodređena.
-	\[
-		\vec{x}^* L_G \vec{x} = \vec{x}^T L_G \vec{x} \geq 0
-	\]
-	Kako je desna strana jednakosti (\ref{eq:alpha}) nenegativan broj i lijeva strana jednakosti mora biti isto nenegativan  broj, tj. $\alpha \geq 0$. Ovime je dokaz završen. 
 	\end{custom_proof}
 	
 	\begin{consequence}
 	S obzirom da su sve sopstvene vrijednosti matrice Laplasove matrice dimenzije $n \times n$ nenegativni realni brojevi i da sopstvenih vrijednosti ima tačno $n$
-	(računajući i njihove višestrukosti), možemo uspostaviti sljedeci poredak između sopstvenih vrijednosti Laplasove matrice 
+	(računajući i njihove višestrukosti), možemo uspostaviti sljedeći poredak između sopstvenih vrijednosti Laplasove matrice 
 	\[
 	0 \leq \alpha_1 \leq \alpha_2 \leq \dots \leq \alpha_{n-1} \leq \alpha_n
 	\]
@@ -1148,14 +1129,14 @@
 	\]
 	\end{custom_proof}
 	
-	\begin{theorem} Druga najmanja sopstvena vrijednost Laplasove matrice je veća od nule.
+	\begin{theorem} Druga najmanja sopstvena vrijednost Laplasove matrice povezanog grafa je veća od nule.
 	\paragraph{}
-	Navedena tvrdnja je ekvivalentna tvrdnji da je algebarska višestrukost nule kao sopstvene vrijednosti Laplasove matrice jednaka jedan.
+	Navedena tvrdnja je ekvivalentna tvrdnji da je algebarska višestrukost nule kao sopstvene vrijednosti Laplasove matrice povezanog grafa jednaka jedan.
 	\end{theorem}
 	
 	\begin{custom_proof}
 	Neka je dat proizvoljan graf $G=(V,E)$ i neka je $\vec{z} \in \mathbb{R}^n$ sopstveni vektor Laplasove matrice koji odgovara sopstvenoj vrijednosti $\alpha_1 = 0$.
-	Pokušajmo odrediti neka svojstva vektora $\vec{z}$
+	Pokušajmo odrediti neka svojstva vektora $\vec{z}$.
 	\[
 		L_G\vec{z} = 0 * \vec{z} = \vec{0}
 	\]
@@ -1220,7 +1201,7 @@
 	\alpha_1 = 0 \text{ ima algebarsku višestrukost 1 } \Rightarrow \alpha_1 \neq \alpha_2
 	\]
 	\[
-	\alpha_1 = 0  \land \alpha_1 \neq \alpha_2 \land \alpha_1 \leq \alpha_2 \Rightarrow \alpha_2 \ge \alpha_1 \Rightarrow \alpha_2 \ge 0
+	\alpha_1 = 0  \land \alpha_1 \neq \alpha_2 \land \alpha_1 \leq \alpha_2 \Rightarrow \alpha_2 > \alpha_1 \Rightarrow \alpha_2 > 0
 	\]
 	Ovime je dokaz završen.
 	\end{custom_proof}
@@ -1290,7 +1271,7 @@
 	\end{bmatrix}_{n \times n}
 	\]
 	
-	Posmatraćemo matricu $L_{K_n} - nI$. Motivacija za posmatranje ove matrice je ta što je ovo matrica kod koje su svi elementi jednaki $-1$, tj. $L_{K_n} - nI = [-1]_{n \times n}$,
+	Posmatraćemo matricu $L_{K_n} - nI$. Motivacija za posmatranje ove matrice je njeno svojstvo da su svi njeni elementi jednaki $-1$, tj. $L_{K_n} - nI = [-1]_{n \times n}$,
 	što bi nam trebalo omogućiti da lako odredimo njen spektar.
 	
 	Kako su sve vrste/kolone matrice $L_{K_n} - nI$ jednake, jasno je da $rank(L_{K_n} - nI) = 1$ i $det(L_{K_n} - nI) = 0$. 
@@ -1314,15 +1295,10 @@
 	Na osnovu izraza, može se zaključiti da ako je $\alpha'$ sopstvena vrijednost matrice $L_{K_n} - nI$, onda je $n + \alpha'$ sopstvena vrijednost matrice $L_{K_n}$.
 
 	Dimenzija sopstvenog vektorskog prostora koji odgovara $\alpha'$ jednaka je dimenziji nula prostora matrice $L_{K_n} - (n + \alpha') I$.
-	Dakle,
-	\[
-	\text{geometrijska višestrukost za } \alpha \text{' jednaka je } \dim \ker(L_{K_n} - (n + \alpha') I)
-	\] 
+	Dakle, geometrijska višestrukost za  $\alpha$ jednaka je $\dim \ker(L_{K_n} - (n + \alpha') I)$.
+
 	Ako iskoristimo sada Rank-Nullity teoremu koja kaže:
-	$rank(M) + \dim ker(m) = n$ za $\forall M \in M_{n \times n}$, dobijamo 
-	\[
-	\text{geometrijska višestrukost za } \alpha \text{' jednaka je } n - rank(L_{K_n} - (n + \alpha') I)
-	\] 
+	$rank(M) + \dim ker(M) = n$ za $\forall M \in M_{n \times n}$, dobijamo je geometrijska višestrukost za $\alpha$ jednaka $n - rank(L_{K_n} - (n + \alpha') I)$.
 	Za $\alpha' = \alpha = 0$ dobijamo vrijednost $n-1$.
 	
 	Na osnovu svega navedenog zaključujemo da je $n + \alpha' = n + \alpha = n + 0 = n$ sopstvena vrijednost matrice $L_{K_n}$ sa geometrijskom višestrukošću $n-1$. Ne zaboravimo da je $\alpha_1=0$ takođe sopstvena vrijednost Laplasove matrice, svakog, pa tako i ovog grafa.
@@ -1423,9 +1399,10 @@
 	\end{example}
 	
 	\begin{example}
-		Odrediti spektar Laplasove matrice grafa ciklusa $C_n$
-	Ono sto odmah mozemo reci za graf $C_n$ jeste da je ovo regulan graf sa stepenom regularnosti 2. 
-	Laplasova matrica ciklusa je data sa
+		Odrediti spektar Laplasove matrice ciklusa sa n čvorova $C_n$.
+	
+		Ono što odmah možemo reći za graf $C_n$ jeste da je ovo regulan graf sa stepenom regularnosti 2. 
+	Laplasova matrica ciklusa data je sa 
 	\[
 	\begin{bmatrix}
 	
@@ -1441,8 +1418,8 @@
 	\end{bmatrix}
 	\]
 	
-	
-	Lako se vidi da vrste ove matrice predstavljaju ciklicne permutacije. Upravo je ovakva priroda Laplasove matrice povod da prilikom odredjivanja njeno spektra posmatramo sljedeci vektor 
+	Odmah se vidi da vrste ove matrice predstavljaju ciklične permutacije.
+	Upravo je ovakva priroda Laplasove matrice povod da prilikom određivanja njenog spektra posmatramo sljedeći vektor 
 	\[ \vec{x} =
 	\begin{bmatrix}
 	1 \\
@@ -1452,7 +1429,7 @@
 	w^{n-1}
 	\end{bmatrix}
 	\]
-	gdje je $w^n = 1$. Izracunajmo proizvod $L_c \vec{x}$
+	gdje je $w^n = 1 \land w \in \mathbb{C}$. Izračunajmo proizvod $L_c \vec{x}$
 	\[
 	\begin{split}
 	  	L_C \vec{x} & = 
@@ -1492,7 +1469,7 @@
 		\end{bmatrix} = \\
 	 	 & =  
 		\begin{bmatrix}
-		 w^{n-1} + 2 * 1 + w \\
+		 w^{n-1} + 2 * 1 + w * 1 \\
 		1 + 2w + w^2       \\
 		w + 2w^2 + w^3       \\
 		w^2 + 2w^3 + w^4  \\
@@ -1500,11 +1477,11 @@
 		\vdots \\
 		w^{n-4} + 2w^{n-3} + w^{n-2} \\
 		w^{n-3} + 2w^{n-2} + w^{n-1} \\
-		1 * 1 + 2w^{n-1} + w^{n-2} \\
+		1 + 2w^{n-1} + w^{n-2} \\
 		\end{bmatrix}
 		= 
 		\begin{bmatrix}
-		w^{n-1} + 2 w^n + w \\
+		w^{n-1} + 2 w^n + w * w^{n} \\
 		1 + 2w + w^2       \\
 		w + 2w^2 + w^3       \\
 		w^2 + 2w^3 + w^4  \\
@@ -1606,9 +1583,10 @@
 		w^{n-1}  \\
 		\end{bmatrix}
 	\]
-	Sada je jasno da je $w^{-1} + 2 + w$ sopstvena vrijednost a $\vec{x}$ odgovarajuci sopstveni vektro.
-	Jasno je da u skupu $\mathbb{R}$ jendacina $w^n = 1$ ima samo jedno resenje $w=1$. Medjutim nista nas ne sprecava 
-    jednacinu ne rijesimo u skupu $\mathbb{C}$. U tom slucaju
+	
+	Dobijamo da je $w^{-1} + 2 + w$ sopstvena vrijednost, a $\vec{x}$ odgovarajući sopstveni vektor matrice.
+	U skupu $\mathbb{R}$ jendačina $w^n = 1$ ima samo jedno rešenje $w=1$. Međutim, ništa nas ne sprečava 
+    da jednačinu riješimo u skupu $\mathbb{C}$.
 	\[
 	\begin{split}
 	w^n  & = 1 \\
@@ -1623,31 +1601,28 @@
 			\big(|w|^n \cos n \varphi = 1 \big) \land \big((|w|)^n \sin n \varphi\big) & = 0  
 		\end{split}
 		\]
-		Jasno je da $|w| \neq 0$ jer u tom slucaju $w=0$
+		Jasno je da $|w| \neq 0$ jer u tom slučaju $w=0$. S toga, 
 	
 	\[
 	\begin{split}
-		|w|^n  & = 0	\lor \sin n \varphi = 0 \\
+		\sin n \varphi &= 0 \\
 		\sin n \varphi &= 2 k \pi \\
-		&\varphi = \frac{2 k \pi}{n} \\
-		& \varphi \in [0,2\pi] \Rightarrow k \in \{0,1, \dots n-1\}
-	\end{split}
-	\]
-	\[
-	\begin{split}
+		\varphi &= \frac{2 k \pi}{n} \\
+		\varphi \in [0,2\pi] &\Rightarrow k \in \{0,1, \dots n-1\} \\
 		|w|^n \cos n \varphi & = 1 \\
 		|w|^n \cos n 2 k \pi & = 1 \\
 		|w|^n  & = 1 \\
 	\end{split}
 	\]
-	Kako $|w| \in \mathbb{R}$ dobijamo $|w|=1$ i
+	Kako $|w| \in \mathbb{R}$ dobijamo $|w|=1$.
 	\[
 	\begin{split}
 		w_k = |w| (\cos \varphi + i \sin \varphi) = \cos \frac{2 k \pi}{n} + i \sin \frac{2 k \pi}{n}
 	\end{split}
 	\]
 
-	Vec smo utvrdili da su sve sopstvene vrijednosti Laplasove matrice realni brojevi, ali sada smo naizgled dobili kompleksan broj. Medjutim izracunajmo $\alpha_k$
+	Već smo konstatovali da su sve sopstvene vrijednosti Laplasove matrice realni brojevi, ali sada smo naizgled dobili kompleksan broj. 
+	Izračunajmo $\alpha_k$:
 	\[
 	\begin{split}
 		\alpha_k & = w_k^{-1} + 2 + w_k \\
@@ -1658,8 +1633,8 @@
 		\alpha_k & = 2 (\cos \frac{2 k \pi}{n} + 1)
 	\end{split}
 	\]
-	Sada je jasno da $\alpha_k \in \mathbb{R}$
-	Razmotrimo sad $\alpha_{n-k}$
+	Iako je w komplekan broj, vidimo da $\alpha_k \in \mathbb{R}$ za $\forall k \in \{0,1,2, \dots n-1\}$.
+	Razmotrimo vrijednost $\alpha_{n-k}$.
 	\[
 	\begin{split}
 		\alpha_{n-k} & = 2 (\cos \frac{2 (n-k) \pi}{n} + 1) \\
@@ -1669,7 +1644,7 @@
 		\alpha_{n-k} & = \alpha_k 
 	\end{split}
 	\]
-	Odavde vidimo su sopstvene vrijednosti simetricne oko $n/2$, sto ukazuje da ih ima $\lceil \frac{n}{2}\rceil$ 
+	Odavde vidimo su sopstvene vrijednosti simetrične oko $n/2$, što ukazuje da ih ima $\lceil \frac{n}{2}\rceil$ 
 	Sopstveni vektor koji odgovara sopstvenoj vrijednosti $\alpha_k$ je dat sa 
 	\[
 	\begin{bmatrix}
@@ -1684,58 +1659,130 @@
 
 	\end{example}
 
+		\begin{example}
+		Posmatrajmo sljedeci graf G
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=1\textwidth]{Figure_1.png}
+		\end{figure}
+		\[
+			A_G =
+			\begin{bmatrix}
+				0  &  1  &  1  &  1  &  0  & 0  &  0  &  0  &  0  &  0\\
+				1  &  0  &  0  &  1  &  0  & 0  &  0  &  0  &  0  &  0\\
+				1  &  0  &  0  &  0  &  0  & 0  &  0  &  0  &  0  &  0\\
+				1  &  1  &  0  &  0  &  0  & 0  &  0  &  0  &  0  &  0\\
+				0  &  0  &  0  &  0  &  0  & 1  &  1  &  0  &  0  &  0\\
+				0  &  0  &  0  &  0  &  1  & 0  &  1  &  0  &  0  &  0\\
+				0  &  0  &  0  &  0  &  1  & 1  &  0  &  0  &  0  &  0\\
+				0  &  0  &  0  &  0  &  0  & 0  &  0  &  0  &  1  &  0\\
+				0  &  0  &  0  &  0  &  0  & 0  &  0  &  1  &  0  &  0\\
+				0  &  0  &  0  &  0  &  0  & 0  &  0  &  0  &  0  &  0\\
+			\end{bmatrix}
+			\]
+			
+			Jasno je da se graf sastoji od 3 komponente povezanosti. Formirajmo njegovu Laplasovu matricu i oderedimo njen spektar.
+			
+			\[
+				L_G =
+				\begin{bmatrix}
+					3   &  -1  &  -1  &  -1  &  0  &  0   &  0   &  0   &  0   &  0\\
+					-1  &  2   &  0   &  -1  &  0  &  0   &  0   &  0   &  0   &  0\\
+		-1  &  0   &  1   &  0   &  0  &  0   &  0   &  0   &  0   &  0\\
+		-1  &  -1  &  0   &  2   &  0  &  0   &  0   &  0   &  0   &  0\\
+		0   &  0   &  0   &  0   &  2  &  -1  &  -1  &  0   &  0   &  0\\
+		0   &  0   &  0   &  0   &  -1 &  2   &  -1  &  0   &  0   &  0\\
+		0   &  0   &  0   &  0   &  -1 &  -1  &  2   &  0   &  0   &  0\\
+		0   &  0   &  0   &  0   &  0  &  0   &  0   &  1   &  -1  &  0\\
+		0   &  0   &  0   &  0   &  0  &  0   &  0   &  -1  &  1   &  0\\
+		0   &  0   &  0   &  0   &  0  &  0   &  0   &  0   &  0   &  0\\
+	\end{bmatrix}
+	\]
+	Numeričkim metodama dolazimo do spektra ove matrice.
+	\[
+		\begin{split}
+			\alpha_1=0 \text{  } & \vec{e_1}^T = \begin{bmatrix} -0.5  &   -0.5  &  -0.5  &  -0.5  &  0  &  0  &  0  &  0  &  0  & 0      \end{bmatrix} \\ 
+			\alpha_2=0 \text{  } & \vec{e_2}^T = \begin{bmatrix} 0  &   0  &  0  &  0  &  -0.58  &  -0.58  &  -0.58  &  0  &  0  & 0      \end{bmatrix} \\ 
+			\alpha_3=0 \text{  } & \vec{e_3}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0  &  0.71  &  0.71  &  0            \end{bmatrix} \\
+			\alpha_4=0 \text{  } & \vec{e_4}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1                  \end{bmatrix} \\
+			\alpha_5=1 \text{  } & \vec{e_5}^T = \begin{bmatrix} 0  &  0.41  &  -0.82  &  0.41  &  0  &  0  &  0  &  0  &  0  &  0        \end{bmatrix} \\
+			\alpha_6=2 \text{  } & \vec{e_6}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0  &  0.71  &  -0.71  &  0           \end{bmatrix} \\
+			\alpha_7=3 \text{  } & \vec{e_7}^T = \begin{bmatrix} 0  &  0.71  &  0  &  -0.71  &  0  &  0  &  0  &  0  &  0  &  0           \end{bmatrix} \\
+			\alpha_8=3 \text{  } & \vec{e_8}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0.82  &  -0.41  &  -0.41  &  0  &  0  &  0       \end{bmatrix} \\
+			\alpha_9=3 \text{  } & \vec{e_9}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0.29  &  -0.81  &  0.51  &  0        \end{bmatrix} \\
+			\alpha_1=4 \text{  } & \vec{e_1}^T = \begin{bmatrix} 0.87  &  -0.29  &  -0.29  &  -0.29  &  0  &  0  &  0  &  0  &  0  &  0  \end{bmatrix}
+		\end{split}
+		\]
+		Pogledajmo kakve vrijednosti sosptveni vektori koji odgovaraju $\alpha_1$ dodjeljuju čvorovima. 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.8\textwidth]{plot.png}
+		\end{figure}
+		
+		Za očekivati je bilo da sopstvena vrijednost nula ima višestrukost 4, jer se graf sastoji od 4 komponente povezanosti, ali zanimljivo je
+		da svaki sopstveni vektor koji odgovara ovoj sopstvenoj vrijednosti ističe čvorove koji pripadaju jednoj od komponenti povezanosti.
+		Svaki od ovih sopstvenih vektora dodjeljuje čvorovima jedne komponente povezanosti istu vrijednost, a svim ostalim čvorovima vrijednost nula. 
+		
+		Najmanja nenula sopstvena vrijednost je mala, što ukazuje da graf nije čvrsto povezan, odnosno da je
+        jako blizu da ima 5 povezanih komponenti. To se može postići uklanjanjem samo jedne grane.
+	\end{example}
+
 	\section{Interpretacija vektora i matrica u domenu grafova}
 
-	Vec nam je do sada jasno da pomoocu pojedinih matrica na razlicite nacine mozemo predstaviti grafove, bilo da predsavljamo susjednost cvorova putem matrice
-	susjedstva ili Laplasove matrice ili incidentnost cvorova i grana putem matrice susjedstva. Koja je uloga vektora? Koji je njihov smisao u domenu grafova?
+	Već nam je jasno da pomoću pojedinih matrica na različite načine možemo predstaviti isti graf, pri tome zadržavajući sve informacije o njegovoj strukturi. 
+    Možemo predstaviti susjednost čvorova putem matrice susjedstva ili Laplasove matrice, ili pak incidentnost čvorova i grana putem matrice incidentnosti.
+	Često su u izrazima sa ovim matricama konstituisali i vektori, naročiti sopstveni vektori tih matrica. 
+	Postavlja se jedno logično pitanje, a to je koja je uloga tih vektora? Koji je njihov smisao u domenu grafova?
 	
-	Vec smo vidjeli da ukoliko posmatramo graf sa n cvorova, vektori koje koristimo su dimenzije $n \times n$. Ti vektori se mogu posmatrati kao diskretne funkcije koje
-	u pojedinim tackama imaju odgovarajuce vrijednosti. Te tacke u kojima je definisana vrijednosti funkcije su upravo cvorovi grafa. Drugim rijecima vektori dimenzije
-	$n \times 1$ se mogu posmatrati kao funkcije koje svakom cvororu grafa dodjeljuju neku vrijednosti na nacina da vektor $\vec{x}$ cvoru grafa $G$ sa indeksom i dodjeljuje
-	vrijednost $x_i^T$, tj. $\vec{x} = [ f(v_1) f(v_2) \dots f(v_n)]$. Vrijednost dodjeljena cvoru moze da ima razlicita znacenja, to moze biti njegova vaznost ili pak 
-	vrijedost koja se koristi za klasifikaciju cvorova grafa. Kako su i sopstveni vektori Laplasove matrice takodje vektori dimenzij $n \times 1$, i oni se mogu posmatrati
-	kao funkcije. Sopstveni vektori Laplsove matrice predstavjaju posebne funkcije koje se nazivaju sopstvene funkcije (eigenfunction).
+	Vidjeli smo da ukoliko posmatramo graf sa n čvorova, vektori koje koristimo su dimenzije $n \times 1$. 
+	Pojavljivanje broja čvorova u njihovoj dimenziji nije slučajnost, jer se ti vektori mogu posmatrati kao diskretne funkcije koje
+	u pojedinim tačkama imaju odgovarajuće vrijednosti. 
+	Te tačke u kojima je definisana vrijednosti funkcije su upravo čvorovi grafa.
+	Drugim riječima, vektori dimenzije $n \times 1$ se mogu posmatrati kao funkcije $\vec{x} = f(v)$ koje svakom čvoru grafa dodjeljuju neku vrijednosti na način da vektor $\vec{x}$ čvoru grafa G sa indeksom i dodjeljuje
+	vrijednost $\vec{x}_i$, tj. $\vec{x}^T = [ f(v_1) f(v_2) \dots f(v_n)]$. Ove funkcije se nazivaju graf funkcije.
+	Vrijednost dodijeljena čvoru može da ima različita značenja, to može biti njegova važnost, vrijedost koja se koristi za klasifikaciju čvorova grafa, možda i njegova koordinata. 
+	Kako su i sopstveni vektori Laplasove i matrice susjedstva takođe vektori dimenzije $n \times 1$, i oni se mogu posmatrati kao funkcije. 
+	Sopstveni vektori predstavjaju posebne funkcije koje se nazivaju sopstvene funkcije (eigenfunction).
 
-	Cesto se u izrazima moze naci mnozenje matrice susjedstva ili Laplasove matrice sa nekim vektorom. Posmatrajmo cemu su jednaki ti proizvodi.
+	Često se u izrazima sreće množenje matrice susjedstva ili Laplasove matrice sa nekim vektorom. Posmatrajmo čemu su jednaki ti proizvodi.
 	\[
 	A_G \vec{x} = 
 	\begin{bmatrix}
-		\sum_{\{v_1,v_j\} \in E} \vec{x}_1 \\
-		\sum_{\{v_2,v_j\} \in E} \vec{x}_2 \\
+		\sum_{\{v_1,v_j\} \in E} \vec{x}_j \\
+		\sum_{\{v_2,v_j\} \in E} \vec{x}_j \\
 		\vdots \\
-		\sum_{\{v_n,v_j\} \in E} \vec{x}_n \\
+		\sum_{\{v_n,v_j\} \in E} \vec{x}_j \\
 	\end{bmatrix}_{n \times 1} =
 	\begin{bmatrix}
-		\sum_{\{v_1,v_j\} \in E} f(v_1) \\
-		\sum_{\{v_2,v_j\} \in E} f(v_2) \\
+		\sum_{\{v_1,v_j\} \in E} f(v_j) \\
+		\sum_{\{v_2,v_j\} \in E} f(v_j) \\
 		\vdots \\
-		\sum_{\{v_n,v_j\} \in E} f(v_n) \\
-	\end{bmatrix}_{n \times 1} =
+		\sum_{\{v_n,v_j\} \in E} f(v_j) \\
+	\end{bmatrix}_{n \times 1} 
 	\]
-	Sada je jasno da je rezultat vektor dimenzije $n \times 1$ kod kojeg koordinata sa indeksom i predstavlja sumu vrijednosti koje vektor $\vec{x}$ dodijeli svim
-	susjedima cvora sa indeksom i.
+	Rezultat množenja je vektor dimenzije $n \times 1$ kod kojeg koordinata sa indeksom i predstavlja sumu vrijednosti koje vektor $\vec{x}$ dodijeljuje susjedima čvora sa indeksom i.
 	
 	\[
 		\begin{split}
 		L_G \vec{x} & =
 		\begin{bmatrix}
-				deg(1) * \vec{x_1} - \sum_{\{v_1,v_j\} \in E} \vec{x}_j \\
-			deg(2) * \vec{x_2} - \sum_{\{v_2,v_j\} \in E} \vec{x}_j \\
+			deg(v_1) * \vec{x_1} - \sum_{\{v_1,v_j\} \in E} \vec{x}_j \\
+			deg(v_2) * \vec{x_2} - \sum_{\{v_2,v_j\} \in E} \vec{x}_j \\
 			\vdots \\
-			deg(n) * \vec{x_n} - \sum_{\{v_n,v_j\} \in E} \vec{x}_j \\
+			deg(v_n) * \vec{x_n} - \sum_{\{v_n,v_j\} \in E} \vec{x}_j \\
 		\end{bmatrix} =
 		\begin{bmatrix}
-			\sum_{\{v_1,v_j\} \in E} \vec{x}_1\vec{x}_j \\
-			\sum_{\{v_2,v_j\} \in E} \vec{x}_2\vec{x}_j \\
+			\sum_{\{v_1,v_j\} \in E} \vec{x}_1-\vec{x}_j \\
+			\sum_{\{v_2,v_j\} \in E} \vec{x}_2-\vec{x}_j \\
 			\vdots \\
-			\sum_{\{v_2,v_j\} \in E} \vec{x}_n\vec{x}_j \\
+			\sum_{\{v_2,v_j\} \in E} \vec{x}_n-\vec{x}_j \\
 		\end{bmatrix} \\
 		& = 
 		\begin{bmatrix}
-			\sum_{ j \neq 1}  \vec{x}_1\vec{x}_j \\
-			\sum_{ j \neq 2}  \vec{x}_2\vec{x}_j \\
+			\sum_{ j \neq 1}  \vec{x}_1-\vec{x}_j \\
+			\sum_{ j \neq 2}  \vec{x}_2-\vec{x}_j \\
 			\vdots \\
-			\sum_{ j \neq n}  \vec{x}_n\vec{x}_j \\
+			\sum_{ j \neq n}  \vec{x}_n-\vec{x}_j \\
 		\end{bmatrix} =
 		\begin{bmatrix}
 			\sum_{ j \neq 1}  f(v_1) - f(v_j) \\
@@ -1746,91 +1793,191 @@
 		\end{split}
 	\]
 
-	Rezultat mnozenja Laplsove matrice sa proizvoljnim vektorom dimenazije $n \times 1$ je ponovo vekor dimenzije $n \times 1$
-	kod kojeg je vrijednost koordinate sa indeksom i u stvari suma razlika vrijednosti dodijeljene svoru sa indeksom i i njegovom susjedu.
+	Rezultat množenja Laplasove matrice i proizvoljnog vektora dimenzije $n \times 1$ je ponovo vektor dimenzije $n \times 1$
+	kod kojeg je vrijednost koordinate sa indeksom i jednaka sumi razlika vrijednosti dodijeljenih čvoru sa indeksom i i njegovim susjedima.
 
-	I domenu grafova, kao i u lineranoj alebri matrice nisu nista drugo do reprezentacije operatora. S toga, na osnovu ove prirode matrica i 
-	na osnovu dobijenih izraza mozemo zakljuciti sljedece:
-	Matrica susjedstva odgovara opertoru koji racuna sumu vrijednosti dodijeljenih svim susjedima cvorva grafa, tj okolini svakog cvora.
-	Laplasova matrica odgovara operatoru koji koji racuna razliku izmedju vrijednosti dodijeljene svakom cvoru i vrijrdnosti dodiljenih
-	cvorovima u njegov okolini. Ovaj operator pokazuje koliko vrijednosti koja funkcijxa $\vec{x}$ dodijeli nekom cvoru odstupa od vrijednsoti
-	dodijeljenih u njegovoj okolini.
+	I u domenu grafova, kao i u linearnoj algebri, matrice nisu ništa drugo do reprezentacije operatora. 
+	S toga, na osnovu takve prirode matrica i na osnovu dobijenih izraza možemo zaključiti sljedeće:
+	\begin{itemize}
+		\item Matrica susjedstva odgovara operatoru koji računa sumu vrijednosti dodijeljenih svim susjedima čvorova, tj. njihovoj okolini.
+		\item Laplasova matrica odgovara operatoru koji računa razliku između vrijednosti dodijeljene čvoru i vrijednosti dodiljenih
+		čvorovima u njegovoj okolini. 
+		Ovaj operator pokazuje koliko vrijednost koju funkcija $\vec{x}$ dodijeli nekom čvoru odstupa od vrijednosti dodijeljenih njegovim susjedima.
+	\end{itemize}
 
-	Izraz $\sum_{ j \neq i}  f(v_i) - f(v_j)$ predstavlja ujedno i analogiju Laplasove matrice i istoimenog operatora. Naime, Laplasov operator
-	$\nabla_2$ funkcije f u tacki p, pokazuje kolika je devijacija vrijednosti funkcije u tacki u odnosu na prosjecnu vrijednost u njenoj okolini.
-	 Upravo to radi i Laplasova matrica sa vektora $\vec{x}$, tj. pokazuje koliko vrijdnost vektora $\vec{x}$ u cvoru v odstupa od vrijednosti
-	vektora u njegovim susjednim cvorovima, ponasajuci se kao "diskretna" verzija Laplasovog operator.
+	Izraz $\sum_{ j \neq i}  f(v_i) - f(v_j)$ ukazuje na analogiju Laplasove matrice i istoimenog operatora.
+	Pokušajmo sada otkriti povezanost između njih koristeći se osobinama Laplasovog operatora.
 
+	Naime, Laplasov operator $\Delta f(p) = \nabla^2 f(p)$ funkcije f u tački p predstavlja vrijednost divergencije gradijenta funkcije f u tački p.
+	Gradijent u Euklidskom prostoru nije ništa drugo do vektor čije su koordinate parcijalni izvodi funkcije f po svim promjenjivim, tj. geometrijski gledano po svim pravcima.
+	
+	Već znamo da bi diskretna funkcija u domenu grafova bila vektor, ali šta je njen gradijent. 
+	Analogija izvoda kontinualne funkcije u diskretnom domenu je razlika, a analogija pravca u domenu grafa jeste grana. 
+	Tako da bi vrijednost parcijalnog izvoda, tj. gradijenta u odnosu na granu $e=\{v_1,v_2\}$ diskretne funkcije $f(v) = \vec{x}$ u domenu grafa u čvoru $v_1$ bila $\nabla  f(v_1)|_e = \vec{x}_{v_1} - \vec{x}_{v_2}$.
+	Vrijednost gradijenta u čvoru v bi bila $\nabla f(v_1) = (f(v_1) - f(v_2),f(v_1) - f(v_3),f(v_1) - f(v_4), \cdots)$, gdje su sa $v_i$ za $i>1$ predstavljeni susjedi čvora v.
+	Ispostavlja se da važi $\nabla \vec{x} = I^T \vec{x}$, tj. do gradijenta funkcije u domenu grafova se može doći množenjem sa transponovanom matricom incidencije (ali onom koja je formirana na osnovu proizvoljno dodijeljene orjentacije granama!).
+	Gradijent se može posmatrati i kao funkcija $g(e)$ koja svakoj grani grafa dodjeljuje vrijednost.
+	
+	Divergencija vektorskog polja, geometrijski gledano, pokazuje koliko se vektori šire iz neke tačke, tj. predstavlja izlazni fluks polja u nekoj tački.
+	U domenu grafova, svakom čvoru grafa se može pridružiti vektor gradijenta graf funkcije u tom čvoru, pa se divergencija može dobiti kao zbir koordinata datog vektora.
+	S toga, važi $\nabla^2 f(v_1) = \sum_{ \{v_1,v_1\} \in E} f(v_1) - f(v_i)$.
+	Ispostavlja se da je $\nabla^2 f(v) = \nabla g(e) = \nabla I^T f(v) = I I^T f(v) = L_G f(v)$, što nam sada jasno ukazuje na povezanost između Laplasovog operatora i Laplasove matrice.
+
+	Prema geometrijskoj intepretaciji, Laplasov operator pokazuje kolika je devijacija vrijednosti funkcije u tački p u odnosu na prosječnu vrijednost u njenoj okolini.
+	Sličnu funkciju ima i množenje Laplasove matrica i vektora $\vec{x}$. Rezultantni vektor pokazuje koliko vrijednost vektora $\vec{x}$ u čvoru v odstupa od vrijednosti
+	vektora u njegovim susjednim čvorovima (mada ne od prosječne vrijednosti), ponašajući se kao "diskretna" verzija Laplasovog operator. 
+	Može se reći i da Laplasova matrica akumulira odstupanja vrijednosti u okolini, jer računa njihovu sumu po svim susjedima čvora.
+
+	Laplasov operator funkcije mjeri koliko je funkcija glatka, tj. koliko se ona mijenja za bliske vrijednosti promjenjivih.
+	S toga, Laplasova matrica mjeri koliko su graf funkcije, tj. vektori glatki i koliko odstupaju vrijednosti koje se dodjeljuju susjednim čvorovima.
+	Kao što Laplasov operator ne mari za odstupanjem funkcije u tačkama koje su udaljene jedna od druge, tako ni Laplasova matrice ne mari za odstupanjem vrijednosti koje se dodjeljuju čvorovima koji nisu susjedni.
+	
 	\section{Primjena spektralne teorije grafova}
 
+	    \subsection{Spectral graph drawing}
+
+	Razmotrimo sada kako se spektralna teorema grafova može iskoristiti za njihovo prikazivanje. 
+	Obično se loša reprezentacija grafa povezuje sa velikim brojem grana koje se sijeku.
+	Iako znamo da je presijecanje grana u velikom broju slučajeva neizbježno, iz razloga što mnoštvo grafova nije planarno,
+	trebamo težiti tome da broj grana koje se sijeku svedemo na minimum.
+    Da bismo to postigli, potrebno je da strateški pozicioniramo čvorove.
+	Kao logična ideja nameće se to da susjedne čvorove smjestimo što bliže.
+	Na ovaj način grane koje ih spajaju će biti što kraće, a samim tim smanjiće se i vjerovatnoća da ih neka druga grana grafa siječe.
+    
+	Ukoliko graf prikazujemo u ravni koordinatnog sistema, blisko pozicioniranje susjednih čvorova se svodi na dodjeljivanje bliskih vrijednosti koordinata susjednim čvorovima.
+    Razlika između koordinata susjednih čvora treba da bude što manja, tj. potrebno je da suma $\sum_{\{v,i\} \in E} (\vec{x}_v - \vec{x}_i)^2$ bude što manja za $\forall v \in V$.
+	Posmatramo kvadrat razlike x koordinata samo zato da bismo izbjegli negativne vrijednosti.
+    Ovaj izraz nam je već poznat, radi se o vrijednosti kvadratne forme Laplasove matrice, tj. $\vec{x}^T L_G \vec{x}$. Ponovo, Laplasova matrica se nameće kao potencijalno rješenje.
+
+    Jasno je da nam ne odgovara da ova suma bude jednaka nuli, jer ipak želimo da razlikujemo susjedne čvorove, a ne da ih sve smjestimo u jednu tačku. S toga, vrijednost sume treba da bude što manja, ali različita od nule.
+    Sada se postavlja pitanje kako odrediti vektor $\vec{x}$ koji svakom čvoru dodjeljuje vrijednost x koordinate imajući u vidu navedeno. 
+	Zašto ne bismo pokušali sa sopstvenim vektorima Laplasove matrice?
+    Do njih možemo (relativno) lako doći, a i znamo da $\vec{e_i}^T L_G \vec{e_i} = \alpha_i$.
+	Fiedler-ov vektor se ponovo ukazuje kao potencijalno rješenje našeg problema jer upravo on od svih sopstvenih vektora Laplasove matrice minimizuje vrijednost kvadratne forme, tj. navedene sume.
+    Treba napomenuti, da Fiedler-ov vektor nije uvijek najbolji izbor za dodjeljivanje koordinata čvorovima, ali je njegova prednost što po prirodi odgovara našem problemu i što znamo kako do njega doći za bilo koji graf.
+    
+	Sada znamo kako čvorovima dodijeliti x koordinatu, ali šta je y koordinate? 
+	Ako bismo pokušali da svakom čvoru dodijelimo istu x i y koordinatu, došli bismo do toga da bi se svi čvorovi našli na pravoj $y = x$.
+	Lako se zaključuje da bi u tom slučaju sve grane ležale na pomenutoj pravoj. Dakle, treba nam drugi pristup. 
+    Šta ukoliko bismo y koordinatu samo skalirali za neko $p \in \mathbb{R}$? U tom slučaju svi čvorovi bi ležali na pravoj $y=px$, što nam opet ne odgovara iz istog razloga.
+    Ukoliko sada to posmatramo u domenu vektora, ne odgovara nam ni jedna varijanta u kojoj je vektor $\vec{y}$ linearno zavisan sa vektorom $\vec{x}$.
+    Sada bar znamo gdje da tražimo vektor $\vec{y}$ - u skupu vektora linerno nezavisnih sa Fiedler-ovim vektorom, a koji istovremeno nastoje da minimizuju kvadratnu formu Laplasove matrice.
+    Upravo takav vektor je sopstveni vektor Laplasove matrice koji odgovara narednoj najmanjoj sopstvenoj vrijednosti. 
+	Ukoliko pak, ovaj vektor ne daje najbolju reprezentaciju grafa, može se pokušati i sa ostalim sopstvenim vektorima.
+
+    Za prikaz grafa u prostoru, iskoristili bismo još jedan od sopstvenih vektora Laplasove matrice putem kojeg bismo dodijelili z koordinate svim čvorovima.
+    U nastavku ćemo vidjeti kako sve ovo izgleda na djelu.
+
+    Prethodno opisanim pristupom i motivacijom se vodio i Hall kada je došao do pristupa prikazivanju grafa upotrebom spektra Laplasove matrice koji je nazvan "Spectral Graph Drawing". 
+
 	\begin{example}
-		Posmatrajmo sljedeci graf G
-		\begin{figure}[h]
-			\centering
-			\includegraphics[width=1\textwidth]{Figure_1.png}
-		\end{figure}
+		U ravni prikazati ciklus sa 20 cvorova. Jasno da je idealan prikaz ovog grafa pravilan dvadesetougao.
+        
+		Laplasova matrica ciklusa sa 20 cvorova je data sa
 		\[
-		A_G =
-		\begin{bmatrix}
-			0  &  1  &  1  &  1  &  0  & 0  &  0  &  0  &  0  &  0\\
-			1  &  0  &  0  &  1  &  0  & 0  &  0  &  0  &  0  &  0\\
-			1  &  0  &  0  &  0  &  0  & 0  &  0  &  0  &  0  &  0\\
-			1  &  1  &  0  &  0  &  0  & 0  &  0  &  0  &  0  &  0\\
-			0  &  0  &  0  &  0  &  0  & 1  &  1  &  0  &  0  &  0\\
-			0  &  0  &  0  &  0  &  1  & 0  &  1  &  0  &  0  &  0\\
-			0  &  0  &  0  &  0  &  1  & 1  &  0  &  0  &  0  &  0\\
-			0  &  0  &  0  &  0  &  0  & 0  &  0  &  0  &  1  &  0\\
-			0  &  0  &  0  &  0  &  0  & 0  &  0  &  1  &  0  &  0\\
-			0  &  0  &  0  &  0  &  0  & 0  &  0  &  0  &  0  &  0\\
-		\end{bmatrix}
-		\]
+			\begin{pmatrix}
+				2 & -1 & 0 & 0 & \cdots & 0 & -1 \\
+				-1 & 2 & -1 & 0 & \cdots & 0 & 0 \\
+				0 & -1 & 2 & -1 & \cdots & 0 & 0 \\
+				0 & 0 & -1 & 2 & \cdots & 0 & 0 \\
+				\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+				0 & 0 & 0 & 0 & \cdots & 2 & -1 \\
+				-1 & 0 & 0 & 0 & \cdots & -1 & 2
+            \end{pmatrix}	
+            \]
+            
+            Dio spektra Laplsove matrice je dat u nastavku
+            \[
+                \begin{split}
+                    \alpha_1=-0   \text{  } \vec{e}_1 = \begin{bmatrix} -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \end{bmatrix}  
+                    \alpha_2=0.1  \text{  } \vec{e}_2 = \begin{bmatrix} -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \\ 0.0 \\ 0.1 \\ 0.19 \\ 0.26 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.1 \\ -0.19 \\ -0.26 \\ -0.3 \end{bmatrix} 
+                 \alpha_3=0.1  \text{  } \vec{e}_3 = \begin{bmatrix} -0.0 \\ 0.09 \\ 0.18 \\ 0.25 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.09 \\ -0.18 \\ -0.25 \\ -0.3 \\ -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \end{bmatrix}
+              \end{split}
+              \]
+              
+              Iscrtajmo sada graf u ravni tako da su x i y koordinate cvorova data sa odgovarajucom vrijednosti sopstvenih vektora koji odgovara najmanjoj nenula sopstvenoj vrijednosti.
+              
+            \end{example}
+            
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=1\textwidth]{circle_graph.png}
+            \end{figure}
+            
+    \begin{example}
+        Predstaviti 'bucky ball' graf u ravni. 
+        
+        Radi se o grafu koji je matematicka reprezentacija molekula $c_{60}$. Molekul se sastoji od 60 atoma ugljenika koji forimiraju icosahedron.
+        U pitanju je graf sa stepenom regularnosti 3.
+        
+        Kako su matrice pridruzene voom grafu jako velike i nisu pogodne za prikaz, u nastavku cemo dati samo dio liste susjednosti, podrazumijevajuci da je skup cvorova dat Sa
+        $V = \{1,2, \dots 60\}$
+        \[
+            \begin{tabular}{c|l}
+                \textbf{Vertex} & \textbf{Adjacent Vertices} \\
+                \hline
+                1 & 2, 3, 4 \\
+                2 & 1, 55, 56 \\
+                3 & 1, 58, 60 \\
+                4 & 1, 57, 59 \\
+                5 & 8, 13, 14 \\
+                6 & 8, 12, 15 \\
+                7 & 8, 11, 16 \\
+                8 & 5, 6, 7 \\
+                9 & 13, 15, 25 \\
+                10 & 14, 16, 26 \\
+                11 & 7, 12, 24 \\
+                12 & 6, 11, 23 \\
+                13 & 5, 9, 18 \\
+        \end{tabular}
+        \]
 
-		Jasno je da se graf sastoji od 3 povezane komponente. Formirajmo njegovu Laplasovu matricu i oderedimo njen spektar.
+        Nakon izracunavanja spektra Laplasove matrice ovog grafa, vec nailazimo na prvi problem. Rekli smo da su nam potrebna 2 sopstvena vektora koja odgovarajaju najmanjin nenula sopstvenim 
+        vrijednostima. Najmanja nenula sopstvena vrijednost je $\alpha2 = 0.24$ i ima geometrijsku visestrukost 3. Nemamu nikakvu indikaciju koja dva od moguca 3 vektora su najbolja za prikaz, pa cemo pokusati sve moguce kombinacije.
 
-		\[
-		L_G =
-		\begin{bmatrix}
-		3   &  -1  &  -1  &  -1  &  0  &  0   &  0   &  0   &  0   &  0\\
-		-1  &  2   &  0   &  -1  &  0  &  0   &  0   &  0   &  0   &  0\\
-		-1  &  0   &  1   &  0   &  0  &  0   &  0   &  0   &  0   &  0\\
-		-1  &  -1  &  0   &  2   &  0  &  0   &  0   &  0   &  0   &  0\\
-		0   &  0   &  0   &  0   &  2  &  -1  &  -1  &  0   &  0   &  0\\
-		0   &  0   &  0   &  0   &  -1 &  2   &  -1  &  0   &  0   &  0\\
-		0   &  0   &  0   &  0   &  -1 &  -1  &  2   &  0   &  0   &  0\\
-		0   &  0   &  0   &  0   &  0  &  0   &  0   &  1   &  -1  &  0\\
-		0   &  0   &  0   &  0   &  0  &  0   &  0   &  -1  &  1   &  0\\
-		0   &  0   &  0   &  0   &  0  &  0   &  0   &  0   &  0   &  0\\
-		\end{bmatrix}
-		\]
-		Numerickim metodama i upotrbom racunara dolazimo do spektra ove matrice
-		\[
-		\begin{split}
-			\alpha_1=0.0 \text{     } & \vec{e_1}^T = \begin{bmatrix} -0.5  &   -0.5  &  -0.5  &  -0.5  &  0  &  0  &  0  &  0  &  0  & 0      \end{bmatrix} \\ 
-			\alpha_2=0.0 \text{     } & \vec{e_2}^T = \begin{bmatrix} 0  &   0  &  0  &  0  &  -0.58  &  -0.58  &  -0.58  &  0  &  0  & 0      \end{bmatrix} \\ 
-			\alpha_3=0.0 \text{     } & \vec{e_3}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0  &  0.71  &  0.71  &  0            \end{bmatrix} \\
-			\alpha_4=0.0 \text{     } & \vec{e_4}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  0  &  1                  \end{bmatrix} \\
-			\alpha_5=1.0 \text{     } & \vec{e_5}^T = \begin{bmatrix} 0  &  0.41  &  -0.82  &  0.41  &  0  &  0  &  0  &  0  &  0  &  0        \end{bmatrix} \\
-			\alpha_6=2.0 \text{     } & \vec{e_6}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0  &  0.71  &  -0.71  &  0           \end{bmatrix} \\
-			\alpha_7=3.0 \text{     } & \vec{e_7}^T = \begin{bmatrix} 0  &  0.71  &  0  &  -0.71  &  0  &  0  &  0  &  0  &  0  &  0           \end{bmatrix} \\
-			\alpha_8=3.0 \text{     } & \vec{e_8}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0.82  &  -0.41  &  -0.41  &  0  &  0  &  0       \end{bmatrix} \\
-			\alpha_9=3.0 \text{     } & \vec{e_9}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  &  0.29  &  -0.81  &  0.51  &  0        \end{bmatrix} \\
-			\alpha_1=4.0 \text{    } & \vec{e_1}^T = \begin{bmatrix} 0.87  &  -0.29  &  -0.29  &  -0.29  &  0  &  0  &  0  &  0  &  0  &  0  \end{bmatrix}
-		\end{split}
-		\]
-		Ukoliko sada u vidu grafa predstavimo sopstvene vektore koji odgovaraju sopstvenim vrijednosti 0, dobijamo
-		\pagebreak
-		\begin{figure}[h]
-			\centering
-			\includegraphics[width=0.8\textwidth]{plot.png}
-		\end{figure}
-		
-		Za ocekivati je bilo da sopstvena vrijednost ima visestrukorst 4 jer se graf sastoji od 4 komponente povezanosti, ali zanimljivo je
-		da svaki sopstveni vektor koji odgovara sopstvenoj vrijednosti nula istice sve cvorove koji pripadaju istoj komponenti povezanosti dodjeljujuci
-		im istu vrijednost, a svim ostalim cvorovima vrijednost nula. Najmanja nenula sopstvena vrijednost je mala, sto ukazuje da graf nije cvrsto povezan, odnosno da je
-        jako blizu da ima 5 povezanih komponenti. To se jasno moze postici uklanjanjem samo jedne grane.
-	\end{example}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_1.png}
+        \end{figure}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_2.png}
+        \end{figure}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_3.png}
+        \end{figure}
 
-	
+        Zaista, sva tri prikazu su pristojna, ali se drugi naizgled cini kao najbolji.
+        S druge strane, cini se kao da im nedostoje jos jedna dimenzija za bolji prikaz. I zaista, kao dati graf predstavimo u prostoru dobijamo zaista dobar prikaz.
+        Da li je visestrukost najmanje nenula sopstvene vrijednosti upucivala da je graf potrebno predstaviti u trodimenzijalnom prostoru.
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{bucky_ball_3d.png}
+        \end{figure}
+        
+    \end{example}
+    
+    \begin{example}
+        Prikazati pseudo-slucajno generisani graf sa 25 cvorova u ravni.
+        Uz pomoc odgovarajuceg softvera generisan je sljedeci graf.
+        
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{random_graph_3.png}
+        \end{figure}
+        
+        Pogledajmo sada do kakve reprezentacije grafa se dolazi upotrebom opisane metode.
+        
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{random_graph_4.png}
+        \end{figure}
+
+        Sa slike se vidi da he graf gotovo planaran, tj. prikaz sadrzi samo 3 grane koje se sijeku, sto je i bila nasa ideja prilikom prikazivanja grafa.
+    \end{example}
+
 	\begin{example}
 		Posmatrajmo sada drugi graf.
 		\begin{figure}[h]
@@ -2005,14 +2152,11 @@
 
     \end{custom_proof}
 
-    \subsection
-    Primjena spektralne teoreme grafova
+
 
     Spektralna teorema grafova je jako zastupljena u raynim naucnim olastima, narocito u racunarskim naukama.
     Laplasova matrica i njen spektar se koristi za spektralno praticionisanja grafova prilikom segmentacije slike rasporednvanja tranzistora na VLSI cipovima. Prilikom klasifikacije dokumanta na sonocu semnatickih pveyanistu izmedju rijeci.
     Prilikon analize podataka i spektralnog uparivanja.
-    
-    Sopstveni vektori Laplasvoe matrice se jos i nazivaju i eigenfunctions.
 
     Fiedler value nad vector
 
@@ -2058,138 +2202,7 @@
 
     \end{example}
 
-    \subsection{Spectral graph drawing}
 
-	Razmotrimo sada kako se spektralna teorema grafova moze iskoristiti za njihovo prikazivanje. Obicno se losa reprezentacija grafa povezuje sa velikim brojem grana koje se sijeku.
-	Iako znamo da je presijecanje grana u velikom broju slucajeva neizbjeno, iz rasloga sto mnostov grafova nije planarno, trebamo teziti tome da broj grana koje se sijeku svedemo na minimum.
-    Jasno da bismo to postigli potrebno je da strateski pozicioniramo cvorove. Kao logicna ideja namece se se to da susjedne cvorove smjestimo sto blize. Na ovaj nacin grane koje ih spajaju ce biti sto krace, a samim tim smanjice se i vjerovatnoca da ih neka druga grana grafa sijece.
-    
-	Ukoliko graf prikazujemo u ravni koordinatnog sistema, blisko pozicioniranje susjednih cvorova se svodi na dodjeljivanje bliskih vrijednosti koordinata susjednim cvorovima.
-    Razlika izmedju koordinata susjednih cvora treba da bude sto manja, tj. potrebno je da suma $\sum_{\{v,j\} \in E} (\vec{x}_v - \vec{x}_i)^2$ bude sto manja za $\forall v \in V$. Posmatramo kvadrat razlike x koordinata samo zato da bismo izbjegli negativne vrijednosti.
-    Ovaj izraz nam je vec poznat, radi se o kvadratnoj formi Laplasove matrice, tj. $\vec{x}^T L_G \vec{x}$. Ponovo, Laplasova matrica se namece kao potencijalno resenje.
-    Jasno je dan nam ne odgovara da navedena suma ima vrijednost 0, jer ipak zelimo razlikujemo susjedne cvorove, a ne da ih sve smjestimo u jednu tacku. Stoga vrijednost sume treba da bude bliska nuli.
-    Sada se postavlja pitanje kako odrediti vektor $\vec{x}$ koji svakom cvoru dodjeljuje vrijednost x koordinate. Zasto ne bismo pokusali sa sopstvenim vektorima Laplasove matrice?
-    Do njih mozemo (relativno) lako doci, a i znamo da $\vec{e_i}^T L_G \vec{e_i} = \alpha_i$. Odavde zakljucujemo da se Fiedler-ov vektor ponovo ukazuje kao resenje naseg problema.
-    Treba napomenuti, da Fiedler-ov vektor nije nuzno najbolji izbor za dodljevianje koordinata cvorovima, ali je njegova prednost po prirodi odgovara nasem problemi i sto nam je poznat.
-    Sada znamo kako cvorovima dodijeliti x koordinatu, ali sta je y koordinate? Ako bismo pokusali da svakom cvoru dodijelimo istu x i y ipsilon koordinatu,
-    dosli bismo do toga da bi se svi cvorovi nasli na pravoj $y = x$. Lako se vidi da bi se u tom slucaju sve grane lezale na pomenutoj pravo. Dakle, treba nam drugi pristup. 
-    Sta ukoliko bismo y koordinatu samo skalirali za neko p? U tom slucaju svi cvorovi bi lezali na pravoj $y=px$, sto nam opet ne odgovara iz istog razaloga.
-    Ukoliko sada to posmatramo u domenu vektora, ne odgovara nam ni jedna varijanta u kojoj je vektor $\vec{y}$ linerano zavisan sa vektorom $\vec{x}$.
-    Sada bar znamo gdje da trazimo vektor $\vec{y}$ - u skupu vektora linerno nezavisnih sa Fiedler-ovim vektorom, a koji istovremeno minimizuju kvadratnu formu Laplasove matrice.
-    Upravo su takak vektor je sopstveni vektor Laplsove matrice koji odgovara narednoj najmnanjoj sopstvenoj vrijednosti. Naravno ukoliko ovaj vektor ne daje najbolju repreyentaciju grafa, moze se pokusati i sa ostalim sopstvenim vektorima.
-
-    Za prikaz grafa u prostoru, iskoristicemo jos jedan od sopstvenih vektora Laplasove matrice putem kojeg cemo dodijeliti z koordinate svim cvorovima.
-    U nastavku cemo vidjeti kako sve ovo izgleda na djelu.
-
-    Prethodno opisani pristupom i motivacijom se vodio Hall kada je dosao do Spectral graph drawing-a
-
-	\begin{example}
-		U ravni prikazati ciklus sa 20 cvorova. Jasno da je idealan prikaz ovog grafa pravilan dvadesetougao.
-        
-		Laplasova matrica ciklusa sa 20 cvorova je data sa
-		\[
-			\begin{pmatrix}
-				2 & -1 & 0 & 0 & \cdots & 0 & -1 \\
-				-1 & 2 & -1 & 0 & \cdots & 0 & 0 \\
-				0 & -1 & 2 & -1 & \cdots & 0 & 0 \\
-				0 & 0 & -1 & 2 & \cdots & 0 & 0 \\
-				\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
-				0 & 0 & 0 & 0 & \cdots & 2 & -1 \\
-				-1 & 0 & 0 & 0 & \cdots & -1 & 2
-            \end{pmatrix}	
-            \]
-            
-            Dio spektra Laplsove matrice je dat u nastavku
-            \[
-                \begin{split}
-                    \alpha_1=-0   \text{  } \vec{e}_1 = \begin{bmatrix} -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \end{bmatrix}  
-                    \alpha_2=0.1  \text{  } \vec{e}_2 = \begin{bmatrix} -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \\ 0.0 \\ 0.1 \\ 0.19 \\ 0.26 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.1 \\ -0.19 \\ -0.26 \\ -0.3 \end{bmatrix} 
-                 \alpha_3=0.1  \text{  } \vec{e}_3 = \begin{bmatrix} -0.0 \\ 0.09 \\ 0.18 \\ 0.25 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.09 \\ -0.18 \\ -0.25 \\ -0.3 \\ -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \end{bmatrix}
-              \end{split}
-              \]
-              
-              Iscrtajmo sada graf u ravni tako da su x i y koordinate cvorova data sa odgovarajucom vrijednosti sopstvenih vektora koji odgovara najmanjoj nenula sopstvenoj vrijednosti.
-              
-            \end{example}
-            
-            \begin{figure}[h]
-                \centering
-                \includegraphics[width=1\textwidth]{circle_graph.png}
-            \end{figure}
-            
-    \begin{example}
-        Predstaviti 'bucky ball' graf u ravni. 
-        
-        Radi se o grafu koji je matematicka reprezentacija molekula $c_{60}$. Molekul se sastoji od 60 atoma ugljenika koji forimiraju icosahedron.
-        U pitanju je graf sa stepenom regularnosti 3.
-        
-        Kako su matrice pridruzene voom grafu jako velike i nisu pogodne za prikaz, u nastavku cemo dati samo dio liste susjednosti, podrazumijevajuci da je skup cvorova dat Sa
-        $V = \{1,2, \dots 60\}$
-        \[
-            \begin{tabular}{c|l}
-                \textbf{Vertex} & \textbf{Adjacent Vertices} \\
-                \hline
-                1 & 2, 3, 4 \\
-                2 & 1, 55, 56 \\
-                3 & 1, 58, 60 \\
-                4 & 1, 57, 59 \\
-                5 & 8, 13, 14 \\
-                6 & 8, 12, 15 \\
-                7 & 8, 11, 16 \\
-                8 & 5, 6, 7 \\
-                9 & 13, 15, 25 \\
-                10 & 14, 16, 26 \\
-                11 & 7, 12, 24 \\
-                12 & 6, 11, 23 \\
-                13 & 5, 9, 18 \\
-        \end{tabular}
-        \]
-
-        Nakon izracunavanja spektra Laplasove matrice ovog grafa, vec nailazimo na prvi problem. Rekli smo da su nam potrebna 2 sopstvena vektora koja odgovarajaju najmanjin nenula sopstvenim 
-        vrijednostima. Najmanja nenula sopstvena vrijednost je $\alpha2 = 0.24$ i ima geometrijsku visestrukost 3. Nemamu nikakvu indikaciju koja dva od moguca 3 vektora su najbolja za prikaz, pa cemo pokusati sve moguce kombinacije.
-
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_1.png}
-        \end{figure}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_2.png}
-        \end{figure}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_3.png}
-        \end{figure}
-
-        Zaista, sva tri prikazu su pristojna, ali se drugi naizgled cini kao najbolji.
-        S druge strane, cini se kao da im nedostoje jos jedna dimenzija za bolji prikaz. I zaista, kao dati graf predstavimo u prostoru dobijamo zaista dobar prikaz.
-        Da li je visestrukost najmanje nenula sopstvene vrijednosti upucivala da je graf potrebno predstaviti u trodimenzijalnom prostoru.
-
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_3d.png}
-        \end{figure}
-        
-    \end{example}
-    
-    \begin{example}
-        Prikazati pseudo-slucajno generisani graf sa 25 cvorova u ravni.
-        Uz pomoc odgovarajuceg softvera generisan je sljedeci graf.
-        
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{random_graph_3.png}
-        \end{figure}
-        
-        Pogledajmo sada do kakve reprezentacije grafa se dolazi upotrebom opisane metode.
-        
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{random_graph_4.png}
-        \end{figure}
-
-        Sa slike se vidi da he graf gotovo planaran, tj. prikaz sadrzi samo 3 grane koje se sijeku, sto je i bila nasa ideja prilikom prikazivanja grafa.
-    \end{example}
 
     
 	\end{document}
