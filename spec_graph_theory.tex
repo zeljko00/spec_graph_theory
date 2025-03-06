@@ -1834,15 +1834,14 @@
 	
 	\section{Primjena spektralne teorije grafova}
 
-	    \subsection{Spectral graph drawing}
+	\subsection{Spectral graph drawing}
+	Razmotrimo kako se spektralna teorija grafova može iskoristiti za njihovo prikazivanje. 
 
-	Razmotrimo sada kako se spektralna teorema grafova može iskoristiti za njihovo prikazivanje. 
 	Obično se loša reprezentacija grafa povezuje sa velikim brojem grana koje se sijeku.
 	Iako znamo da je presijecanje grana u velikom broju slučajeva neizbježno, iz razloga što mnoštvo grafova nije planarno,
 	trebamo težiti tome da broj grana koje se sijeku svedemo na minimum.
     Da bismo to postigli, potrebno je da strateški pozicioniramo čvorove.
 	Kao logična ideja nameće se to da susjedne čvorove smjestimo što bliže.
-	Na ovaj način grane koje ih spajaju će biti što kraće, a samim tim smanjiće se i vjerovatnoća da ih neka druga grana grafa siječe.
     
 	Ukoliko graf prikazujemo u ravni koordinatnog sistema, blisko pozicioniranje susjednih čvorova se svodi na dodjeljivanje bliskih vrijednosti koordinata susjednim čvorovima.
     Razlika između koordinata susjednih čvora treba da bude što manja, tj. potrebno je da suma $\sum_{\{v,i\} \in E} (\vec{x}_v - \vec{x}_i)^2$ bude što manja za $\forall v \in V$.
@@ -1868,14 +1867,12 @@
     Za prikaz grafa u prostoru, iskoristili bismo još jedan od sopstvenih vektora Laplasove matrice putem kojeg bismo dodijelili z koordinate svim čvorovima.
     U nastavku ćemo vidjeti kako sve ovo izgleda na djelu.
 
-    Prethodno opisanim pristupom i motivacijom se vodio i Hall kada je došao do pristupa prikazivanju grafa upotrebom spektra Laplasove matrice koji je nazvan "Spectral Graph Drawing". 
-
 	\begin{example}
-		U ravni prikazati ciklus sa 20 cvorova. Jasno da je idealan prikaz ovog grafa pravilan dvadesetougao.
-        
-		Laplasova matrica ciklusa sa 20 cvorova je data sa
+		U ravni prikazati ciklus sa 20 čvorova. 
+		
+		Jasno je da bi idealan prikaz ovog grafa bio pravilan dvadesetougao. Laplasova matrica ciklusa sa 20 čvorova u dio njenog spektra dat je u nastavku.
 		\[
-			\begin{pmatrix}
+			\begin{bmatrix}
 				2 & -1 & 0 & 0 & \cdots & 0 & -1 \\
 				-1 & 2 & -1 & 0 & \cdots & 0 & 0 \\
 				0 & -1 & 2 & -1 & \cdots & 0 & 0 \\
@@ -1883,38 +1880,36 @@
 				\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
 				0 & 0 & 0 & 0 & \cdots & 2 & -1 \\
 				-1 & 0 & 0 & 0 & \cdots & -1 & 2
-            \end{pmatrix}	
-            \]
-            
-            Dio spektra Laplsove matrice je dat u nastavku
-            \[
-                \begin{split}
-                    \alpha_1=-0   \text{  } \vec{e}_1 = \begin{bmatrix} -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \end{bmatrix}  
-                    \alpha_2=0.1  \text{  } \vec{e}_2 = \begin{bmatrix} -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \\ 0.0 \\ 0.1 \\ 0.19 \\ 0.26 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.1 \\ -0.19 \\ -0.26 \\ -0.3 \end{bmatrix} 
-                 \alpha_3=0.1  \text{  } \vec{e}_3 = \begin{bmatrix} -0.0 \\ 0.09 \\ 0.18 \\ 0.25 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.09 \\ -0.18 \\ -0.25 \\ -0.3 \\ -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \end{bmatrix}
-              \end{split}
-              \]
-              
-              Iscrtajmo sada graf u ravni tako da su x i y koordinate cvorova data sa odgovarajucom vrijednosti sopstvenih vektora koji odgovara najmanjoj nenula sopstvenoj vrijednosti.
-              
-            \end{example}
-            
-            \begin{figure}[h]
-                \centering
-                \includegraphics[width=1\textwidth]{circle_graph.png}
-            \end{figure}
+            \end{bmatrix}	
+        \]
+		\[
+			\begin{split}
+				\alpha_1=-0   \text{  } \vec{e}_1 = \begin{bmatrix} -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \\ -0.22 \end{bmatrix}  
+				\alpha_2=0.1  \text{  } \vec{e}_2 = \begin{bmatrix} -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \\ 0.0 \\ 0.1 \\ 0.19 \\ 0.26 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.1 \\ -0.19 \\ -0.26 \\ -0.3 \end{bmatrix} 
+				\alpha_3=0.1  \text{  } \vec{e}_3 = \begin{bmatrix} -0.0 \\ 0.09 \\ 0.18 \\ 0.25 \\ 0.3 \\ 0.32 \\ 0.3 \\ 0.26 \\ 0.19 \\ 0.1 \\ 0.0 \\ -0.09 \\ -0.18 \\ -0.25 \\ -0.3 \\ -0.32 \\ -0.3 \\ -0.26 \\ -0.19 \\ -0.1 \end{bmatrix}
+			\end{split}
+		\]
+			
+		Prikažimo graf u ravni tako da su x i y koordinate čvorova date koordinatama sopstvenih vektora koji odgovaraju najmanjim nenula sopstvenim vrijednostima Laplasove matrice.
+			
+		\end{example}
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=1\textwidth]{circle_graph.png}
+		\end{figure}
             
     \begin{example}
-        Predstaviti 'bucky ball' graf u ravni. 
+        Predstaviti "bucky ball" graf u ravni. 
         
-        Radi se o grafu koji je matematicka reprezentacija molekula $c_{60}$. Molekul se sastoji od 60 atoma ugljenika koji forimiraju icosahedron.
+        Radi se o grafu koji je geometrijska reprezentacija molekula $C_{60}$. Molekul se sastoji od 60 atoma ugljenika koji forimiraju ikosahedron.
         U pitanju je graf sa stepenom regularnosti 3.
         
-        Kako su matrice pridruzene voom grafu jako velike i nisu pogodne za prikaz, u nastavku cemo dati samo dio liste susjednosti, podrazumijevajuci da je skup cvorova dat Sa
+        Kako su matrice pridružene ovom grafu jako velike i nisu pogodne za prikaz, u nastavku ćemo dati samo dio liste susjednosti, podrazumijevajući da je skup čvorova dat Sa
         $V = \{1,2, \dots 60\}$
         \[
             \begin{tabular}{c|l}
-                \textbf{Vertex} & \textbf{Adjacent Vertices} \\
+                \textbf{Čvor} & \textbf{Susjedni čvorovi} \\
                 \hline
                 1 & 2, 3, 4 \\
                 2 & 1, 55, 56 \\
@@ -1932,52 +1927,48 @@
         \end{tabular}
         \]
 
-        Nakon izracunavanja spektra Laplasove matrice ovog grafa, vec nailazimo na prvi problem. Rekli smo da su nam potrebna 2 sopstvena vektora koja odgovarajaju najmanjin nenula sopstvenim 
-        vrijednostima. Najmanja nenula sopstvena vrijednost je $\alpha2 = 0.24$ i ima geometrijsku visestrukost 3. Nemamu nikakvu indikaciju koja dva od moguca 3 vektora su najbolja za prikaz, pa cemo pokusati sve moguce kombinacije.
+        Nakon izračunavanja spektra Laplasove matrice ovog grafa, već nailazimo na prvi problem.
+		Rekli smo da su nam potrebna 2 sopstvena vektora koja odgovaraju najmanjim nenula sopstvenim vrijednostima.
+		Najmanja nenula sopstvena vrijednost je $\alpha_2 = 0.24$ i ima geometrijsku višestrukost 3.
+		Kako nemamo nikakvu indikaciju koja dva sopstvena vektora su najbolja za prikaz, pokušaćemo sve moguće kombinacije sopstvenih vektora koji odgovaraju ovoj sopstvenoj vrijednosti.
 
         \begin{figure}[h]
             \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_1.png}
-        \end{figure}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_2.png}
-        \end{figure}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_3.png}
+			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_1.png}}
+			\hfill
+			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_2.png}}
         \end{figure}
 
-        Zaista, sva tri prikazu su pristojna, ali se drugi naizgled cini kao najbolji.
-        S druge strane, cini se kao da im nedostoje jos jedna dimenzija za bolji prikaz. I zaista, kao dati graf predstavimo u prostoru dobijamo zaista dobar prikaz.
-        Da li je visestrukost najmanje nenula sopstvene vrijednosti upucivala da je graf potrebno predstaviti u trodimenzijalnom prostoru.
-
         \begin{figure}[h]
             \centering
-            \includegraphics[width=1\textwidth]{bucky_ball_3d.png}
+			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_3.png}}
+			\hfill
+			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_3d_zoom.png}}
         \end{figure}
+
+        Sva tri prikazu su pristojna, ali se drugi, naizgled, čini kao najbolji.
+        S druge strane, čini se kao da im nedostoje još jedna dimenzija za bolji prikaz.
+		Zaista, ukoliko dati graf predstavimo u prostoru dobijamo veoma dobar prikaz.
+        Da li nam je višestrukost najmanje nenula sopstvene vrijednosti ukazivala da je graf potrebno predstaviti u trodimenzionalnom prostoru?
         
     \end{example}
     
     \begin{example}
-        Prikazati pseudo-slucajno generisani graf sa 25 cvorova u ravni.
-        Uz pomoc odgovarajuceg softvera generisan je sljedeci graf.
-        
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{random_graph_3.png}
-        \end{figure}
-        
-        Pogledajmo sada do kakve reprezentacije grafa se dolazi upotrebom opisane metode.
-        
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{random_graph_4.png}
-        \end{figure}
+        Prikazati pseudo-slučajno generisan graf sa 25 čvorova u ravni.
 
-        Sa slike se vidi da he graf gotovo planaran, tj. prikaz sadrzi samo 3 grane koje se sijeku, sto je i bila nasa ideja prilikom prikazivanja grafa.
+        Uz pomoć odgovarajućeg softvera generisan je sljedeći graf.
+        \begin{figure}[h]
+            \centering
+			\subfloat[]{\includegraphics[width=0.48\textwidth]{random_graph_3.png}}
+			\hfill
+			\subfloat[]{\includegraphics[width=0.48\textwidth]{random_graph_4.png}}
+        \end{figure}
+        
+        Pogledajmo reprezentaciju grafa do koje se dolazi upotrebom opisane metode. 
+		Sa slike se vidi da dobijeni prikaz mnogo bolji od prikata dobijenog softverom za generisanje slučajnih grafova jer sadrži manje grana koje se sijeku i lakše se uočavaju susjedni čvorovi.
     \end{example}
-
+	
+	\subsection[Spectral graph clustering]
 	\begin{example}
 		Posmatrajmo sada drugi graf.
 		\begin{figure}[h]
@@ -2201,9 +2192,6 @@
         Element sopstvenog vektora $\vec{e}_i$ koji pripada j-toj grupi, kojoj je pridruzena boja $c_j$ ukazuje na to da bismo cvor $v_i$ trebali obojit sa $c_j$ bojom.
 
     \end{example}
-
-
-
     
 	\end{document}
 	
