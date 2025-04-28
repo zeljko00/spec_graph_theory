@@ -16,7 +16,16 @@
 	\usepackage{amsfonts}
 	\usepackage{graphicx}
 	\usepackage[T1]{fontenc}
+	\usepackage{subfig}
+	\usepackage{float} % Add this in the preamble
 
+	\usepackage{subcaption}
+	\captionsetup[subfigure]{labelformat=empty} % Remove (a), (b), (c), (d)
+
+	\usepackage{sectsty}
+\usepackage{lmodern}  % Load Latin Modern font
+
+\sectionfont{\LARGE\itshape\color{red}}  % Italic, Large, Red
 	
 	\geometry{a4paper}
 	
@@ -33,34 +42,67 @@
 	\usepackage[titles,subfigure]{tocloft}
 	\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 	\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape}
+
+	\renewcommand{\figurename}{Slika}
+	\renewcommand{\contentsname}{Sadržaj}
 	
 	\newtheorem{definition}{Definicija}
 	\newtheorem{theorem}{Teorema}
 	\newtheorem*{custom_proof}{Dokaz tvrđenja}
 	\newtheorem{consequence}{Posljedica}
 	\newtheorem{example}{Primjer}
+	\newtheorem{lema}{Lema}
 	
-	\title{Spektralna teorija grafova}
-	\author{Željko Tripić}
-	\date{28.02.2025}
-	
-	\begin{document}
-	\maketitle
-	
-	\section{Motivacija}
-	Upotreba grafova u računarskim naukama je jako zastupljena. Bilo da se grafovi koriste za skladištenje podataka, 
-	kreiranje grafova znanja za nepredna pretraživanje. Izazov prilikom rada sa grafovima u oblasti računarskih nauka je oduvijek
-	bila njihova reprezentacija. Grafovi, zbog svoje strukture, nisu najpogodniji za procesiranje u računarima.
-	Grafovi se najčešće reprezentuju u vidu matrica.
+	% \title{Spektralna teorija grafova}
+	% \author{Željko Tripić \\ Univerzitet u Banjoj Luci \\ Elektrotehnički fakultet}
+	% \date{21.03.2025.}
 
-    ???
+	\begin{document}
+
+	\begin{titlepage}
+		\centering
+		{\large Univerzitet u Banjoj Luci \par}  % Organization
+		{\large Elektrotehnički fakultet \par}  % University Name
+
+		\vspace{3cm}
+		
+		{\Huge \textbf{Spektralna teorija grafova} \par}  % Title
+		\vspace{1cm}
+		
+		{\Large Željko Tripić \par}  % Author Name
+		\vspace{1cm}
+		
+		% {\large Supervisor: Prof. XYZ \par}  % Optional
+		% \vspace{1cm}
+
+		\vfill  % Pushes the organization to the bottom
+		
+		{\large 28.04.2025. \par}  % Date
+		
+		
+		
+	\end{titlepage}
+	
+	% \maketitle
+
+	\newpage
+	\tableofcontents
+	\newpage
 	
 	\section{Uvod}
-	Doći do svojstava grafa proučavanjem svojstava njemu pridruženih matrica. 
 
-    ???
+	\paragraph{}
+	Grafovi su fundamentalne strukture koje se koriste za modelovanje veza i interakcija u mnogim domenima, poput računarskih nauka, fizike i biologije i dr.
+	\emph{Spektralna teorija grafova (eng. Spectral Graph Theory)} predstavlja spoj linearne algebre i teorije grafova i bavi se proučavanjem svojstava grafa koristeći spektar njemu pridruženih matrica.
+	Spektralne karakteristike grafova pružaju detaljan uvid u njihova strukturna svojstva.
 
-    dodati latinicna slova
+	Spektralna teorija grafova je uveliko dobila na značaju u proteklih nekoliko godina zahvaljujući razvoju mašinskog učenja, računarskih mreža i kvantnog računarstva.
+	Analiza spektra grafu pridruženih matrica omogućava da se uhvatimo u koštac sa problemima poput formiranja klastera, redukcije dimenzionalnosti podataka, te detekcije mrežnih anomalija.
+	Posebnu ulogu zauzima u oblastima obrade signala upotrebom grafova i neuronskim mrežama zasnovanim na grafovima (eng. Graph Neural Networks).
+	
+	Ovaj rad za cilj ima upoznavanje čitaoca sa spektralnom teorijom grafova kroz izlaganje njenih matematičkih osnova, osnovnih teorema i primjera praktične upotrebe.
+	Između ostalog, otkrićemo kako nam spektralne tehnike omogućavaju prikažemo i particionišemo graf. Postoje i mnoge druge primjene ove teorije kojima se nećemo ovdje baviti, poput 
+	spektralnog uparivanja, raspoređivanja kola na VLSI čipovima, klasifikacije dokumenata na osnovu semantičkih povezanosti riječi i mnogih drugih.
 	
 	\section{Osnove teorije grafova}
 	
@@ -87,7 +129,7 @@
 		\end{definition}
 	
 		\begin{definition}[Usmjeren graf]
-		Usmjeren graf $G =(V,E)$ je graf kod kojeg grane imaju usmjerenje, tj. orjentaciju. $E$ je u ovom slučaju skup uređenih parova čvorova $E = \{ (v_1,v_2) : v_1, v_2 \in V\}$. 
+		Usmjeren graf $G =(V,E)$ je graf kod kojeg grane imaju usmjerenje, tj. orijentaciju. $E$ je u ovom slučaju skup uređenih parova čvorova $E = \{ (v_1,v_2) : v_1, v_2 \in V\}$. 
 		Ukoliko $(v_1,v_2) \in E$, to znači da graf sadrži granu koja vodi od $v_1$ do $v_2$, ali ne i da postoji grana koja vodi od $v_2$ do $v_1$, što je posljedica $(v_1,v_2) \neq (v_2,v_1).$
 		\end{definition}
 	
@@ -109,7 +151,7 @@
 		\[N_G(v) = \{ v_1 : \{v, v_1\} \in E\}\]
 		\end{definition}
 	
-		\begin{definition}[(Algebarski) Stepen čvora]
+		\begin{definition}[Algebarski stepen čvora]
 		Stepen (valencija) čvora $v$ u oznaci $\deg(v)$ je broj njemu susjednih čvorova, tj. kardinalnost njegove okoline.
 		\[\deg(v) = |N_G(v)|\]
 		\end{definition}
@@ -162,11 +204,12 @@
 		\[
 			\begin{split}
 			&\text{podgraf } G_1 = (V_1, E_1) \text{ je komponenta povezanosti grafa } G = (V, E)  \Leftrightarrow \\
-			& \forall v_1,v_2 \in V_1 \text{ važi } v_1 \text{ i } v_2 \text{ su povezani } \land \not \exists \{v_3, v_4\} \in E \text{ takva da } v_3 \in V_1 \land v_4 \in (V \setminus V_1)
+			& \forall v_1,v_2 \in V_1 \text{ važi } v_1 \text{ i } v_2 \text{ su povezani } \land \not \exists \{v_3, v_4\} \in E \text{ takva da } v_3 \in V_1 \land v_4 \in (V \setminus V_1) \text{.}
 			\end{split}
 		\]
 			\paragraph{}
-			Iz navedenih definicija povezanosti čvorova i komponente povezanosti, lako se uočava da je je relacija povezanosti, u stvari, relacije ekvivalencije na skupu čvorova grafa $G$. Relacija povezanosti čvorova razbija skup $V$ na klase ekvivalencije tj. na disjunktne skupove čvorova koji odgovaraju skupovima cvorova komponenti povezanosti grafa $G$. 
+			Iz navedenih definicija povezanosti čvorova i komponente povezanosti, uočavamo da je povezanost čvorova relacija ekvivalencije na skupu čvorova grafa.
+			Relacija povezanosti čvorova razbija skup $V$ na klase ekvivalencije tj. na disjunktne skupove čvorova koji odgovaraju skupovima čvorova komponenti povezanosti grafa. 
 		\end{definition}
 	
 		\begin{definition}[Povezan graf]
@@ -177,7 +220,7 @@
 		\begin{definition}[Kompletan graf]
 		Kompletan graf sa $n$ čvorova u oznaci $K_n$ je graf kod kojeg je svaki čvor povezan sa svim ostalim čvorovima grafa. 
 		\[ 
-			K_n = (V,E) \text{ gdje } |V| = n \text{ i } v_1,v_2 \in V \Rightarrow \{v_1,v_2\} \in E
+			K_n = (V,E) \text{ gdje } |V| = n \text{ i } v_1,v_2 \in V \Rightarrow \{v_1,v_2\} \in E.
 		\]
 		\end{definition}
 		
@@ -186,7 +229,7 @@
 		\end{definition}
 		
 		\begin{definition}[Ciklus]
-		Ciklus sa $n$ cvorova je graf $C_n=(V,E)$ za koga važi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \} \cup \{\{1,n\}\}$.
+		Ciklus sa $n$ čvorova je graf $C_n=(V,E)$ za koga važi $V = \{1,2, \dots ,n\}$, $E = \{\{i, i+1\} : i \in \{1,2, \dots , n-1\} \} \cup \{\{1,n\}\}$.
 		\end{definition}
 	
 		\begin{definition}[Stablo]
@@ -194,14 +237,14 @@
 		\end{definition}
 	
 		\begin{definition}[Razapinjujući graf]
-		Razapinjujucć graf grafa $G = (V,E)$ jeste njegov podgraf koji sadrži sve njegove čvorove.
+		Razapinjujući graf grafa $G = (V,E)$ jeste njegov podgraf koji sadrži sve njegove čvorove.
 		\[
-			G' = (V, E_1) \text{ gdje je } E_1 \subseteq E \Leftrightarrow G' \text{ je razapinjujući graf} 
+			G' = (V, E_1) \text{ gdje je } E_1 \subseteq E \Leftrightarrow G' \text{ je razapinjujući graf}.
 		\]
 		\end{definition}
 	
 		\begin{definition}[Razapinjujuće stablo]
-		Razapinjujucć stablo je razapinjujući graf koji je stablo.
+		Razapinjujucće stablo je razapinjujući graf koji je stablo.
 		\end{definition}
 	
 		\begin{definition}[Kompleksnost grafa]
@@ -209,21 +252,23 @@
 		\end{definition}
 	
 	\section{Grafovi i njima pridružene matrice}
+	\paragraph{}
 	Svakom grafu se mogu pridružiti matrica susjedstva, matrica incidencije, matrica stepeni i Laplasova matrica.
 	Za spektralnu teoriju grafova od najvećeg značaja je Laplasova matrica.
 	
 		\subsection{Matrica susjedstva}
+		\paragraph{}
 		Matrica susjedstva je najčešći vid reprezentacije grafa pomoću matrice. 
-		Dimenzije matrice su $|V| \times |V|$ i njene vrste i kolone su indeksirane čvorovima grafa $G$.  
-		Element matrice susjedsta u i-tom redu i j-toj koloni nosi informaciju o susjedstvu čvorova sa indeksima $i$ i $j$.
+		Dimenzije matrice su $|V| \times |V|$ i njene vrste i kolone su indeksirane čvorovima grafa.  
+		Element matrice susjedsta u i-tom redu i j-toj koloni nosi informaciju o susjedstvu čvorova sa indeksima \emph{i} i \emph{j}.
 	
 			\begin{definition}[Matrica susjedstva] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $A_G = [a_{ij}]_{n \times n}$ koja odgovara grafu $G$ i koja je definisana sa
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $A_G = [a_{ij}]_{n \times n}$ definisana sa
 			 \[
 				 a_{ij} =
 				 \begin{cases} 
-				 0 & \text{ako } \{i, j\} \notin E \\ 
-				 1 & \text{ako } \{i, j\} \in E
+				 0, & \text{ako } \{i, j\} \notin E \\ 
+				 1, & \text{ako } \{i, j\} \in E
 				 \end{cases}
 			 \]
 			naziva se matrica susjedstva (eng. adjacency matrix) grafa $G$.
@@ -238,47 +283,49 @@
 			\[
 				a_{ij} =
 				\begin{cases} 
-				w(\{i,j\}) & \text{ako } \{i, j\} \notin E \\ 
-				0 & \text{ako } \{i, j\} \in E
+				w(\{i,j\}), & \text{ako } \{i, j\} \notin E \\ 
+				0, & \text{ako } \{i, j\} \in E.
 				\end{cases}
 			\]
 			\end{definition}
 	
 		\subsection{Matrica incidencije}
-		Matrica incidencije grafa $G$ je realna matrica dimenzije $|V| \times |E|$ kod koje su vrste indeksirane čvorovima, a kolone granama grafa $G$.
-		Element matrice incidencije u i-toj vrsti i j-toj koloni nosi informaciju o incidenciji čvora sa indeksom i i grane sa indeksom j.
+		\paragraph{}
+		Matrica incidencije grafa $G$ je realna matrica dimenzije $|V| \times |E|$ kod koje su vrste indeksirane čvorovima, a kolone granama grafa.
+		Element matrice incidencije u i-toj vrst\emph{i} i \emph{j}-toj koloni nosi informaciju o incidenciji čvora sa indeksom \emph{i} i grane sa indeksom \emph{j}.
 	
 			\begin{definition}[Matrica incidencije] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, gdje je $n = |V|$ i $m = |E|$, koja je definisana sa
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, kod koje je $n = |V|$ i $m = |E|$, i koja je definisana sa
 			 \[
 				 b_{ij} =
 				 \begin{cases}
-				 1 & \text{ako } e_j = \{i,v\} \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
-				 0 & \text{u suprotnom}
+				 1, & \text{ako } e_j = \{i,v\} \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
+				 0, & \text{u suprotnom}
 				 \end{cases}
 			 \]
 			naziva se matrica incidencije grafa $G$.
 			\end{definition}
 	
 			\begin{definition}[Matrica incidencije usmjerenog grafa] 
-			Neka je dat usmjeren graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, gdje je $n = |V|$ i $m = |E|$, koja je definisana sa
+			Neka je dat usmjeren graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $I_G = [b_{ij}]_{n \times m}$, kod koje je $n = |V|$ i $m = |E|$, i koja je definisana sa
 			 \[
 				 b_{ij} =
 				 \begin{cases}
-				 1 & \text{ako } e_j = (i,v) \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
-				-1 & \text{ako } e_j = (v,i) \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
-				 0 & \text{u suprotnom}
+				 1, & \text{ako } e_j = (i,v) \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
+				-1, & \text{ako } e_j = (v,i) \text{, gdje je } e_j \in E \text{ grana sa indeksom j} \\
+				 0, & \text{u suprotnom}
 				 \end{cases}
 			 \]
 			naziva se matrica incidencije usmjerenog grafa $G$.
 			\end{definition}
 	
-			Ponekad se matrica incidencije neusmjerenog grafa definiše kao matrica incidencije usmjerenog grafa, pri čemu se granama dodijele proizvolje orjentacije. 
+			Ponekad se matrica incidencije neusmjerenog grafa definiše kao matrica incidencije usmjerenog grafa, pri čemu se granama dodijele proizvolje orijentacije. 
 			Ovako definisana matrica incidencije je pogodna za dokazivanje Matrix-tree teoreme.
 			Matrica incidencije nije najpogodnija za analizu putem metoda linearne algebre, jer nije kvadratna, niti simetrična matrica.
 	
 		\subsection{Matrica stepeni}
-		Matrica stepeni (eng. degree matrix) grafa $G$ je realna dijagonalna matrice dimenzije $|V| \times |V|$ kod koje su vrste i kolone indeksirane čvorovima grafa $G$.
+		\paragraph{}
+		Matrica stepeni (eng. Degree Matrix) grafa $G = (V, E)$ je realna dijagonalna matrice dimenzije $|V| \times |V|$ kod koje su vrste i kolone indeksirane čvorovima grafa.
 		Elementi na glavnoj dijagonali matrice stepeni imaju vrijednost stepena čvora koji odgovara indeksu vrste/kolone, a svi ostali elementi su jednaki nuli. 
 	
 			\begin{definition}[Matrica stepeni] 
@@ -294,15 +341,16 @@
 			\end{definition}
 
 			Matrica stepeni težinskog grafa se može definisati na dva načina. Kod prvog načina na glavnoj dijagonali matrice se nalaze algebarski stepeni odgovarajućih čvorova. U ovom slučaju matrica se ne razlikuje
-			od matrice odgovarajućeg neusmjerenog grafa. Dok se kod drugog načina koriste težinski stepeni čvorova.
-			Algebarski stepen čvora smo već definisali, a težinski stepen čvora v je definisan sa $sum_{\{v,v_k\} \in E} w(\{v,v_k\})$ gdje $v_k$ predstavlja susjede čvora v.  
+			od matrice odgovarajućeg neusmjerenog grafa. Kod drugog načina koriste težinski stepeni čvorova.
+			Algebarski stepen čvora smo već definisali, a težinski stepen čvora v je definisan sa $\sum_{\{v,v_k\} \in E} w(\{v,v_k\})$ gdje $v_k$ predstavlja susjede čvora v.  
 		
 		\subsection{Laplasova matrica}
+		\paragraph{}
 			Motiv za definisanje Laplasove matrice grafa je bila analogija Laplasovog linearnog operatora u domenu grafova.
 
 			\begin{definition}[Laplasova matrica] 
 			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$. Matrica $L_G = [l_{ij}]_{n \times n}$, definisana sa $L_G = D_G - A_G$ naziva se Laplasova matrica grafa $G$.
-			Laplasova matrica uspostavlja relaciju između dvije prethodno definisane matrice, matrice susjedstva i matrice stepeni grafa $G$.
+			Laplasova matrica uspostavlja relaciju između dvije prethodno definisane matrice, matrice susjedstva i matrice stepeni grafa.
 			Iz navedenog izraza se lako vidi da su elementi Laplasove matrice dati sa
 			 \[
 				 l_{ij} =
@@ -314,7 +362,7 @@
 			 \]
 			
 			Na osnovu definicije Laplasove matrice, možemo zaključiti da je matrica realna i simetrična.
-			Zanimljivo svojstvo Laplasove matrice je da je zbir elemenata svake vrste/kolone Laplasove matrice jednak nuli.
+			Zanimljivo svojstvo Laplasove matrice je da je zbir elemenata svake vrste/ kolone matrice jednak nuli.
 			\end{definition}
 	
 			\paragraph{}
@@ -325,7 +373,6 @@
 			\[
 				L_G = \sum_{\{v_1,v_2\} \in E} L_{\{v_1,v_2\}}
 			\] 
-			
 			Laplasova matrica se može dobiti sumiranjem po svim granama grafa $G$ matrica $L_{\{v_1,v_2\}} = [l_{ij}]_{n \times n}$ definisanih sa
 			\[
 				 l_{ij} =
@@ -335,13 +382,13 @@
 				 0  & \text{u suprotnom}
 				 \end{cases}
 			 \]
-			Matrica $L_{\{v_1,v_2\}}$ se može posmatrati kao Laplasova matrica koja odgovara grani $\{v_1.v_2\}$ grafa $G$. Iz definicije, zaključujemo da se radi o realnoj i simetričnoj matrici.
+			Matrica $L_{\{v_1,v_2\}}$ se može posmatrati kao Laplasova matrica koja odgovara grani $\{v_1.v_2\}$ grafa $G$.
 			\end{definition}
 			
 			\begin{custom_proof}
 			Nakon sumiranja matrica $L_{\{v_1,v_2\}}$ po svim granama grafa $G$ dobijamo:
 				\begin{itemize}
-				\item element na glavnoj dijagonali $l_{ii}$ će imati vrijednost $p_i$ koja odgovara broju granu kojima je dati čvor incidentan, tj. važi $l_{ii} = deg(i)$
+				\item element na glavnoj dijagonali $l_{ii}$ će imati vrijednost koja odgovara broju granu kojima je dati čvor incidentan, tj. važi $l_{ii} = deg(i)$
 				\item element $l_{ij}$ van glavne dijagonale ($i \neq j$) matrice će imati vrijednost -1 samo ako graf $G$ sadrži granu $\{i,j\}$, a u suprotnom vrijednost 0.  
 				\end{itemize}
 			\end{custom_proof}
@@ -350,7 +397,7 @@
 			Ni ova karakterizazija nam nije dovoljna, pa zato dajemo još jednu koju ćemo kasnije iskoristiti za dokazivanje Kirhofove teoreme.
 	
 			\begin{definition}[Laplasova matrica] 
-			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$, $|E| = m$. Svakoj grani grafa $G$ dodijelimo proizvoljnu orjentaciju i formirajmo matricu incidencije $I_G$ u odnosu na izabranu orjentaciju.
+			Neka je dat graf $G = (V, E)$, gdje je $V = \{1, 2, \dots, n\}$, $|E| = m$. Svakoj grani grafa $G$ dodijelimo proizvoljnu orijentaciju i formirajmo matricu incidencije $I_G$ u odnosu na izabranu orijentaciju.
 			Za ovako dobijenu matricu incidencije važi
 			 \[
 				 L_G = I_G I_G^T
@@ -364,12 +411,10 @@
 			\[
 				 b_{ij} = \sum_{k=1}^{m} I_{ik} I_{kj}^T
 			\]
-
 			Iskoristimo svojstvo transponovane matrice $M_{ij}^T = M_{ji}$
 			\[
 				 b_{ij} = \sum_{k=1}^{m} I_{ik} I_{jk}
 			\]
-
 			Element $I_{ik}$ nosi informaciju o incidentnosti čvora $i$ i grane $k$, a element $I_{jk}$ nosi informaciju o incidentnosti čvora $j$ i grane $k$.
 			\[
 				 I_{ik}I_{jk} =
@@ -382,21 +427,19 @@
 				 0 * (-1) & \text{ ako čvor i nije incidentan sa granom k koja ulazi u čvor j } \\ 
 				 1 * 0 & \text{ ako čvor j nije incidentan sa granom k koja polazi iz čvora i } \\ 
 				 -1 * 0 & \text{ ako čvor j nije incidentan sa granom k koja ulazi u čvor i } \\ 
-				 0 * 0 & \text{ ako čvorovi i i j nisu incidentni sa granom k } \\ 
+				 0 * 0 & \text{ ako čvorovi \emph{i} i \emph{j} nisu incidentni sa granom k } \\ 
 				 \end{cases}
 			\]
-
 			Nakon sređivanja prethodnog izraza dobijamo sljedeće
 			\[
 				 b_{ij} = I_{ik}I_{jk} =
 				 \begin{cases}
 				 1 & \text{ ako je } i = j \text{ incidentan sa granom k, tj. ako važi }  i = j \in k \\
-				 -1 & \text{ ako su čvorovi i i j incidentni sa granom k, tj. ako važi } k = \{i,j\} \in E \\
+				 -1 & \text{ ako su čvorovi \emph{i} i \emph{j} incidentni sa granom k, tj. ako važi } k = \{i,j\} \in E \\
 				 0 & \text{ ako čvor i ili j nije incidentan sa granom k, tj, ako važi } i \notin k \lor j \notin k 
 				 \end{cases}
 			\]
-
-			Uzimajući u obzir da graf ne sadrži višestruke grane, $I_{ik}I_{jk} = -1$ za fiksno i i j je moguće samo za tačno jedno $k$. S toga, važi
+			Uzimajući u obzir da graf ne sadrži višestruke grane, $I_{ik}I_{jk} = -1$ za fiksno \emph{i} i \emph{j} je moguće samo za tačno jedno $k$. S toga, važi
 			
 			\[
 				\sum_{k=1}^{m} I_{ik}I_{jk} =
@@ -407,11 +450,12 @@
 				 \end{cases}
 			 \]
 
-			Prethodni izraz predstavlja, upravo, definiciju elementa Laplasove matrice. Uočimo, takođe, da tvrđenje važi za proizvoljnu orjentaciju grana grafa, pa samim tim važi za bilo koju
-		    od mogućih $2^m$ orjentacija.
+			Prethodni izraz predstavlja, upravo, definiciju elementa Laplasove matrice. Uočimo, takođe, da tvrđenje važi za proizvoljnu orijentaciju grana grafa, pa samim tim važi za bilo koju
+		    od mogućih $2^m$ orijentacija.
 			\end{custom_proof}
 	
-	\section{Primjena matrice susjedstva u prebrojavanju šetnji}
+	\section{Primjena matrice susjedstva}
+	\subsection{Prebrojavanje šetnji između dva čvora}
 		\paragraph{}
 		U nauci, ali i našoj svakodnevnici često se susrećemo sa problemima koji se mogu modelovati i riješiti pomoću grafova. 
 		Mnogi od tih problema se, u domenu grafova, svode na pitanje da li od nekog čvora $v_1$ možemo doći do čvora $v_2$, i ukoliko je moguće, na koliko naćina se to može postići. Primjeri takvih problema su:
@@ -436,12 +480,12 @@
 		    Teoremu ćemo dokazati putem matematičke indukcije. Radi jednostavnosti zapisa koristićemo $A_G = A$.
 			
 			\paragraph{Baza indukcije}
-			Za $n=1$, jasno je da $a_{ij}^1 = a_{ij}$ predstavlja broj šetnji dužine 1 između čvorova, jer to odgovara broju grana kojima su povezani čvorovi i i j. 
-			Kod grafa koji nije multigraf, broj grana između čvorova i i j jednak je vrijednosti elementa $a_{ij}$ matrice $A_G$, tj. 0 ukoliko čvorovi nisu susjedni ili 1 ukoliko su čvorovi susjedni. 
-			Nije moguće imati šetnju $i-j$ dužine 1 ukoliko čvorovi i i j nisu susjedni, tj. direktno povezani granom grafa. 
+			Za $n=1$, jasno je da $a_{ij}^1 = a_{ij}$ predstavlja broj šetnji dužine 1 između čvorova, jer to odgovara broju grana kojima su povezani čvorovi \emph{i} i \emph{j}. 
+			Kod grafa koji nije multigraf, broj grana između čvorova \emph{i} i \emph{j} jednak je vrijednosti elementa $a_{ij}$ matrice $A_G$, tj. 0 ukoliko čvorovi nisu susjedni ili 1 ukoliko su čvorovi susjedni. 
+			Nije moguće imati šetnju $i-j$ dužine 1 ukoliko čvorovi \emph{i} i \emph{j} nisu susjedni, tj. direktno povezani granom grafa. 
 			
 			\paragraph{Induktivna pretpostavka}
-			Pretpostavimo da tvrđenje važi za $k>1$ i proizvoljne čvorove i i j. Tada, $a_{ij}^k$ predstavlja broj šetnji dužine $k$ između čvorova i i j u grafu $G$ za $\forall i,j \in V$. 
+			Pretpostavimo da tvrđenje važi za $k>1$ i proizvoljne čvorove \emph{i} i \emph{j}. Tada, $a_{ij}^k$ predstavlja broj šetnji dužine $k$ između čvorova \emph{i} i \emph{j} u grafu $G$ za $\forall i,j \in V$. 
 			
 			\paragraph{Induktivni korak}
 			Pokažimo sada da tvrđenje važi i za $k+1$.
@@ -457,8 +501,6 @@
 			a_{ij}^{k+1} = \sum_{p=1}^{n} a_{ip}^k * a_{pj}
 			\label{eq:element}
 			\end{equation}
-		
-			\paragraph{}
 			Vrijednost elementa $a_{ij}^{k+1}$ matrice $A_G^{k+1}$ se dobija kao proizvod i-te vrste matrice $A_G^k$ i j-te kolone matrice $A_G$. 
 			
 			\paragraph{}
@@ -470,12 +512,12 @@
 			Ako sada uzmemo u obzir da prema induktivnoj pretpostavci $a_{ip}^k$ predstavlja broj $i-p$ šetnji dužine $k$ i da prema definiciji matrice susjedstva $a_{pj}=1$ ako graf $G$ sadrži granu $\{p,j\}$, 
 			izraz $a_{ip}^k * a_{pj}$ predstavlja ukupan broj $i-j$ šetnji dužine $k+1$ koje su konstruisane na prethodno izloženi način. 
 			Sumiranjem izraza po svim čvorovima grafa $G$ dobija se ukupan broj $i-j$ šetnji dužine $k+1$ 
-			\[ \sum_{p=1}^{n} a_{ip}^k * a_{pj} \]. 
+			\[ \sum_{p=1}^{n} a_{ip}^k * a_{pj} \]
 			Vrijednost ove sume, prema jednakosti (1), jednaka je elementu $a_{ij}^{k+1}$ matrice $A_G^{k+1}$ čime dokaz je završen.
 		\end{custom_proof}
 	
 		\paragraph{}
-		Sada, iako znamo kako da prebrojimo $i-j$ šetnje u zadatom grafu, nailazimo na problem koji proizilazi iz same prirode šetnji. Naime, definicija šetnje dozvoljava da se više puta posjeti neki od čvorova grafa.
+		Sada iako znamo kako da prebrojimo $i-j$ šetnje u zadatom grafu, nailazimo na problem koji proizilazi iz same prirode šetnji. Naime, definicija šetnje dozvoljava da se više puta posjeti neki od čvorova grafa.
 		Na primjer, naredne šetnje su obuhvaćene prethodno izloženom teoremom a nisu prosti putevi:
 		\[
 			\begin{split}
@@ -492,8 +534,9 @@
 		Ovakvo ograničenje je sasvim prirodno, jer možda, u kontekstu rutiranja poruke kroz računarsku mrežu,
 		ne želimo da isti uređaj više puta posreduje u prenosu jedne poruke. 
 		
-		\subsection{Prebrojavanje prostih puteva}
+		\subsection{Prebrojavanje prostih puteva između dva čvora}
 
+			\paragraph{}
 			Po ugledu na prethodnu primjenu, matricu susjedstva ćemo iskoristiti za prebrojavanje prostih puteva.
 	
 			\begin{theorem}
@@ -518,7 +561,6 @@
 				 a_{ij}^2 = a_{ij}^2 - 0   & \text{ ako } i \neq j 
 				 \end{cases}
 				\]  
-		
 			Matrica definisana prethodnim izrazom je upravo matrica $S_G^{(2)}$ data u teoremi, čime je teorema dokazana.
 			\end{custom_proof}
 	
@@ -527,7 +569,6 @@
 			\[
 			S_G^{(3)} = S_G^{(2)} A_G - A_G (D_G - I) - Diag(S_G^{(2)} A_G) 
 			\]  
-
 			gdje matrica $Diag([a_{ij}])$ definisana sa
 			\[
 			d_{ij} = 
@@ -544,7 +585,7 @@
 			Mora da važi $v \neq j$ jer u tom slučaju graf bi sadržavao petlju $\{j,j\}$ i $v \neq i$, jer u tom slučaju $i-v$ nije prost put. 
 			Konstrukcija prostog puta $i-x-v-j$ je moguća samo ako su čvorovi v i j susjedni. 
 			Broj tako konstruisanih puteva, gdje je v fiksan čvor, jednak je $s_{iv}^{(2)} * a_{vj}$.
-			Nakon sumiranja po svim čvorovima grafa, osim i i j, dobijamo $\sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj})$.
+			Nakon sumiranja po svim čvorovima grafa, osim \emph{i} i \emph{j}, dobijamo $\sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj})$.
 			Da bi ovako konstruisana šetnja $i-j$ bila prost put mora da važi da prost put $i-v$ ne posjećuje čvor j. 
 			Da bismo odredili broj prostih puteva $i-j$ dužine 3 moramo da eliminišemo sve šetnje oblika $i \rightarrow j \rightarrow v \rightarrow j$. 
 			Ukoliko je moguće konstruisati ovakve šetnje, njihov broj odgovara broju grana $\{j,v\}$ gdje $v \in (V \setminus \{i,j\})$. Jasno je da 
@@ -555,7 +596,6 @@
 				deg(j) -1 & \text{ ako } \{i,j\} \in E   
 				\end{cases} 
 			\]
-		
 			Uočimo da ukoliko važi $\{i,j\} \notin E$ onda šetnja $i \rightarrow j \rightarrow v \rightarrow j$ ni ne postoji.
 			S obzirom na sve navedeno potrebno je isključiti $a_{ij} * (deg(j) - 1)$ šetnji iz konačnog broja.
 		
@@ -563,24 +603,24 @@
 			s_{ij}^{(3)} =  \sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * (deg(j)  - 1))
 				       = \sum_{v \in (V \setminus \{i,j\})} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * deg(j)) - a_{ij}
 			\] 
-		
 			Iako smo rekli da $v \neq j$ i $v \neq i$, možemo sumirati i za te vrijednosti jer u tim slučajevima $a_{vj} = a_{jj} = 0$ i $s_{iv}^{(2)} = s_{ii}^{(2)} = 0$, pa je suma ostaje ista.
 			
 			\[
 			s_{ij}^{(3)} =  \sum_{v \in V} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * (deg(j)  - 1))
 				       = \sum_{v \in V} (s_{iv}^{(2)} * a_{vj}) - (a_{ij} * deg(j)) - a_{ij}
 			\] 
-		 
+		    \paragraph{}
 			Uočimo da izraz pod sumom liči na množenje matrica i da izraz $a_{ij} * deg(j)$ predstavlja množenje svih elemenata u istoj koloni matrice susjedstva sa istim skalarom,
 			što odgovara množenju matrice susjedstva sa dijagonalnom matricom, u ovom konkretnom slučaju, matricom stepeni. Kada prethodni izraz prikažemo u matričnom zapisu dobijamo
 			\[
 				\begin{split}
 					S_G^{(3)} & = S_G^{(2)} A_G - A_G D_G - A_G \\
-			 				  & = S_G^{(2)} A_G - A_G D_G - A_G I \\
-			    			  & = S_G^{(2)} A_G - A_G (D_G - I) 
+					& = S_G^{(2)} A_G - A_G D_G - A_G I \\
+					& = S_G^{(2)} A_G - A_G (D_G - I) 
 				\end{split}
-			\]
-
+				\]
+				
+			\paragraph{}
 			Prethodni izraz predstavlja broj prostih puteva $i-j$ dužine 3 za $i \neq j$. 
 			Za $i = j$ broj prostih puteva je nula pa mora da važi $s_{ii} = 0$ za $\forall i \in V$. 
 			Da bismo to postigli za elemente na glavnoj dijagonali moramo anulirati vrijednost $\sum_{v \in E} (s_{iv}^{(2)} * a_{vj}) - a_{ij} * (deg(j)  - 1)$.
@@ -610,7 +650,7 @@
 			To znači da moramo eliminisati šetnje koje su oblika $i \rightarrow j \rightarrow v_2 \rightarrow v \rightarrow j$ i $i \rightarrow v_1 \rightarrow j \rightarrow v \rightarrow j$. 
 	
 			\paragraph{}
-			Prosti putevi $i \rightarrow j \rightarrow v_2 \rightarrow v$ su mogući samo ako su i i j susjedni čvorovi. Za fiksan čvor v ima ih koliko i prostih puteva $j \rightarrow v_2 \rightarrow v$. 
+			Prosti putevi $i \rightarrow j \rightarrow v_2 \rightarrow v$ su mogući samo ako su \emph{i} i \emph{j} susjedni čvorovi. Za fiksan čvor v ima ih koliko i prostih puteva $j \rightarrow v_2 \rightarrow v$. 
 			S tim da moramo da pazimo da $v_2 \neq i$, tj. moramo izuzeti šetnju $j-i-v$. Ne moramo da vodimo računa da li je $v=i$ jer ne vršimo sumiranje u tom slučaju.
 			\[
 				\sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * (s_{jv}^{(2)} - a_{ji}a_{iv})]\}
@@ -626,12 +666,13 @@
 			 \[
 				s_{ij}^{(4)} = \sum_{v \in (V \setminus \{i\})} \{a_{vj} * [s_{iv}^{(3)} - a_{ij} * s_{jv}^{(2)} - s_{ij}^{(2)} +  a_{iv}( a_{ij} + 1)]\}
 			 \]
-			Zbog kompleksnosti samog izraza ovdje ćemo se zaustaviti. Evidentno je da se povećanjem dužine prostog puta povećava i kompleksnost izraza.
+
+			Zbog kompleksnosti izraza ovdje ćemo se zaustaviti. Evidentno je da se povećanjem dužine prostog puta povećava i kompleksnost izraza.
 		
 			\paragraph{}
 			Maksimum broja prostih puteva između dva čvora u grafu možemo izračunati na osnovu znanja koja imamo o kompletnom grafu sa $n$ čvorova $K_n$.
-			Potrebno je da izaberemo $k-1$ čvor koji će pored čvorova i i j biti sadržan u prostom putu. Prvi od $k-1$ čvorova možemo odabrati na $n-2$ načina, 
-			jer ne možemo odabrati čvorove i i j. Naredni čvor pored pored i, j, ne može biti ni prethodno izabrani čvor. Istom strategijom biramo čvorove sve dok ne odaberemo svih $k-1$. 
+			Potrebno je da izaberemo $k-1$ čvor koji će pored čvorova \emph{i} i \emph{j} biti sadržan u prostom putu. Prvi od $k-1$ čvorova možemo odabrati na $n-2$ načina, 
+			jer ne možemo odabrati čvorove \emph{i} i \emph{j}. Naredni čvor pored pored i, j, ne može biti ni prethodno izabrani čvor. Istom strategijom biramo čvorove sve dok ne odaberemo svih $k-1$. 
 			Ispostavlja se da je u kompletnom grafu broj prostih puteva $i-j$ jednak 
 			\[
 				\begin{split}
@@ -641,296 +682,8 @@
 				                  & = \frac{(n-2)!}{(n-k-1)!}
 				\end{split}
 			\]
-	\section{Prebrojavanje razapinjujućih stabala grafa}
-	
-		\paragraph{}
-		Prisjetimo se rješavanja strujnih kola upotrebom Kirhofovih zakona. Prema drugom Kirhofovom zakonu zbir padova napona u zatvorenoj konturi jednak je nuli. 
-		Kako bismo uopšte primijenili ovaj zakon, potrebno je odrediti odgovarajuće zatvorene konture.
-		Jedan od načina da uvijek izaberemo prave konture jeste da posmatramo strujno kola kao graf u kome su provodnici grane, 
-		a mjesta račvanja provodnika čvorovi i da formiramo razapinjujuće stablo takvog grafa.
-		Nakon formiranja razapinjujućeg stabla, zatvorene konture konstruišemo tako što na stablo nadovežemo još jednu granu,
-	    tj. provodnik, koji nije u njegovom sastavu i tako formiramo ciklus u grafu.
-	
-		\paragraph{}
-	        S druge strane, posmatrajmo situaciju u kojoj želimo da dizajniramo računarsku mrežu koja će spajati sve veće gradove u nekoj državi. 
-		Cilj je da upotrebom skupih kablova sa velikom propusnim opsegom uspostavimo direktnu ili indirektnu vezu između svih tih gradova.
-		Između pojedinih gradova nije moguće uspostaviti direktnu vezu iz razloga što reljef to ne dopušta, dok je kod nekih udaljenost prevelika.
-		Jasno je da će optimalna mreža imati strukturu razapinjujućeg stabla grafa. Takođe, jasno je i da razapinjujuće stablo ne mora biti jedinstveno.
-	
-		\paragraph{}
-		Sada je već jasno da je određivanje razapinjujućeg stabla problem koji se jako često javlja. Kako razapinjujuće stablo vrlo često nije moguće jedinstveno odrediti, 
-		potrebno je pronaći sva takva stabla, pa onda odrediti koje nam najvise odgovara vodeći se nekim kriterijumom odabira. 
-		Ukoliko je već moguće formirati više od jednog razapinjujućeg stabla, korisno bi bilo prebrojati ih za dati graf.
 		
-		\paragraph{}
-		Kako bismo konačno opravdali naslov rada koji ukazuje na to da ćemo koristiti spektar matrice,
-		krajnje je vrijeme da uspostavimo vezu između spektra neke od grafu pridruženih 	     
-		matrica i nekog njegovog svojstva. 
-		S toga, navodimo narednu teoremu koja nam daje relaciju između sopstvenih vrijednosti Laplasove matrice grafa i broja njegovih razapinjujućih stabala.
-	
-		\begin{theorem}[Kirhofova teorema]
-		Neka je dat povezan graf $G= (V,E) $ sa n čvorova, njegova Laplasova matrica $L_G$ i njene nenula sopstvene vrijednosti $\alpha_2, \alpha_3, \dots, \alpha_n$. Tada važi
-		\[
-			k(G) = |V|^{-1}\alpha_2 \alpha_3 \dots \alpha_n
-		\]
-		Kompleksnost povezanog grafa $G$, tj. broj njegovih razapinjujućih stabala jednak je količniku proizvoda nenula sopstvenih vrijednosti Laplasove matrice i broja čvorova. 
-		Jasno je da se za nepovezan graf ne može formirati razapinjujuće stablo, tj. u tom slučaju $\alpha_2 = 0$ pa dobijamo $k(G) = 0$. 
-		Ova teorema je još poznata i kao teorema "matrica-stablo" (eng. Matrix-Tree theorem).
-		\end{theorem}
-	
-		\begin{custom_proof} Za dokazivanje teoreme biće nam potrebna i neke pomoćna tvrđenja koja ćemo usput navoditi.
-
-		Neka je $M$ proizvoljna matrica dimenzije $a \times b$. Sa $M_{R,S}$ označavaćemo redukovanu matricu koja se od matrice $M$ dobije tako što se zadrže samo vrste iz skupa $R$ i kolone is skupa $S$. 
-		$M_{R,:}$ je matrica koja se dobije od matrice $M$ tako što se zadrže samo vrste iz skupa $R$, a $M_{:,S}$ je matrica koja se dobije od matrice $M$ tako što se zadrže samo kolone iz skupa $S$.
-		Matrica $M_{R,S}$ je dimenzije $|R| \times |S|$.
-	
-		Kako svako razapinjujuće stablo sadrži sve čvorove grafa i $n-1$ granu,
-		jasno je da treba odrediti koliko podskupova skupa grana sa $n-1$ elementom zadovoljava uslove razapinjujućeg stabla.
-		Kako je u pitanju povezan graf, jasno je i da $|E| \geq n-1$.
-		Matrica incidencije je matrica koja najneposrednije sadrži informacije o granama grafa,
-		s toga se ona nameće kao logičan izbor prilikom formiranja razapinjujućeg stabla grafa. Matricu incidencije ćemo formirati u odnosu na proizvoljnu orjentaciju koju ćemo dodijeliti svakoj grani grafa.
-	    Iz grafa je potrebno je ukloniti odgovarajuće grane, odnosno iz matrice incidencije potrebno je ukloniti odgovarajuće kolone kako bi se formiralo razapinjujuće stablo. 
-		Tako dobijenu matricu incidencije razapinjujućeg stabla možemo predstaviti sa $I_{:,S}$ gdje je $S \subseteq E$ podskup skupa grana koje ulaze u sastav stabla.
-		Tako redukovana matrica incidencije je dimenzije $n \times (n - 1)$.
-	
-		Posmatrajmo slučaj u kome matrica $I_{:,S}$ odgovara podgrafu koji nije stablo. U tom slučaju odgovarajući podgraf sadrži ciklus. 
-		Drugim riječima u okviru skupa $S$ postoji niz grana koje formiraju ciklus.
-		Uočimo jedan takav ciklus i formirajmo redukovanu matricu $I_{V \setminus \{q\},S}$ uklanjanjem vrste koja predstavlja proizvoljan čvor $q$ van uočenog ciklusa.
-	    Jasno je da takav čvor postoji, jer bi u suprotnom značilo da su svi čvorovi sadržani u uočenom ciklusu a to nije moguće, jer bi za to trebalo n grana, dok ih mi imamo dostupno samo $n-1$. 
-		Bez umanjenja opštosti, možemo pretpostaviti da se radi o posljednjoj vrsti u matrici, jer je indeksiranje čvorova i grana prilikom formiranja matrice incidencije urađeno na proizvoljan način, 
-		što znači da je uvijek moguće namjestiti da uočeni čvor q bude predstavljen posljednjom vrstom matrice incidencije. 
-	    Formirana matrica je kvadratna dimenzije $n - 1$. Krećimo se sada po uočenom ciklusu u grafu i pri tome vršimo elementarne transformacije kolona matrice $I_{V \setminus \{q\},S}$,
-	    na način da prolaskom granom $(i,j)$ u smjeru od i ka j, množimo odgovarajuću kolonu sa 1, a u suprotnom sa -1. Dobijenu matricu označimo sa $I_{V \setminus \{q\},S}'$.
-	    Jasno je da važi $det(I_{V \setminus \{q\},S}') = \pm det(I_{V \setminus \{q\},S}$). Jasno je i da je svaki čvor sadržan u ciklusu incidentan sa dvije grane ciklusa,
-		i to na način da jedna grana izlazi iz datog čvora, a druga ulazi u dati čvor. Ukoliko sada saberemo kolone koje odgovaraju svim granama sadržanim u uočenom ciklusu, dobićemo da je njihov zbir nula. 
-		Drugim riječima, matrica $I_{V \setminus \{q\},S}'$ ima netrivijalnu sumu kolona koja je jednaka nuli. Prema linearnoj algebri ovo znači da matrica ima linerano zavisne kolone i da je singularna.
-		
-		\[det(I_{V \setminus \{q\},S}') = det(I_{V \setminus \{q\},S}) = 0\]
-	
-		Posmatrajmo sada slučaj u kome matrica $I_{,S}$ odgovara podgrafu koji jeste stablo. Formirajmo redukovanu matricu $I_{V \setminus \{q\},S}$ uklanjanjem posljednje vrste matrice $I_{:,S}$ koja odgovara čvoru q. 
-	    Pošto smo uklonili vrstu koja odogovara čvoru q iz matrice, a q je incidentan sa barem jednom granom stabla (jer je ono povezan graf), sada imamo slučaj da bar jedna kolona matrice $I_{V \setminus \{q\}:,S}$
-		ima jedan element jednak $\pm 1$, a sve ostale elemente jednake 0. Iskoristimo Laplasov metod računanja determinante matrice i izvrsimo razvoj po uočenoj koloni.
-		Dobijamo $det(I_{V \setminus \{q\},S}) = \pm det(I_{V \setminus \{q,w\},S})$. Čvor w odgovara vrsti koju smo uklonili prilikom razvoja determinante.
-		Jasno je da su $q$ i $w$ bili susjedni cvorovi. 
-		Kako nije moguće da su q i w bili samo međusobno susjedni, mora postojati još jedan čvor koji je bio susjedan sa jednim od njih, tj. u matrici $I_{V \setminus \{q,w\},S}$ mora postojati kolona koja ima jedan element
-		jednak $\pm 1$, a sve ostale jednake 0. Ponovo na isti način, upotrebom Laplasovog razvoja računamo $det(I_{V \setminus \{q,w\},S})$. 
-		Ovaj iterativni postupak ponavljamo sve dok ne dođemo do determinante koja odgovara matrici dimenzije $2 \time 2$. 
-		Nije moguće da dva preostala čvora budu povezana samo izmedju sebe, tj. bar jedan od njih je u izvornom grafu susjedan sa nekim od uklonjenjih čvorova.
-		Ukoliko preostala dva čvora nisu susjedna, onda i drugi čvor mora biti susjedan sa nekim od uklonjenih čvorova.
-		Takođe, dva preostala čvora ne mogu biti istovremeno susjedni i pri tome oba biti povezana sa nekim od prethodno uklonjenih čvorova, jer bi u tom slučaju imali ciklus.
-		Na osnovu prethodnog, dolazimo do zaključka da je rezultantna matrica oblika 
-		\[
-		\begin{bmatrix} \pm 1 &  0 \\ \mp 1 & \pm 1 \end{bmatrix}
-		\text{ ili } \begin{bmatrix} \pm 1 &  \pm 1 \\ \mp 1 & 0 \end{bmatrix}
-		\text{ ili } \begin{bmatrix} \pm 1 &  \pm 1 \\ 0 &  \mp 1 \end{bmatrix}
-		\text{ ili } \begin{bmatrix} 0 & \pm 1 \\ \pm 1 & \mp 1 \end{bmatrix}
-		\text{ ili } \begin{bmatrix} 0 &  \pm 1 \\ \pm 1 & 0 \end{bmatrix}
-		\text{ ili } \begin{bmatrix} \pm 1 &  0 \\ 0 & \pm 1 \end{bmatrix}
-		\] 
-		Vrijednost determinante svih ovih matrica je $\pm 1$, 
-		što znači i da je $det(I_{V \setminus \{q\},S}) = \pm 1$.
-	
-		\paragraph{}
-		Konačno dobijamo:
-		\[
-		 det(I_{V \setminus \{q\},S}) = 
-		\begin{cases}
-		\pm 1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G} \\
-		0 \text{ u suprotnom }
-		\end{cases} 
-		\]
-		gdje je $q$ čvor predstavljen posljednom vrstom matrice $I_G$. 
-		Kako bismo se rijesili $\pm 1$, kvadrirajmo determinantu.
-		\[
-		 det(I_{V \setminus \{q\},S})^2 = 
-		\begin{cases}
-		1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G}\\
-		0 \text{ u suprotnom}
-		\end{cases} 
-		\]
-	
-		Ukoliko sada izračunamo sumu po svim podskupovima grana koji sadrže tačno $n-1$ granu i formiraju razapinjujuće stablo grafa dobićemo upravo kompleksnost grafa $G$.
-		\[
-		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\},S})^2 = k(G)
-		\]
-	
-		Iskoristimo činjenicu da $det(M^T) = det(M)$, da $M_{R,S} = (M_{:,S})_{R,:} = (M_{R,:})_{:,S}$ i da $(M_{R,S})^T = (M^T)_{S,R}$.
-		\[
-		\begin{split}
-		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\}:,S})^2  & =
-		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\}:,S}) * det\big((I_{V \setminus \{q\}:,S})^T\big) \\
-		&  = \sum_{S \subseteq E \land |S| = n -1}   det\big((I_{V \setminus \{q\},:})_{:,S}\big) * det\Big(\big((I_{V \setminus \{q\},:})_{:,S}\big)^T\Big)\\
-		&  = \sum_{S \subseteq E \land |S| = n -1}   det\big((I_{V \setminus \{q\},:})_{:,S}\big) * det\Big(\big((I_{V \setminus \{q\},:})^T\big)_{S,:}\Big)\\
-		\end{split}
-		\]
-	
-		Prisjetimo se Cauchy-Binet formule koja tvrdi da ako su date matrice $A_{p \times q}$ i $B_{q \times p}$ i ako je $q \geq p$ onda važi
-		\[
-			det(AB) = \sum_{|S| = q} det(A_{\{:,S\}}) det(B_{\{S,:\}})
-		\]
-		gdje se sumiranje vrši po svim podskupovima skupa kolona matrice A i skupa vrsta matrice B sa kardinalnosti q.
-		
-		Prema ovoj formuli, za matricu $A = I_{V \setminus \{q\},:}$ dimenzija $(n - 1) \times |E|$ i matricu $B = (I_{V \setminus \{q\},:})^T$ dimenzija $|E| \times (n - 1)$, pri čemu je $|E| \geq (n-1)$, jer u pitanju
-		povezan graf, važi
-		\[
-		det \big(I_{V \setminus \{q\},:} (I_{V \setminus \{q\},:})^T\big) = \sum_{|S| = n - 1} det\big((I_{V \setminus \{q\},:})_{:.S}\big) det\Big(\big((I_{V \setminus \{q\},:})^T\big)_{S,:}\Big) = k(G)
-		\] 
-		
-		Iskoristimo jednu od karakterizacija Laplasove matrice $L_G = I_G I_G^T$.
-		Matrica incidencije u prethodnom izrazu je kreirana prema proizvoljnoj orjentaciji koja je dodijeljena svakoj grani.
-		
-		\[
-			L_{ij} = \sum_{k=1}^{|E|} I_{ik}I_{k,j}
-		\]
-
-		Ukoliko pak posmatramo redukovnu matricu incidencije $I_{V \setminus \{q\},:}$, imamo
-		\[
-		\big(I_{V \setminus \{q\},:}(I_{V \setminus \{q\},:})^T\big)_{ij} = \sum_{k=1}^{|E|} I_{ik}I_{k,j} \text{ pri cemu } i,j \in \{1,2, \dots n-1\}
-		\]
-	
-		Množenjem redukovane matrice $I_G$ i odgovarajuće transponovane matrice kao rezultat dobijamo redukovanu Laplasovu matricu koja je dobijena izostavljanjem posljednje vrste i kolone Laplasove matrice.
-		Označimo tu matricu sa $L_{V \setminus \{n\}, E \setminus \{m\}}$, gdje n odgovara posljednoj vrsti a m posljednoj koloni Laplasove matrice.
-		\[
-			L_{V \setminus \{n\}, E \setminus \{m\}} = I_{V \setminus \{q\},:}(I_{V \setminus \{q\},:})^T
-		\]
-		\[
-			det(L_{V \setminus \{n\}, E \setminus \{m\}}) = k(G)
-		\]
-
-		Kako n odgovara posljednoj vrsti, a m posljednjoj koloni matrice $L_G$ jasno je da $det(L_{V \setminus \{n\}, E \setminus \{m\}}) = L_{nn} = k(G)$ gdje je $L_{nn}$ minor koji odgovara elementu $l_{nn}$ Laplasove matrice.
-	
-	 	Sada je još potrebno uspostaviti vezu između minora $L_{nn}$ i sopstvenih vrijednosti matrice $L_G$.
-		Pošto su u pitanju sopstvene vrijednosti, jasno je da će nam polazna tačka biti karakteristična jednačina $L_G \vec{x} = \alpha \vec{x}$.
-
-		\[
-			\begin{split}
-				L_G \vec{x} &= \alpha \vec{x} \\
-				L_G \vec{x} - \alpha \vec{x} &= \vec{0}  \\
-				(L_G - \alpha I) \vec{x} &= \vec{0}  
-			\end{split}
-		\]
-	
-		Posmatrajmo matricu $ M = L_G - \alpha I_{n \times n}$, gdje $\alpha \in \mathbb{R}$.
-		\[
-				 (L_G - \alpha I_{n \times n})_{ij} =
-				 \begin{cases}
-				 deg(i) - \alpha  & \text{ako } i = j \\
-				 -1 & \text{ako } \{i,j\} \in E \\ 
-				 0  & \text{u suprotnom}
-				 \end{cases}
-		\]
-
-		Kako je zbir elemenata u svakoj vrsti/koloni matrice $L_G$ jednak nuli, onda je zbir elemenata u svakoj vrsti/koloni matrice $M$ jednak $-\alpha$.
-		Ukoliko izvršimo elementarnu transformaciju vrsta i prvih $n-1$ vrsta saberemo u n-tu vrstu matrice, dobijamo  $M_{nj} = -\alpha$ za $ j \in \{1,2,3 \dots n\}$.
-		
-		Uradimo sada isto i sa kolonama. Nakon sumiranja prvih $n-1$ kolona u posljednju kolonu, dobijamo $m_{in} = -\alpha$ za $i \in \{1,2, \dots n-1\}$ i $m_{nn} = -n \alpha$.
-		\[
-			M' =\begin{bmatrix}
-				deg(1) - \alpha & ? & ? & \dots & ? & -\alpha \\
-				? & deg(2) - \alpha & ? & \dots & ? & -\alpha \\
-				? & ? & deg(3) - \alpha & \dots & ? & -\alpha \\
-				\vdots & \vdots & \vdots & \ddots & \vdots & -\alpha \\
-				? & ? & ? & \dots &deg(n-1) - \alpha & -\alpha \\
-				-\alpha & -\alpha & -\alpha & \dots &-\alpha & -n \alpha \\
-		\end{bmatrix}
-		\]
-		Kako se radi o elementarnim transformacija jasno je da važi $det(M) = det(M')$.
-		Kako svi elementi u n-toj vrsti imaju faktor $\alpha$, važi $det(M')=-\alpha det(M")$, gdje je M" data sa
-		\[
-			M" =\begin{bmatrix}
-				deg(1) - \alpha & ? & ? & \dots & ? & -\alpha \\
-				? & deg(2) - \alpha & ? & \dots & ? & -\alpha \\
-				? & ? & deg(3) - \alpha & \dots & ? & -\alpha \\
-				\vdots & \vdots & \vdots & \ddots & \vdots & -\alpha \\
-				? & ? & ? & \dots &deg(n-1) - \alpha & -\alpha \\
-				1 & 1 & 1 & \dots & 1 & n \\
-				\end{bmatrix}
-		\]
-
-		Iskoristimo sada Laplasov razvoj $det(M")$ po posljednjoj koloni.
-		\[ 
-		\begin{split}
-			det(L_G - \alpha I) & = det(M) = -\alpha det(M") \\
-			                    & = -\alpha \big( (-1)^{n+n}nM"_{nn} + \sum_{k=1}^{n-1}(-1)^{n+k}(-\alpha) M"_{nk} \big)  \\
-			                    & = -\alpha \big( (-1)^{n+n}nM"_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k}(-1)M"_{nk} \big) \\
-					     	    & = (-1)^{2n+1} \alpha nM"_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
-		\end{split}
-		\]
-		Sa $M"_{ij}$ predstavljen je minor koji odgovara elementu $m"_{ij}$ matrice $M"$.
-		Primijetimo da za minore važi $M"_{nn} = (L_G - \alpha I)_{nn}$, jer se matrice  $M"$ i $L_G - \alpha I$ razlikuju isključivo u n-toj vrsti i koloni.
-		\[
-		det(L_G - \alpha I) = (-1)^{2n+1} \alpha n (L_G- \alpha I)_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
-		\]
-		
-		$(L_G- xI)_{nn}$ je polinom stepena $n-1$, pa važi $(L_G- \alpha I)_{nn} = a_{n-1}\alpha^{n-1} + \dots + a_0$.
-		Uvrštavanjem u prethodni izraz dobijamo:
-		\[
-			\begin{split}
-				det(L_G - \alpha I) &= (-1)^{2n+1} n \alpha (a_{n-1}\alpha^{n-1} + a_{n-2}\alpha^{n-2} + \dots + a_0) + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk} \\
-									&= (-1)^{2n+1} n (a_{n-1}\alpha^n + a_{n-2}\alpha^{n-1} + \dots + a_0 \alpha) + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
-			\end{split}
-		\]
-
-		Primijetimo da je koeficijent uz $\alpha$ jednak $(-1)^{2n+1} n a_0$, gdje je $a_0$ slobodni član polinoma $(L_G- \alpha I)_{nn}$ koga dobijamo za $\alpha=0$.
-		\[
-		  a_0 = (L_G- 0I)_{nn} = (L_G- O)_{nn} = (L_G)_{nn}
-		\]
-		Konačno, koeficijent uz $\alpha$ jednak $ (-1)^{2n+1} n (L_G)_{nn} = - n (L_G)_{nn}$.
-	
-		Kako je $det(L_G - \alpha I)$ karakteristični polinom matrice $L_G$, i $\alpha_1 = 0$ važi za svaki graf, dobijamo:
-		\[
-			\begin{split}
-				det(L_G - \alpha I)  & = (-1)^n \alpha (\alpha - \alpha_2) \dots (\alpha - \alpha_n) \\
-									 & = (-1)^n(-1)^{n-1} \alpha_2 \dots \alpha_n x + \dots \\
-									 & = (-1)^{2n-1} \alpha_2 \dots \alpha_n x + \dots \\
-								     & = (-1) \alpha_2 \dots \alpha_n x + \dots 
-									\end{split}
-									\]
-
-		Sada znamo da je koeficijent uz $\alpha$ dat izrazom $- \alpha_2 \dots \alpha_n$, gdje su $\alpha_i$ sopstvene vrijednosti Laplasove matrice. 
-	
-		Poređenjem dva dobijena izraza za koeficijent uz $\alpha$ dobijamo 
-		\[
-			\begin{split} 
-				-n (L_G)_{nn}  = &  - \alpha_2 \dots \alpha_n \\
-				(L_G)_{nn}  = & n^{-1} \alpha_2 \dots \alpha_n \\
-				 L_{nn} = & n^{-1} \alpha_2 \dots \alpha_n \\ 
-			\end{split} 
-		\]
-		Ako sada iskoristimo izraz do kojeg smo prethodno došli, $ L_{nn} = k(G)$, dolazimo do kraja dokaza $k(G) = n^{-1} \alpha_2 \dots \alpha_n$
-		
-	\end{custom_proof} 
-		
-	\section{Povezanost grafa}
-	\paragraph{}
-	Već smo upoznati sa pojmom povezanog grafa koji nam sugeriše da graf ima samo jednu komponentu povezanoti, tj. da postoji šetnja između svaka dva čvora u datom grafu.
-	Iako je sama definicija povezanog grafa veoma jasno, često je za grafove sa većim brojem čvorova i grana uvidom u njegovu grafičku reprezentaciju ili neku od pridruženih matrica jako teško utvrditi
-	da li je graf povezan. Naravno da tu nije kraj problemima i izazovima. Šta ukoliko bismo željeli da na neki način uspostavimo poredak među povezanim grafovima i odredimo koji od grafovi su bolje povezani od drugih.
-	Relacija "biti bolje povezan graf" bi se mogla interpretirati i iz drugog ugla posmatranja, na način da je to graf kojeg je teže dovesi u stanje nepovezanosti.
-	Ova ideja je blisko povezana sa pojmom "graph edge connectivity" koji se označava sa $\alpha(G)$ i predstavlja broj grana koje je potrebno ukloniti iz grafa kako bi graf postao nepovezan.
-	
-	Na prvi pogled, pomislili bismo da veći broj grana kod grafova sa istim brojem čvorova ukazuje na bolju povezanost grafa, međutim, to nije slučaj.
-	Posmatrajmo sljedeći graf za koga važi $\alpha(G)=1$.
-
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.6\textwidth]{Figure_3.png}
-	\end{figure}
-	
-	Dodavanjem još jedne grane između čvorova 1 i 3, ne utičemo na vrijednost $\alpha(G)=1$. Razlog zbog kojeg je vrijednost $\alpha(G)$ ostala nepromijenjena je taj što povezanost grafa potiče, tj. zavisi isključivo od najslabije povezanog dijela grafa, koji je u ovom slučaju ostao netaknut.
-	Primijetimo da ni vrijednost $\alpha(G)$ kod grafova sa velikim brojem čvorova i grana u velikom broju slučajeva nije očigledna.
-	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.6\textwidth]{Figure_4.png}
-	\end{figure}
-
-	Klasična teorija grafova nam ne nudi rješenja za postavljene probleme i zbog toga se okrećemo spektralnoj teoriji grafova. 
-	Kako bismo došli do informacija o mjeri povezanosti grafova, potrebno je prethodno ispitati odgovarajuću Laplasovu matricu $L_G$ i odrediti njen spektar.
-	U nastavku ćemo detaljnije proučiti svojstva Laplasove matrice, a zatim dati nekoliko teorema koje uspostavljaju relaciju između pojedinih svojstava Laplasove matrice i povezanosti grafa.
-	Napomenimo da mjera povezanosti grafa koju nam daje spektralna teorija grafova nije isto što i graph edge connectivity. Iako su ove dvije vrijednosti idejno bliske, do danas nije uspostavljena relacija između njih.
-	
-	\subsection{Svojstva Laplasove matrice}
+	\section{Svojstva Laplasove matrice}
 	
 	\begin{theorem} Laplasova matrica $L_G$ je ermitska matrica.
 	\[
@@ -976,7 +729,6 @@
 	\[
 	  \vec{x}^TL_G\vec{x} = \vec{x}^T (\sum_{\{v_1,v_2\} \in E} L_{\{v_1,v_2\}}) \vec{x}  =  (\sum_{\{v_1,v_2\} \in E} \vec{x}^TL_{\{v_1,v_2\}}) \vec{x}
 	\]
-	
 	Posmatrajmo proizvod $\vec{x}^T L_{\{v_1,v_2\}}$. Rezultantna matrica je matrica vrsta dimenzije $1 \times n$.
 	\[
 	M = \vec{x}^T L_{\{v_1,v_2\}} = [m_{1j}]_{1 \times n}
@@ -993,9 +745,11 @@
 	 0  & \text{u suprotnom}
 	 \end{cases}
 	\]
-	Kolona matrice $L_{\{v_1,v_2\}}$ indeksom $v_1$ ima vrijednost 1 na poziciji $v_1$, tj. $a_{v_1 v_1} = 1$, a vrijednost -1 na poziciji $v_2$, tj. $a_{v_2 v_1} = -1$ .
-	Kolona matrice $L_{\{v_1,v_2\}}$ indeksom $v_2$ ima vrijednost 1 na poziciji $v_2$, tj. $a_{v_2 v_2} = 1$, a vrijednost -1 na poziciji $v_1$, tj. $a_{v_1 v_2} = -1$ .
-	Svi ostali elementi matrice su 0.
+
+	Kolona matrice $L_{\{v_1,v_2\}}$ indeksom $v_1$ ima vrijednost 1 na poziciji $v_1$, tj. $a_{v_1 v_1} = 1$, a vrijednost -1 na poziciji $v_2$, tj. $a_{v_2 v_1} = -1$.
+	Kolona matrice $L_{\{v_1,v_2\}}$ indeksom $v_2$ ima vrijednost 1 na poziciji $v_2$, tj. $a_{v_2 v_2} = 1$, a vrijednost -1 na poziciji $v_1$, tj. $a_{v_1 v_2} = -1$.
+	Svi ostali elementi matrice su jednaki 0.
+
 	\[
 	 m_{1j} =
 	 \begin{cases}
@@ -1018,7 +772,6 @@
 	\end{bmatrix}
 	_{1 \times n} \vec{x}  
 	\]
-	
 	Rezultantna matrica je matrica vrsta dimenzije $1 \times 1$, tj. skalarna vrijednost. Matrica vrsta $M$ ima nenula vrijednost samo u kolonama $v_1$ i $v_2$.
 	\[
 	M \vec{x} = m_{1 v_1} * \vec{x}_{v_1} + m_{1 v_2} * \vec{x}_{v_2} =  (\vec{x}_{v_1} - \vec{x}_{v_2}) * \vec{x}_{v_1} + (\vec{x}_{v_2} - \vec{x}_{v_1}) * \vec{x}_{v_2} 
@@ -1026,7 +779,6 @@
 	\[
 	M \vec{x} =  \vec{x}_{v_1}^2 - \vec{x}_{v_1} * \vec{x}_{v_2} + \vec{x}_{v_2}^2 - \vec{x}_{v_1} * \vec{x}_{v_2} = \vec{x}_{v_1}^2 - 2 *\vec{x}_{v_1} * \vec{x}_{v_2} + \vec{x}_{v_2}^2 = (\vec{x}_{v_1} - \vec{x}_{v_2})^2   
 	\] 
-
 	Kada dobijeni rezultat uvrstimo u početni izraz dobijamo:
 	\[
 	  \vec{x}^TL_G\vec{x} = \sum_{\{v_1,v_2\} \in E} (\vec{x}_{v_1} - \vec{x}_{v_2})^2
@@ -1034,13 +786,12 @@
 	\[
 	  (\vec{x}_{v_1} - \vec{x}_{v_2})^2 \geq 0 \text{ za } \forall v_i \in \{1,2,3 \dots n\} 
 	\]
-
 	Kako je odabrani vektor $\vec{x}$ proizvoljan, dobijamo:
 	\[
-	  \Rightarrow \vec{x}^TL_G\vec{x} \geq 0 \text{ za } \forall \vec{x} \in \mathbb{R}^n
+	  \vec{x}^TL_G\vec{x} \geq 0 \text{ za } \forall \vec{x} \in \mathbb{R}^n
 	\]
 
-	Pokazali smo da je proizvod $\vec{x}^TL_G\vec{x}$ nenegativan za svaki vektor $\vec{x}$, čime smo dokazali i da je Laplasova matrica $L_G$ pozitivno poludodređena.
+	Pokazali smo da je proizvod $\vec{x}^TL_G\vec{x}$ (kvadratna forma Laplasove matrice) nenegativan za svaki realan vektor $\vec{x}$, čime smo dokazali i da je Laplasova matrica $L_G$ pozitivno poludodređena.
 	\end{custom_proof}
 	
 	\begin{theorem} Sve sopstvene vrijednosti Laplasove matrice su nenegativni realni brojevi.
@@ -1052,7 +803,7 @@
 	\begin{custom_proof}
 	Iako je data teorema direktna posljedica svojstava Laplasove matrice, u nastavku će biti izložen dokaz ovog tvrđenja.
 	
-	Pretpostavimo da je $\alpha \in \mathbb{C}$ proizvoljna sopstvena vrijednost matrice $L_G$ i da je $\vec{x} \in (\mathbb{C}^n \setminus \{\vec{0}\})$ odgovarajući sopstveni vektor. Tada važi:
+	Pretpostavimo da je $\alpha \in \mathbb{C}$ proizvoljna sopstvena vrijednost matrice $L_G$ i da je $\vec{x} \in (\mathbb{R}^n \setminus \{\vec{0}\})$ odgovarajući sopstveni vektor. Tada važi:
 	\[
 		L_G\vec{x} = \alpha \vec{x}
 	\]
@@ -1064,36 +815,24 @@
 		\vec{x}^TL_G\vec{x} = (\vec{x}^T \vec{x}) \alpha
 	\]
 	\[
-		\vec{x}^TL_G\vec{x} = \sum_{i=1}^{n}(Re(x_i)^2 + Im(x_i)^2 ) \alpha =  \sum_{i=1}^{n}|x_i|^2 \alpha= ||\vec{x}||_2^2 \alpha  
+		\vec{x}^TL_G\vec{x} =  \sum_{i=1}^{n}x_i^2 \alpha= ||\vec{x}||_2^2 \alpha  
 	\]
 	\begin{equation}
 		 \alpha =   \frac{\vec{x}^TL_G\vec{x}}{||\vec{x}||_2^2}
 	\label{eq:alpha}
 	\end{equation}
-
-	Izraz $||\vec{x}||_2^2$ predstavlja kvadrat euklidske vektorkse norme u prostoru $\mathbb{R}^n$, a vektorska norma je uvijek nenegativan realan broj, tj. važi
+	Izraz $||\vec{x}||_2^2$ predstavlja kvadrat euklidske vektorske norme u prostoru $\mathbb{R}^n$, a vektorska norma je uvijek nenegativan realan broj, tj. važi
 	\[
-		||\vec{x}||_2^2 \in (\mathbb{R}^+ \cup \{0\})  
+		||\vec{x}||_2 \in (\mathbb{R}^+ \cup \{0\})  
 	\]
-	U našem slučaju $\vec{x}$ je nenula vektor pa važi još strožiji uslov $||\vec{x}||_2^2 > 0$, koji nam je omogućio da se vektorska norma nađe u imeniocu razlomka.
-	
-	Sada je još potrebno pokazati da je proizvod $\vec{x}^TL_G\vec{x}$ nenegativan broj.
-
-	To ne moramo ni dokazivati, jer već znamo da je Laplasova matrica pozitivno poludodređena.
+	U našem slučaju $\vec{x}$ je nenula vektor pa važi još strožiji uslov $||\vec{x}||_2 > 0$, koji nam je omogućio da se vektorska norma nađe u imeniocu razlomka. Sada je još potrebno pokazati da je proizvod $\vec{x}^TL_G\vec{x}$ nenegativan broj. To ne moramo ni dokazivati, jer već znamo da je Laplasova matrica pozitivno poludodređena.
 	\[
-		\vec{x}^* L_G \vec{x} = \vec{x}^T L_G \vec{x} \geq 0
+		\vec{x}^T L_G \vec{x} \geq 0
 	\]
-	Za proizvoljan kompleksan broj $z \in \mathbb{C}$ važi
-	\[
-	 \overline{z} = z \Rightarrow z \in \mathbb{R}
-	\]
-
-	Dobijamo da $\vec{x}^*L_G\vec{x} \in (\mathbb{R} \cup \{0\})$. Kako su i imenilac i brojilac na desnoj strani jednakosti (\ref{eq:alpha}) realni nenegativni brojevi i lijeva strana jednakosti mora biti nenegativan realan broj, tj. $\alpha \in \mathbb{R}$.
-
+	Kako su i imenilac i brojilac na desnoj strani jednakosti (\ref{eq:alpha}) realni nenegativni brojevi i lijeva strana jednakosti mora biti nenegativan realan broj, tj. $\alpha \in \mathbb{R}$.
 	\[
 		\vec{x} \in \mathbb{R}^n \Rightarrow \vec{x}^* = \vec{x}^T
 	\]
-
 	\end{custom_proof}
 	
 	\begin{consequence}
@@ -1103,12 +842,13 @@
 	0 \leq \alpha_1 \leq \alpha_2 \leq \dots \leq \alpha_{n-1} \leq \alpha_n
 	\]
 	\end{consequence}
+	\newpage
 	
 	\begin{theorem} Nula je najmanja sopstvena vrijednost Laplasove matrice.
 	\end{theorem}
 	
 	\begin{custom_proof}
-	Posmatrajmo proizvod Laplasove matrice i jediničnog vektora $\vec{x}=\begin{bmatrix} 1 & 1 & \cdots & 1 & 1  \end{bmatrix}^T_{n \times n}$.
+	Posmatrajmo proizvod Laplasove matrice i jediničnog vektora \\ $\vec{x}=\begin{bmatrix} 1 & 1 & \cdots & 1 & 1  \end{bmatrix}^T_{n \times n}$.
 	\[
 	L_G\vec{x} = [a_{ij}]_{n \times 1}
 	\]
@@ -1161,7 +901,6 @@
 	\text{ gdje je } p \in (\mathbb{R} \setminus \{\vec{0}\})
 	\end{split}
 	\]
-
 	Kako smo odredili opšti izraz sopstvenog vektora Laplasove matrice koji odgovara sopstvenoj vrijednosti $\alpha_1 = 0$,
 	mi smo odredili skup svih sopstvenih vektora koji odgovaraju datoj sopstvenoj vrijednosti.
 	
@@ -1193,9 +932,9 @@
 	\]
 
 	Kako je sopstveni vektorski prostor jednak linearnom vektorskom omotaču nad jednim vektorom, 
-	očito da se baza sopstvenog vektorskog prostora koji odgovara $\alpha_1$ se sastoji od jednog vektora,
+	očito da se baza sopstvenog vektorskog prostora koji odgovara $\alpha_1$ sastoji od jednog vektora,
 	što nadalje znači da je geometrijska višestrukost $\alpha_1$ jednaka 1.
-	Geometrijska višestrukost je uvijek manja ili jednaka algebarskoj višestrukosti sopstvene vrijednosti,
+	Geometrijska višestrukost je uvijek manja ili jednaka algebarskoj višestrukosti,
 	pa dolazimo do zaključka da sopstvena vrijednost $\alpha_1$ ima algebarsku višestrukost 1.
 	\[
 	\alpha_1 = 0 \text{ ima algebarsku višestrukost 1 } \Rightarrow \alpha_1 \neq \alpha_2
@@ -1221,7 +960,6 @@
 	 0  & \text{ za } j \notin V_i
 	 \end{cases}
 	\]
-	
 	Posmatrajmo sada proizvod Laplasove matrice i vektora $w_i$.
 	\[
 	L_G\vec{w_i} = \vec{r}
@@ -1254,6 +992,216 @@
 	
 	Odavde možemo zaključiti da je geometrijska višestrukost sopstvene vrijednosti $\alpha_1 = 0$ jednaka k, što odgovara broju povezanih komponenti grafa.
 	\end{custom_proof}
+
+	Najmanja pozitivna sopstvena vrijednost Laplasove matrice naziva se Fiedler-ova \footnote{Michael Fiedler (1933–2018), \textit{češki matematičar}}. vrijednost, a odgovarajući vektor Fiedler-ov vektor.
+
+	\begin{lema}
+		Za graf $G=(V,E)$ stepena d sa n čvorova i najveću sopstvenu vrijednost njegove Laplasove matrice važi $\alpha_n \geq d$.
+		
+	\end{lema}
+	\begin{custom_proof}
+		
+		Kako bismo dokazali navedenu lemu upotrijebicemo Courrant-Fischer teoremu
+	
+		Prisjetimo se Courrant-Fischer teoreme.
+	
+		\begin{theorem}[Courrant-Fischer]
+			Neka je data simetrična kvadratna matrica $M_{n \times n}$. Njene sopstvene vrijednosti $\alpha_1 \leq \alpha_2 \leq \dots \alpha_{n-1} \leq \alpha_n$
+			možemo izračunati putem sljedećeg izraza
+			\[
+				\alpha_i = \min_{\vec{x} \neq \vec{0} \land \vec{x} \perp \vec{x}_i \forall i \in \{1,2, \dots, n-2\}} \frac{\vec{x}^T M \vec{x}}{\vec{x}^T\vec{x}} 
+			\]
+			\[
+				\alpha_n = \max_{\vec{x} \neq \vec{0}} \frac{\vec{x}^T M \vec{x}}{\vec{x}^T\vec{x}} 
+			\]
+			gdje je $x_i$ sopstveni vektor koji odgovara $\alpha_i$.
+
+			Courrant-Fischer teorema nam govori da se sopstvena vrijednost $\alpha_i$ može dobiti kao minimum Rejlijevog količnika po svim vektorima 
+			ortogonalnim sa sopstvenim vektorima koji odgovaraju manjim sopstvenim vrijednostima. Najveća sopstvena vrijednost predstavlja maksimum Rejlijevog količnika. 
+		\end{theorem}
+
+		Koristeći navedenu teoremu i stečeno znanje o kvadratnoj formi Laplasove matrice dobijamo.
+			\[
+			\alpha_n = \max_{\vec{x} \neq \vec{0}} \frac{\vec{x}^T M \vec{x}}{\vec{x}^T\vec{x}} = \max_{\vec{x} \neq \vec{0}} \frac{ \sum_{\{u,v\} \in E} (\vec{x}_u - \vec{x}_v)^2 }{ \sum_{i \in \{1,2 \dots n\}} \vec{x}_i^2}
+		\]
+	
+		Ukoliko sada uzmemo da je $\vec{x}$ jedan od vektora iz standardne baze, tj. da za neko $j \in \{1,2, \dots n\}$ važi $\vec{x}_j = 1$, a za $i \neq j$ važi $\vec{x}_i = 0$ dobijamo
+		\[
+		\alpha_n \geq \frac{ d(j) (\vec{x}_j - 0)^2 }{1} = d \times 1  
+		\]
+		\[
+			\alpha_n \geq d(j)  
+		\]
+		\[
+			\alpha_n \geq \max_{v \in V }d(v)  
+		\]
+		\end{custom_proof}
+
+		\newpage
+
+	\section{Povezanost grafa}
+	\paragraph{}
+	Već smo upoznati sa pojmom povezanog grafa koji nam ukazuje da graf ima samo jednu komponentu povezanoti, tj. da postoji šetnja između svaka dva čvora u datom grafu.
+	Iako je sama definicija povezanog grafa veoma jasno, često je za grafove sa većim brojem čvorova i grana uvidom u njegovu grafičku reprezentaciju ili neku od pridruženih matrica jako teško utvrditi
+	da li je graf povezan. Naravno da tu nije kraj problemima i izazovima. Šta ukoliko bismo željeli da na neki način uspostavimo poredak među povezanim grafovima i odredimo koji od grafovi su bolje povezani od drugih.
+	Relacija "biti bolje povezan graf" bi se mogla interpretirati i iz drugog ugla posmatranja, na način da je to graf kojeg je teže dovesti u stanje nepovezanosti.
+	Ova ideja je blisko povezana sa pojmom "graph edge connectivity" koji se označava sa $\alpha(G)$ i predstavlja broj grana koje je potrebno ukloniti iz grafa kako bi graf postao nepovezan.
+	
+	Na prvi pogled, pomislili bismo da veći broj grana kod grafova sa istim brojem čvorova ukazuje na bolju povezanost grafa, međutim, to nije slučaj.
+	Posmatrajmo sljedeći graf za koga važi $\alpha(G)=1$.
+
+	\begin{figure}[h]
+		\centering
+		\subfloat[]{\includegraphics[width=0.48\textwidth]{Figure_3.png}}
+		\hfill
+		\subfloat[]{\includegraphics[width=0.48\textwidth]{Figure_4.png}}
+		\caption{Mjera povezanosti grafa}
+	\end{figure}
+	
+	Dodavanjem još jedne grane između čvorova 2 i 4, ne utičemo na vrijednost $\alpha(G)=1$. Razlog zbog kojeg je vrijednost $\alpha(G)$ ostala nepromijenjena je taj što povezanost grafa potiče, tj. zavisi isključivo od najslabije povezanog dijela grafa, koji je u ovom slučaju ostao netaknut.
+	Primijetimo da ni vrijednost $\alpha(G)$ kod grafova sa velikim brojem čvorova i grana u velikom broju slučajeva nije očigledna.
+
+	Nije slučajnost što najmanja pozitivna sopstvena vrijednost Laplasove matrice ima poseban naziv. Naime, Fiedler-ova vrijednost se smatra algebarskom povezanošću grafa.
+	Što je Fiedler-ova vrijednost bliža nuli, odgovarajući graf se smatra slabije povezanim, a što je veća graf se smatra bolje povezanim. 
+	Zaista ukoliko bi ova vrijednost dostigla nulu, to bi značilo da graf ima još jednu povezanu komponentu, a samim tim i da nije povezan.
+	
+	Kako već govorimo o mjeri povezanosti grafa, trebali bismo definisati i relevantne veličine.
+	Jasno je da je mjera povezanosti grafa određena sa najslabije povezanim dijelom grafa.
+	Razmislimo sada kako bismo mogli utvrditi koji dio grafa je najmanje povezan sa ostatkom grafa.
+	Idealno bi bilo definisati mjeru povezanosti podskupa čvorova S grafa G sa ostatkom čvorova.
+    Prije svega, zanimljive su nam grane koje povezuju neki od čvorova podskupa S sa čvorom van tog skupa.
+	Na ovaj način dolazimo do definicije provodnosti grafa.
+
+	\begin{definition}[Provodnost skupa čvorova]
+		Provodnost skupa čvorova $S \subset V$ grafa $G=(V,E)$ u oznaci $\partial(S)$ predstavlja skup grana koje koje povezuju čvorove iz skupa S sa preostalim čvorovima iz skupa $V \setminus S$
+		\[ \partial(S) = \{ \{v_1,v_2\}: v_1 \in S \land v_2 \in (V \setminus S)\} \]
+	\end{definition}
+
+    Ukoliko bismo kao mjeru povezanosti podskupa čvorova S uzeli kardinalost provodnosti, to zasigurno ne bi predstavljalo dobru mjeru,
+	iz razloga što kardinalost posmatranog skupa utiče i na kardinalnost provodnosti. 
+	S toga, kao jedna od ideja nameće se normalizacija sa kardinalnosti posmatranog skupu.
+	Na ovaj način dolazimo da definicije izometrijskog odnosa skupa S.
+
+    \begin{definition}[Izometrijski odnos skupa čvorova]
+		Izometrijski odnos skupa čvorova predstavlja odnos kardinalnost njegove provodnosti i broja čvorova u skupu.
+		\[
+			h(S) = \frac{|\partial(S)|}{|S|}
+		\]
+	\end{definition}
+
+	Manja vrijednost izometrijskog odnosa $h(S)$ ukazuje na veću izolovanost skupa čvorova S.
+    Pored izometrijskog odnosa skupa čvorova definiše se i izometrijski odnos grafa.
+
+	Bliska veličina izometrijskom odnosu je i "cut ratio".
+
+	\begin{definition}[Cut ratio skupa čvorova]
+		\[
+			R(S) = \frac{|\partial(S)|}{|S| * |V \setminus S|}
+		\]
+	\end{definition}
+	
+    \begin{definition}[Izometrijski odnos grafa]
+		Izometrijski odnos grafa predstavlja minimum izometrijskog odnosa po svim podskupovima čvorova koji sadrži ne višeod polovine čvorova grafa.
+		\[
+				h(G) = \min_{|S| \leq |V| / 2} h(S)
+		\]
+		Izometrijski odnos grafa G predstavlja izometrijski odnos njegovog najizolovanijeg dijela.
+	\end{definition}
+
+    Pronađimo donju granicu za izometrijski odnos grafa. Upravo to nam omogućava sljedeća teorema.
+
+    \begin{theorem}[Lower bound of Cheegar]
+        Neka je dat povezan graf $G=(V,E)$ i neka je $S \subset V$. Tada važi
+        \[ h(S) \geq \alpha_2 (1 - \frac{|S|}{|V|})\]
+        gdje je $\alpha_2$ sopstvena vrijednost Laplasove matrice grafa. Za nepovezan graf očito je koji podskupi čvorova su najizolovaniji - njegove komponente povezanosti.
+    \end{theorem}
+
+    \begin{custom_proof}
+        Prema Courant-Fischer teoremi imamo
+        \[
+        \alpha_2 = \min_{\vec{x} \perp \vec{1}} \frac{\vec{x}^T L_G \vec{x}}{\vec{x}^T \vec{x}} 
+        = \min_{\vec{x} \perp \vec{1}} \frac{ \sum_{\{i,j\} \in E} (\vec{x}_i - \vec{x}_j)^2}{\vec{x}^T \vec{x}}
+        \]
+
+        Posmatrajmo sada vektor čije su koordinate date sa
+        \[
+            \vec{v} = 
+            \begin{cases}
+                1 - \frac{|S|}{|V|} & i \in S\\ 
+                - \frac{|S|}{|V|} & i \in V \setminus S
+            \end{cases}
+        \]
+
+        Više je motivacija za posmatranje ovog vektora. Ovaj vektor je ortogonalan jediničnom vektoru, tj. sopstvenom vektoru koji odgovara $\alpha_1 = 0$.
+
+        \[
+        \begin{split}
+            \vec{v}^T\vec{1} & = \sum_{i \in \{1,2, \dots n\}} \vec{v}_i * 1 \\
+            & = \sum_{i \in \{1,2, \dots n\}} \vec{v}_i \\
+            & = |S| * (  1 - \frac{|S|}{|V|} ) + |V \setminus S| * ( -\frac{|S|}{|V|})  \\
+            & = |S| - |S| * \frac{|S|}{|V|} - \frac{|S|}{|V|} * |V \setminus S| \\
+            & = |S| - \frac{|S|}{|V|} * (|V \setminus S| + |S|) \\
+            & = |S| - \frac{|S|}{|V|} * |V| \\
+            & = |S| - |S| = 0 
+        \end{split}
+        \]
+
+        Uočima da $\vec{v}_i - \vec{v}_j = 0$ ukoliko oba čvora pripadaju ili ne pripadaju skupu S, 
+		a da je $\vec{v}_i - \vec{v}_j = 1$ ukoliko tačno jedan od čvorova u i v pripada skupu S.
+		
+		\[
+        \begin{split}
+            \alpha_2  & \leq \frac{ \sum_{\{i,j\} \in E} (\vec{v}_i - \vec{v}_j)^2}{\vec{v}^T \vec{v}} \\
+            \alpha_2  & \leq \frac{ |\partial(S)|}{\sum \vec{v}_i^2} \\ 
+            \alpha_2  & \leq \frac{ |\partial(S)|}{||\vec{v}||^2} \\ 
+        \end{split}
+        \]
+        Odredimo sada kvadrat modula vektora $\vec{v}$.
+        \[
+            \begin{split}
+				||\vec{v}||^2 & = \vec{v}^T\vec{v} \\
+                & = \sum_{i \in \{1,2, \dots n\}} v_i \\ 
+                & = |S| * (1 - \frac{|S|}{|V|})^2 + |V \setminus S| (-\frac{|S|}{|V|})^2 \\ 
+                & = |S| - 2 * |S| * \frac{|S|}{|V|} + |S| * (\frac{|S|}{|V|})^2 + |V \setminus S| (\frac{|S|}{|V|})^2 \\ 
+                & = |S| - 2 * |S| * \frac{|S|}{|V|} + (|S| + |V \setminus S|) * (\frac{|S|}{|V|})^2 \\ 
+                & = |S| - 2 * |S| * \frac{|S|}{|V|} + |V| * (\frac{|S|}{|V|})^2 \\ 
+                & = |S| - 2 * \frac{|S|^2}{|V|} + (\frac{|S|^2}{|V|}) \\ 
+                & = |S| - \frac{|S|^2}{|V|} \\ 
+                & = |S| * ( 1 - \frac{|S|}{|V|})  
+            \end{split}
+            \]
+            Nakon uvrštavanja dobijamo:
+            \[
+            \begin{split}
+                \alpha_2   \leq \frac{ \sum_{\{u,v\} \in E} (\vec{v}_u - \vec{v}_v)^2}{\vec{v}^T \vec{v}} \\
+                \alpha_2   \leq \frac{ |\partial(S)|}{|S| * ( 1 - \frac{|S|}{|V|})} \\ 
+                \alpha_2 * |S| * ( 1 - \frac{|S|}{|V|})  \leq |\partial(S)| \\
+                \alpha_2 * ( 1 - \frac{|S|}{|V|})  \leq \frac{|\partial(S)|}{|S|} \\ 
+                \frac{|\partial(S)|}{|S|}  \geq  \alpha_2 * ( 1 - \frac{|S|}{|V|}) \\ 
+                h(S)  \geq  \alpha_2 * ( 1 - \frac{|S|}{|V|}) 
+			\end{split}
+            \]
+			
+		\end{custom_proof}
+		Odredimo sada donju granicu izometrijskog odnosa grafa.
+		\[
+		\begin{split}
+			h(G) & \geq \min_{|S| \leq |V| / 2}  \alpha_2 * ( 1 - \frac{|S|}{|V|}) \\ 
+			h(G) & \geq \alpha_2  - \alpha_2 * \max_{|S| \leq |V| / 2} \frac{|S|}{|V|} \\ 
+			h(G) & \geq \alpha_2  - \alpha_2 * \frac{|V|/2}{|V|} \\ 
+			h(G) & \geq \alpha_2  * (1 - 1/2) \\ 
+			h(G) & \geq \alpha_2 / 2  
+		\end{split}
+		\]
+
+            Dobijeni izraz je potvrda tvrdnje da najmanja pozitivna sopstvena vrijednost Laplasove matrice procjenjuje koliko dobro je graf povezan.
+            Ukoliko je ova sopstvena vrijednost veća, veći je i izometrijski odnos grafa, tj. njegov najizolovaniji skup čvorova je bolje povezan sa ostatkom grafa.
+			Uočimo i da je dobijeni izraz koji povezuje Fiedler-ov broj i izometrijski odnos grafa, nejednakost, što ukazuje da je Fiedler-ova vrijednost samo gruba procjena povezanosti grafa. 
+
+		\paragraph{}
+		Napomenimo da mjera povezanosti grafa koju nam daje spektralna teorija grafova nije isto što i graph edge connectivity.
+		Iako su ove dvije vrijednosti idejno bliske, do danas nije uspostavljena relacija između njih.
+	
 	
 	\begin{example}{Odrediti spektar Laplasove matrice kompletnog grafa $K_n$}.
 
@@ -1272,9 +1220,7 @@
 	\]
 	
 	Posmatraćemo matricu $L_{K_n} - nI$. Motivacija za posmatranje ove matrice je njeno svojstvo da su svi njeni elementi jednaki $-1$, tj. $L_{K_n} - nI = [-1]_{n \times n}$,
-	što bi nam trebalo omogućiti da lako odredimo njen spektar.
-	
-	Kako su sve vrste/kolone matrice $L_{K_n} - nI$ jednake, jasno je da $rank(L_{K_n} - nI) = 1$ i $det(L_{K_n} - nI) = 0$. 
+	što bi nam trebalo omogućiti da lako odredimo njen spektar.Kako su sve vrste/kolone matrice $L_{K_n} - nI$ jednake, jasno je da $rank(L_{K_n} - nI) = 1$ i $det(L_{K_n} - nI) = 0$. 
 	Ako uzmemo u obzir da 
 	\[
 	det(M) = 0 \Leftrightarrow \alpha = 0 \text{ je sopstvena vrijednost matrice M za } \forall M \in \mathbb{M}_{n \times n}
@@ -1292,13 +1238,16 @@
 	[L_{K_n} - (n + \alpha') I] \vec{x} &= \vec{0}  \\
 	\end{split}
 	\]
+	
 	Na osnovu izraza, može se zaključiti da ako je $\alpha'$ sopstvena vrijednost matrice $L_{K_n} - nI$, onda je $n + \alpha'$ sopstvena vrijednost matrice $L_{K_n}$.
 
 	Dimenzija sopstvenog vektorskog prostora koji odgovara $\alpha'$ jednaka je dimenziji nula prostora matrice $L_{K_n} - (n + \alpha') I$.
 	Dakle, geometrijska višestrukost za  $\alpha$ jednaka je $\dim \ker(L_{K_n} - (n + \alpha') I)$.
 
-	Ako iskoristimo sada Rank-Nullity teoremu koja kaže:
-	$rank(M) + \dim ker(M) = n$ za $\forall M \in M_{n \times n}$, dobijamo je geometrijska višestrukost za $\alpha$ jednaka $n - rank(L_{K_n} - (n + \alpha') I)$.
+	Ako iskoristimo sada Rank-Nullity teoremu koja kaže: \\
+	$rank(M) + \dim ker(M) = n$ za $\forall M \in M_{n \times n}$,
+	dobijamo je geometrijska višestrukost za $\alpha$ jednaka
+	$n - rank(L_{K_n} - (n + \alpha') I)$.
 	Za $\alpha' = \alpha = 0$ dobijamo vrijednost $n-1$.
 	
 	Na osnovu svega navedenog zaključujemo da je $n + \alpha' = n + \alpha = n + 0 = n$ sopstvena vrijednost matrice $L_{K_n}$ sa geometrijskom višestrukošću $n-1$. Ne zaboravimo da je $\alpha_1=0$ takođe sopstvena vrijednost Laplasove matrice, svakog, pa tako i ovog grafa.
@@ -1314,7 +1263,6 @@
 	1
 	\end{bmatrix}_{n \times 1}
 	\]
-	dobijamo
 	\[
 	\begin{split}
 	(L_{K_n} - nI) \vec{x} &= 
@@ -1430,6 +1378,7 @@
 	\end{bmatrix}
 	\]
 	gdje je $w^n = 1 \land w \in \mathbb{C}$. Izračunajmo proizvod $L_c \vec{x}$
+
 	\[
 	\begin{split}
 	  	L_C \vec{x} & = 
@@ -1589,16 +1538,16 @@
     da jednačinu riješimo u skupu $\mathbb{C}$.
 	\[
 	\begin{split}
-	w^n  & = 1 \\
-	(x + iy)^n & = 1 \\
-	|w|(\cos\varphi + i \sin \varphi)^n & = 1
+	w^n  = 1 \\
+	(x + iy)^n = 1 \\
+	|w|(\cos\varphi + i \sin \varphi)^n = 1
 	\end{split}
 	\]
 	Iskoristimo Muavrovu formulu za stepenovanje kompleksnih brojeva u trigonometrijskom zapisu
 	\[
 		\begin{split}
-			|w|^n (\cos n\varphi + i\sin n\varphi) & = 1 + i * 0 \\
-			\big(|w|^n \cos n \varphi = 1 \big) \land \big((|w|)^n \sin n \varphi\big) & = 0  
+			|w|^n (\cos n\varphi + i\sin n\varphi)  = 1 + i * 0 \\
+			\big(|w|^n \cos n \varphi = 1 \big) \land \big((|w|)^n \sin n \varphi\big)  = 0  
 		\end{split}
 		\]
 		Jasno je da $|w| \neq 0$ jer u tom slučaju $w=0$. S toga, 
@@ -1644,7 +1593,7 @@
 		\alpha_{n-k} & = \alpha_k 
 	\end{split}
 	\]
-	Odavde vidimo su sopstvene vrijednosti simetrične oko $n/2$, što ukazuje da ih ima $\lceil \frac{n}{2}\rceil$ 
+	Zaključujemo su sopstvene vrijednosti simetrične oko $n/2$, što ukazuje da ih ima $\lceil \frac{n}{2}\rceil$ 
 	Sopstveni vektor koji odgovara sopstvenoj vrijednosti $\alpha_k$ je dat sa 
 	\[
 	\begin{bmatrix}
@@ -1656,14 +1605,15 @@
 	\cos \frac{(n-1) k \pi}{n} + i \sin \frac{(n-1) k \pi}{n} 
 	\end{bmatrix}
 	\]
-
+	\newpage
 	\end{example}
 
 		\begin{example}
 		Posmatrajmo sljedeci graf G
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=1\textwidth]{Figure_1.png}
+			\includegraphics[width=0.8\textwidth]{Figure_1.png}
+			\caption{Nepovezan graf}
 		\end{figure}
 		\[
 			A_G =
@@ -1681,7 +1631,7 @@
 			\end{bmatrix}
 			\]
 			
-			Jasno je da se graf sastoji od 3 komponente povezanosti. Formirajmo njegovu Laplasovu matricu i oderedimo njen spektar.
+			Jasno je da se graf sastoji od 3 komponente povezanosti. Formirajmo njegovu Laplasovu matricu i odredimo njen spektar.
 			
 			\[
 				L_G =
@@ -1717,9 +1667,10 @@
 		\begin{figure}[h]
 			\centering
 			\includegraphics[width=0.8\textwidth]{plot.png}
+			\caption{Sopstveni vektori koji odgovaraju $\alpha = 0$}
 		\end{figure}
 		
-		Za očekivati je bilo da sopstvena vrijednost nula ima višestrukost 4, jer se graf sastoji od 4 komponente povezanosti, ali zanimljivo je
+		Za očekivati je bilo da sopstvena vrijednost $\alpha = 0$ ima višestrukost 4, jer se graf sastoji od 4 komponente povezanosti, ali zanimljivo je
 		da svaki sopstveni vektor koji odgovara ovoj sopstvenoj vrijednosti ističe čvorove koji pripadaju jednoj od komponenti povezanosti.
 		Svaki od ovih sopstvenih vektora dodjeljuje čvorovima jedne komponente povezanosti istu vrijednost, a svim ostalim čvorovima vrijednost nula. 
 		
@@ -1728,7 +1679,7 @@
 	\end{example}
 
 	\section{Interpretacija vektora i matrica u domenu grafova}
-
+	\paragraph{}
 	Već nam je jasno da pomoću pojedinih matrica na različite načine možemo predstaviti isti graf, pri tome zadržavajući sve informacije o njegovoj strukturi. 
     Možemo predstaviti susjednost čvorova putem matrice susjedstva ili Laplasove matrice, ili pak incidentnost čvorova i grana putem matrice incidentnosti.
 	Često su u izrazima sa ovim matricama konstituisali i vektori, naročiti sopstveni vektori tih matrica. 
@@ -1740,7 +1691,7 @@
 	Te tačke u kojima je definisana vrijednosti funkcije su upravo čvorovi grafa.
 	Drugim riječima, vektori dimenzije $n \times 1$ se mogu posmatrati kao funkcije $\vec{x} = f(v)$ koje svakom čvoru grafa dodjeljuju neku vrijednosti na način da vektor $\vec{x}$ čvoru grafa G sa indeksom i dodjeljuje
 	vrijednost $\vec{x}_i$, tj. $\vec{x}^T = [ f(v_1) f(v_2) \dots f(v_n)]$. Ove funkcije se nazivaju graf funkcije.
-	Vrijednost dodijeljena čvoru može da ima različita značenja, to može biti njegova važnost, vrijedost koja se koristi za klasifikaciju čvorova grafa, možda i njegova koordinata. 
+	Vrijednost dodijeljena čvoru može da ima različita značenja, to može biti njegova važnost, vrijednost koja se koristi za klasifikaciju čvorova grafa, možda i njegova koordinata. 
 	Kako su i sopstveni vektori Laplasove i matrice susjedstva takođe vektori dimenzije $n \times 1$, i oni se mogu posmatrati kao funkcije. 
 	Sopstveni vektori predstavjaju posebne funkcije koje se nazivaju sopstvene funkcije (eigenfunction).
 
@@ -1799,7 +1750,7 @@
 	I u domenu grafova, kao i u linearnoj algebri, matrice nisu ništa drugo do reprezentacije operatora. 
 	S toga, na osnovu takve prirode matrica i na osnovu dobijenih izraza možemo zaključiti sljedeće:
 	\begin{itemize}
-		\item Matrica susjedstva odgovara operatoru koji računa sumu vrijednosti dodijeljenih svim susjedima čvorova, tj. njihovoj okolini.
+		\item Matrica susjedstva odgovara operatoru koji računa sumu vrijednosti dodijeljenih svim susjedima čvorova, tj. u njihovoj okolini.
 		\item Laplasova matrica odgovara operatoru koji računa razliku između vrijednosti dodijeljene čvoru i vrijednosti dodiljenih
 		čvorovima u njegovoj okolini. 
 		Ovaj operator pokazuje koliko vrijednost koju funkcija $\vec{x}$ dodijeli nekom čvoru odstupa od vrijednosti dodijeljenih njegovim susjedima.
@@ -1815,7 +1766,7 @@
 	Analogija izvoda kontinualne funkcije u diskretnom domenu je razlika, a analogija pravca u domenu grafa jeste grana. 
 	Tako da bi vrijednost parcijalnog izvoda, tj. gradijenta u odnosu na granu $e=\{v_1,v_2\}$ diskretne funkcije $f(v) = \vec{x}$ u domenu grafa u čvoru $v_1$ bila $\nabla  f(v_1)|_e = \vec{x}_{v_1} - \vec{x}_{v_2}$.
 	Vrijednost gradijenta u čvoru v bi bila $\nabla f(v_1) = (f(v_1) - f(v_2),f(v_1) - f(v_3),f(v_1) - f(v_4), \cdots)$, gdje su sa $v_i$ za $i>1$ predstavljeni susjedi čvora v.
-	Ispostavlja se da važi $\nabla \vec{x} = I^T \vec{x}$, tj. do gradijenta funkcije u domenu grafova se može doći množenjem sa transponovanom matricom incidencije (ali onom koja je formirana na osnovu proizvoljno dodijeljene orjentacije granama!).
+	Ispostavlja se da važi $\nabla \vec{x} = I^T \vec{x}$, tj. do gradijenta funkcije u domenu grafova se može doći množenjem sa transponovanom matricom incidencije (ali onom koja je formirana na osnovu proizvoljno dodijeljene orijentacije granama!).
 	Gradijent se može posmatrati i kao funkcija $g(e)$ koja svakoj grani grafa dodjeljuje vrijednost.
 	
 	Divergencija vektorskog polja, geometrijski gledano, pokazuje koliko se vektori šire iz neke tačke, tj. predstavlja izlazni fluks polja u nekoj tački.
@@ -1835,6 +1786,7 @@
 	\section{Primjena spektralne teorije grafova}
 
 	\subsection{Spectral graph drawing}
+	\paragraph{}
 	Razmotrimo kako se spektralna teorija grafova može iskoristiti za njihovo prikazivanje. 
 
 	Obično se loša reprezentacija grafa povezuje sa velikim brojem grana koje se sijeku.
@@ -1890,14 +1842,32 @@
 			\end{split}
 		\]
 			
-		Prikažimo graf u ravni tako da su x i y koordinate čvorova date koordinatama sopstvenih vektora koji odgovaraju najmanjim nenula sopstvenim vrijednostima Laplasove matrice.
+		Prikažimo graf u ravni tako da su koordinate čvorova date koordinatama sopstvenih vektora koji odgovaraju najmanjim nenula sopstvenim vrijednostima Laplasove matrice.
 			
 		\end{example}
 		
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=1\textwidth]{circle_graph.png}
+			\includegraphics[width=0.6\textwidth]{circle_graph.png}
+			\caption{Ciklus sa n čvorova}
 		\end{figure}
+
+		\newpage
+
+		\begin{example}
+			Prikazati pseudo-slučajno generisan graf sa 25 čvorova u ravni.
+			Uz pomoć odgovarajućeg softvera generisan je sljedeći graf.
+			\begin{figure}[h]
+				\centering
+				\subfloat[]{\includegraphics[width=0.48\textwidth]{random.png}}
+				\hfill
+				\subfloat[]{\includegraphics[width=0.48\textwidth]{random_embedding.png}}
+				\caption{Slučajno generisan  graf}
+			\end{figure}
+			
+			Pogledajmo reprezentaciju grafa do koje se dolazi upotrebom opisane metode. 
+			Sa slike se vidi da dobijeni prikaz mnogo bolji od prikaza dobijenog softverom za generisanje slučajnih grafova jer sadrži manje grana koje se sijeku i lakše se uočavaju susjedni čvorovi.
+		\end{example}
             
     \begin{example}
         Predstaviti "bucky ball" graf u ravni. 
@@ -1905,8 +1875,7 @@
         Radi se o grafu koji je geometrijska reprezentacija molekula $C_{60}$. Molekul se sastoji od 60 atoma ugljenika koji forimiraju ikosahedron.
         U pitanju je graf sa stepenom regularnosti 3.
         
-        Kako su matrice pridružene ovom grafu jako velike i nisu pogodne za prikaz, u nastavku ćemo dati samo dio liste susjednosti, podrazumijevajući da je skup čvorova dat Sa
-        $V = \{1,2, \dots 60\}$
+        Kako su matrice pridružene ovom grafu jako velike i nisu pogodne za prikaz, u nastavku ćemo dati samo dio liste susjednosti
         \[
             \begin{tabular}{c|l}
                 \textbf{Čvor} & \textbf{Susjedni čvorovi} \\
@@ -1916,282 +1885,504 @@
                 3 & 1, 58, 60 \\
                 4 & 1, 57, 59 \\
                 5 & 8, 13, 14 \\
-                6 & 8, 12, 15 \\
-                7 & 8, 11, 16 \\
-                8 & 5, 6, 7 \\
-                9 & 13, 15, 25 \\
-                10 & 14, 16, 26 \\
-                11 & 7, 12, 24 \\
-                12 & 6, 11, 23 \\
-                13 & 5, 9, 18 \\
         \end{tabular}
         \]
 
         Nakon izračunavanja spektra Laplasove matrice ovog grafa, već nailazimo na prvi problem.
-		Rekli smo da su nam potrebna 2 sopstvena vektora koja odgovaraju najmanjim nenula sopstvenim vrijednostima.
+		Rekli smo da su nam potrebna 2 sopstvena vektora.
 		Najmanja nenula sopstvena vrijednost je $\alpha_2 = 0.24$ i ima geometrijsku višestrukost 3.
 		Kako nemamo nikakvu indikaciju koja dva sopstvena vektora su najbolja za prikaz, pokušaćemo sve moguće kombinacije sopstvenih vektora koji odgovaraju ovoj sopstvenoj vrijednosti.
 
-        \begin{figure}[h]
-            \centering
+		Sva tri prikazu su pristojna, ali se drugi, naizgled, čini kao najbolji.
+		Takođe, čini se kao da im nedostoje još jedna dimenzija za bolji prikaz.
+		Zaista, ukoliko dati graf predstavimo u prostoru dobijamo veoma dobar prikaz.
+		Da li nam je višestrukost $\alpha_2$ ukazivala da je graf potrebno predstaviti u prostoru?
+
+		\begin{figure}[H]
+			\centering
 			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_1.png}}
 			\hfill
 			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_2.png}}
-        \end{figure}
-
-        \begin{figure}[h]
-            \centering
+			
+			\vspace{0.2cm} % Adjust vertical spacing between rows
+			
 			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_3.png}}
 			\hfill
 			\subfloat[]{\includegraphics[width=0.48\textwidth]{bucky_ball_3d_zoom.png}}
-        \end{figure}
+		
+			\caption{Bucky ball spectral drawing}
+		\end{figure}
 
-        Sva tri prikazu su pristojna, ali se drugi, naizgled, čini kao najbolji.
-        S druge strane, čini se kao da im nedostoje još jedna dimenzija za bolji prikaz.
-		Zaista, ukoliko dati graf predstavimo u prostoru dobijamo veoma dobar prikaz.
-        Da li nam je višestrukost najmanje nenula sopstvene vrijednosti ukazivala da je graf potrebno predstaviti u trodimenzionalnom prostoru?
-        
+		
     \end{example}
     
-    \begin{example}
-        Prikazati pseudo-slučajno generisan graf sa 25 čvorova u ravni.
 
-        Uz pomoć odgovarajućeg softvera generisan je sljedeći graf.
-        \begin{figure}[h]
-            \centering
-			\subfloat[]{\includegraphics[width=0.48\textwidth]{random_graph_3.png}}
-			\hfill
-			\subfloat[]{\includegraphics[width=0.48\textwidth]{random_graph_4.png}}
-        \end{figure}
-        
-        Pogledajmo reprezentaciju grafa do koje se dolazi upotrebom opisane metode. 
-		Sa slike se vidi da dobijeni prikaz mnogo bolji od prikata dobijenog softverom za generisanje slučajnih grafova jer sadrži manje grana koje se sijeku i lakše se uočavaju susjedni čvorovi.
-    \end{example}
+	\subsection{Spectral graph clustering}
+	\paragraph{}
+	Definišimo problem particionisanje grafova. Graf $G=(V,E)$ sa n čvorova potrebno je podijeliti na k particija uklanjanjem određenog broja grana (edge cut).
 	
-	\subsection[Spectral graph clustering]
+	Jasno je da ukoliko važi $k<|V|$ particionisanje je uvijek moguće uraditi i to obično na više načina. 
+	Ukoliko particionisanje uradimo na način da napravimo $k-1$ particiju sa po jednim čvorom i jednu particiju sa $|V|-k+1$ čvorova,
+	iako smo izvršili zadatak, postavlja se pitanje da li su ovako dobijene particije zaista zadovoljavajuće.
+	Zbog toga uvode se dodatna ograničenja koja će nas usmjeriti ka dobijanju odgovarajućih particija.
+	Ukoliko nam je bitan broj čvorova u particijama zahtijevaćemo da kreirane particije imaju približno jednak broj čvorova.
+	Ovo ograničenje će spriječiti prethodno pomenuto particionisanje kod koga smo dobili neizbalansirane particije po pitanju broja čvorova. 
+	Ukoliko su nam važnije grane možemo zahtijevati da se ukloni što manji broj grana.
+	Ako se pak radi o težinskom grafu tražićemo težine uklonjenih grana budu što manje, a da težine grana koje spajaju čvorove unutar iste particije budu što veće.
+	
+	Postoji nekoliko pristupa i algoritama za rješavanje ovog problema, od Kernighan–Lin i Fiduccia–Mattheyses algoritama, preko METIS-a i metoda zasnovanih na slučajnim šetnjama pa sve do metode zasnovane na spektralnoj teoriji grafova. 
+	Metoda koja koristi saznanja spektralne teorije grafova naziva se \emph{Spectral Graph Clustering} i zasnovana je na upotrebi Fiedler-ovog vektora. U narednih nekoliko primjera biće izložen sam algoritam.
+	
+	Nedostatak navedenog pristupa jeste što se uvijek radi particionisanje na 2 particije. Međutim, ukoliko je potreban veći broj particija postupak se može primijeniti iterativno nad dobijenim particijama.
+
+	Koraci algoritma za spektralno particionisanje grafa:
+		\begin{enumerate}
+			\item Kreirati Laplasovu matricu grafa
+			\item Izračunati Fiedler-ov vektor
+			\item Prvoj particiji dodijeliti sve čvorove kojima Fiedler-ov vektor dodijeljuje negativnu vrijednost  
+			\item Drugoj particiji dodijeliti sve čvorove kojima Fiedler-ov vektor dodijeljuje pozitivnu vrijednost  
+			\item Proizvoljno rasporediti čvorove kojima Fiedler-ov vektor dodijeljuje vrijednost 0  
+		\end{enumerate}
+
+		Važno je napomenuti da ovaj pristup u opštem slučaju ne rezultuje najoptimalnijim particijama.
+
+		Postoji i varijacija ovog algoritma kod koje se čvorove raspoređuju u particije na osnovu toga da li im Fiedler-ov vektor dodjeljuje vrijednost koja je manja ili veća od medijane njegovih koordianta.
+	\newpage
 	\begin{example}
-		Posmatrajmo sada drugi graf.
+		Izvršimo podjelu sljedećeg grafa na 2 particije.
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=0.8\textwidth]{Figure_2.png}
+			\includegraphics[width=0.7\textwidth]{Figure_2.png}
+			\caption{Graf za particionisanje}
 		\end{figure}
-		Odogvarajuca Laplasova matrica je data sa
+		
 		\[ 
-		L_G =
-		\begin{bmatrix}
-		3 & -1 & 0 & 0 & -1 & -1 & 0 & 0 \\
-		-1 & 2 & -1 & 0 & 0 & 0 & 0 & 0 \\
-		0 & -1 & 2 & -1 & 0 & 0 & 0 & 0 \\
-		0 & 0 & -1 & 2 & -1 & 0 & 0 & 0 \\
-		-1 & 0 & 0 & -1 & 2 & 0 & 0 & 0 \\
-		-1 & 0 & 0 & 0 & 0 & 3 & -1 & -1 \\
-		0 & 0 & 0 & 0 & 0 & -1 & 2 & -1 \\
-		0 & 0 & 0 & 0 & 0 & -1 & -1 & 2
-		\end{bmatrix}
+			L_G =
+			\begin{bmatrix}
+				3 & -1 & 0 & 0 & -1 & -1 & 0 & 0 \\
+				-1 & 2 & -1 & 0 & 0 & 0 & 0 & 0 \\
+				0 & -1 & 2 & -1 & 0 & 0 & 0 & 0 \\
+				0 & 0 & -1 & 2 & -1 & 0 & 0 & 0 \\
+				-1 & 0 & 0 & -1 & 2 & 0 & 0 & 0 \\
+				-1 & 0 & 0 & 0 & 0 & 3 & -1 & -1 \\
+				0 & 0 & 0 & 0 & 0 & -1 & 2 & -1 \\
+				0 & 0 & 0 & 0 & 0 & -1 & -1 & 2
+			\end{bmatrix}
+			\]
+			\[
+				\begin{split}
+					\alpha_1=0 \texttt{~~~~} & \vec{e_1}^T = \begin{bmatrix} 0.35  &   0.35  &  0.35  &  0.35  &  0.35  &  0.35  &  0.35  &  0.35      \end{bmatrix} \\ 
+					\alpha_2=0.31 \texttt{~~} & \vec{e_2}^T = \begin{bmatrix} 0.06  &   0.26  &  0.37  &  0.37  &  0.26  &  -0.34  &  -0.49  &  -0.49  \end{bmatrix} \\ 
+					\alpha_3=1.38 \texttt{~~} & \vec{e_3}^T = \begin{bmatrix} 0  &  0.6  &  0.37  &  -0.37  &  -0.6  &  0  &  0  &  0                  \end{bmatrix} \\
+					\alpha_4=1.67 \texttt{~~} & \vec{e_4}^T = \begin{bmatrix} -0.56  &  -0,31  &  0,46  &  0,46  &  -0,31  &  -0,13  &  0,19  &  0,19   \end{bmatrix} \\
+				\alpha_5=3 \texttt{~~~~} & \vec{e_5}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  & -0,71  &  0,71                         \end{bmatrix} \\
+				\alpha_6=3.33 \texttt{~~} & \vec{e_6}^T = \begin{bmatrix} 0,34  &  -0,37  &  0,16  &  0,16  &  -0,37  &  0,64  &  -0,27  &  -0.27   \end{bmatrix} \\
+				\alpha_7=3.62 \texttt{~~} & \vec{e_7}^T = \begin{bmatrix} 0  &  0.37  &  -0.6  &  0.6  &  -0.37  &  0  &  0  &  0            \end{bmatrix} \\
+				\alpha_8=4.69 \texttt{~~} & \vec{e_8}^T = \begin{bmatrix} -0,67  &  0,28  &  -0,07  &  -0,07  &  0.28  &  0.58  &  0.16  &  -0,16        \end{bmatrix}
+			\end{split}
+			\]
+			
+			Kako je dati graf povezan bilo je i za očekivati da sopstveni vektori koji odgovara sopstvenoj vrijednosti nula svakom čvoru dodjeljuje istu vrijednost.
+			Zanimljiv nam je Fiedler-ov vektor. Ukoliko pogledamo vrijednosti koje on dodjeljuje čvorovima grafa, uviđamo da su pozitivne 
+			vrijednosti dodijeljene za prvih pet čvorova, a negativne za preostale čvorove. Ovo nam sugeriše da bi se prilikom kreiranja particija, prvih pet čvorova trebalo naći u jednoj particiji a preostali čvorovi u drugoj particiji.
+			Čini nam se da je prilikom ovakvog načina particionisanja miniminzovan graph cut, jer je ukinuta samo jedna grana $\{1,6\}$.
+			
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.7\textwidth]{Figure_2_partitions.png}
+				\caption{Particionisan graf}
+			\end{figure}
+		\end{example}
+		
+		\begin{example}
+			Izvršimo particionisanje sljedećeg grafa.
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.7\textwidth]{Figure_51.png}
+				\caption{Graf za particionisanje}
+			\end{figure}
+			
+			\[ 
+				L_G =
+				\begin{bmatrix}
+					2 &-1 & 0 & 0 & 0 & 0 &-1 & 0 & 0 & 0 \\
+					-1 & 2 &-1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+					0 &-1 & 3 &-1 & 0 & 0 & 0 &-1 & 0 & 0 \\
+					0 & 0 &-1 & 2 &-1 & 0 & 0 & 0 & 0 & 0 \\
+					0 & 0 & 0 &-1 & 2 &-1 & 0 & 0 & 0 & 0 \\
+					0 & 0 & 0 & 0 &-1 & 2 &-1 & 0 & 0 & 0 \\
+					-1 & 0 & 0 & 0 & 0 &-1 & 2 & 0 & 0 & 0 \\
+					0 & 0 &-1 & 0 & 0 & 0 & 0 & 3 &-1 &-1 \\
+					0 & 0 & 0 & 0 & 0 & 0 & 0 &-1 & 2 &-1 \\
+					0 & 0 & 0 & 0 & 0 & 0 & 0 &-1 &-1 & 2
+				\end{bmatrix}
+				\]
+				\[
+					\begin{split}
+						\alpha_1=0 \texttt{~~~~} & \vec{e_1}^T = \begin{bmatrix} 0.32& 0.32& 0.32& 0.32& 0.32& 0.32& 0.32& 0.32& 0.32& 0.32      \end{bmatrix} \\ 
+						\alpha_2=0.24 \texttt{~~} & \vec{e_2}^T = \begin{bmatrix} 0.25& 0.11& -0.05& 0.11& 0.25& 0.33& 0.33& -0.37& -0.49& -0.49  \end{bmatrix} \\ 
+						\alpha_3=0.75 \texttt{~~} & \vec{e_3}^T = \begin{bmatrix} 0.52& 0.42& 0& -0.42& -0.52& -0.23& 0.23& 0& 0& 0                 \end{bmatrix} \\
+						\alpha_4=1 \texttt{~~~~} & \vec{e_4}^T = \begin{bmatrix} 0& 0.43& 0.43& 0.43& 0& -0.43& -0.43& 0& -0.21& -0.21   \end{bmatrix} \\
+					\end{split}
+					\]
+
+					Ukoliko sada izvršimo particionisanje na osnovu znaka koordinate Fiedler-ovog vektora, dobijamo particije $\{-1,0,2,3,4,5\}$ i $\{1,6,7,8\}$.
+					U ovom slučaju nije minimizovan edge cut jer su ukinute dvije grane $\{1,0,\}$ i $\{1,5\}$ iako se particionisanje moglo uraditi ukidanjem samo jedne grane $\{1,6\}$. U tom slučaju particije bile manje izbalansirane po pitanju broja čvorova.
+					
+					\begin{figure}[h]
+						\centering
+						\includegraphics[width=0.5\textwidth]{Figure_52.png}
+						\caption{Particionisan graf}
+					\end{figure}
+					Na osnovu prethodna dva primjera moglo bi se reći da metoda spektralnog particionisanja grafova u opštem slučaju ne minimizuje edge cut niti daje potpuno izbalansirane particije, već teži ka kompromisu između ta dva zahtjeva.
+					Prethodni grafovi su bili laki za particionisanje jer sadrže mali broj čvorova i jednostavne su strukture. Upotrebe spektralne metode naročito dobija na značaju kada se radi o grafovima sa velikim brojem čvorova i kompleksnom strukturom. 
+				\end{example}
+				\newpage
+				\begin{example}
+					Dodajmo još dva čvoru grafu iz prethodnog primjera i ponovo izvršimo podjelu na 2 particije.
+					\begin{figure}[h]
+						\centering
+						\includegraphics[width=0.5\textwidth]{Figure_61.png}
+						\caption{Graf za particionisanje}
+					\end{figure}
+					
+					\[ 
+						L_G =
+			\begin{bmatrix}
+				 3 &-1 &-1 &-1 & 0 & 0 & 0 \\ 
+				-1 & 2 &-1 & 0 & 0 & 0 & 0 \\
+				-1 &-1 & 2 & 0 & 0 & 0 & 0 \\
+				-1 & 0 & 0 & 2 &-1 & 0 & 0 \\
+				 0 & 0 & 0 &-1 & 3 &-1 &-1 \\
+				 0 & 0 & 0 & 0 &-1 & 2 &-1 \\
+				 0 & 0 & 0 & 0 &-1 &-1 & 2
+			\end{bmatrix}
 		\]
-        \[
-            \begin{split}
-                \alpha_1=0.0 \text{      } & \vec{e_1}^T = \begin{bmatrix} 0.35  &   0.35  &  0.35  &  0.35  &  0.35  &  0.35  &  0.35  &  0.35      \end{bmatrix} \\ 
-                \alpha_2=0.31 \text{     } & \vec{e_2}^T = \begin{bmatrix} 0.06  &   0.26  &  0.37  &  0.37  &  0.26  &  -0.34  &  -0.49  &  -0.49  \end{bmatrix} \\ 
-                \alpha_3=1.38 \text{     } & \vec{e_3}^T = \begin{bmatrix} 0  &  0.6  &  0.37  &  -0.37  &  -0.6  &  0  &  0  &  0                  \end{bmatrix} \\
-                \alpha_4=1.67 \text{     } & \vec{e_4}^T = \begin{bmatrix} -0.56  &  -0,31  &  0,46  &  0,46  &  -0,31  &  -0,13  &  0,19  &  0,19   \end{bmatrix} \\
-                \alpha_5=3 \text{        } & \vec{e_5}^T = \begin{bmatrix} 0  &  0  &  0  &  0  &  0  &  0  & -0,71  &  0,71                         \end{bmatrix} \\
-                \alpha_6=3.33 \text{     } & \vec{e_6}^T = \begin{bmatrix} 0,34  &  -0,37  &  0,16  &  0,16  &  -0,37  &  0,64  &  -0,27  &  -0.27   \end{bmatrix} \\
-                \alpha_7=3.62 \text{     } & \vec{e_7}^T = \begin{bmatrix} 0  &  0.37  &  -0.6  &  0.6  &  -0.37  &  0  &  0  &  0            \end{bmatrix} \\
-                \alpha_8=4.69 \text{     } & \vec{e_8}^T = \begin{bmatrix} -0,67  &  0,28  &  -0,07  &  -0,07  &  0.28  &  0.58  &  0.16  &  -0,16        \end{bmatrix}
-            \end{split}
-            \]
-            Kako je dati graf povezan bilo je i za ocekivati da sopstveni vektori koji odgovara sopstvenoj vrijednosti nula svakom cvoru dodjeljuje istu vrijednost.
-            Zanimljiv je sopstveni vektor koji odgovara najmanjoj pozitivnoj sopstvenog vrijednosti. Ukoliko pogledamo vrijednosti koje on dodjeljuje cvorovima grafa, uvidjamo da su pozitivne 
-            vrijednosti dodijeljene prvih pet cvorova. Ovo nam ukazuje da se prilikom kreiranja klastera, ovi cvorovi trebaju biti u istom klasteru.
+		\[
+			\begin{split}
+				\alpha_1=0 \texttt{~~~~} & \vec{e_1}^T = \begin{bmatrix} -0.38& -0.38& -0.38& -0.38& -0.38& -0.38& -0.38      \end{bmatrix} \\ 
+				\alpha_2=0.27 \texttt{~~} & \vec{e_2}^T = \begin{bmatrix} -0.33& -0.44& -0.44& 0& 0.33& 0.44& 0.44  \end{bmatrix} \\ 
+				\alpha_3=1.59 \texttt{~~} & \vec{e_3}^T = \begin{bmatrix} 0.16& -0.28& -0.28& 0.79& 0.16& -0.28& -0.28                 \end{bmatrix} \\
+				\alpha_4=3 \texttt{~~~~} & \vec{e_4}^T = \begin{bmatrix} 0& 0.71& -0.71& 0& 0& -0.03& 0.03   \end{bmatrix} \\
+			\end{split}
+		\]
+
+		Kod ovog grafa nailazimo na prvi problem prilikom particionisanja grafova upotrebom Fiedler-ovog vektora. 
+		Naime, do sada smo čvorove smiještali u particije na osnovu znaka vrijednosti koju im dodjeljuje Fiedler-ov vektor, međutim, sada imamo situaciju da se čvoru 4 dodjeljuje vrijednost nula.
+		Ovo nam ukazuje na to da Spectral Graph Clustering metoda ne može da odluči kojoj particiji bi trebao da pripadne čvor 4.
+		Zaista, i naizgled se čini da ovaj čvor predstavlja sponu između dva klastera po 3 čvora, tj. da je graf simetričan oko ovog čvora.
+		Kod nekih grafova kao što je i ovaj, sama struktura grafa onemogućava prirodnu podijelu na particije.
+		U ovom slučaju čvor 4 možemo dodijeliti proizvoiljnoj particiji. 
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.6\textwidth]{Figure_62.png}
+			\caption{Particionisan graf}
+		\end{figure}
 	\end{example}
 
+	Kako nam je već poznato ga Fiedler-ov broj predstavlja grubu mjeru povezanosti grafa,
+	male vrijednosti Fiedler-ovog broja omogućavaju da spektralno particionisanje grafa odradi što bolji posao,
+	jer je već i sama struktura grafa takva da graf realativno lako može postati nepovezan, tj. podijeljen na dvije particije.
 
-    \subsection
-    Lema. Za graf G stepena d i njegovu najvecu sopstvenu vrijdnost Laplasove matrice vazi $\alpha_n \geq d$.
+	Miroslav Fiedler po kome je sopstvena vrijednost Laplasove matrice dobila ime je upravo i idejni tvorac spektralnog particionisanje grafa.
 
-    Dokaz.
+	\subsection{Prebrojavanje razapinjujućih stabala grafa}
+	
+		\paragraph{}
+		Prisjetimo se rješavanja strujnih kola upotrebom Kirhofovih zakona. Prema drugom Kirhofovom zakonu zbir padova napona u zatvorenoj konturi jednak je nuli. 
+		Kako bismo uopšte primijenili ovaj zakon, potrebno je odrediti odgovarajuće zatvorene konture.
+		Jedan od načina da uvijek izaberemo prave konture jeste da posmatramo strujno kola kao graf u kome su provodnici grane, 
+		a mjesta račvanja provodnika čvorovi i da formiramo razapinjujuće stablo takvog grafa.
+		Nakon formiranja razapinjujućeg stabla, zatvorene konture konstruišemo tako što na stablo nadovežemo još jednu granu,
+	    tj. provodnik, koji nije u njegovom sastavu i tako formiramo ciklus u grafu.
+	
+		\paragraph{}
+	        S druge strane, posmatrajmo situaciju u kojoj želimo da dizajniramo računarsku mrežu koja će spajati sve veće gradove u nekoj državi. 
+		Cilj je da upotrebom skupih kablova sa velikom propusnim opsegom uspostavimo direktnu ili indirektnu vezu između svih tih gradova.
+		Između pojedinih gradova nije moguće uspostaviti direktnu vezu iz razloga što reljef to ne dopušta, dok je kod nekih udaljenost prevelika.
+		Jasno je da će optimalna mreža imati strukturu razapinjujućeg stabla grafa. Takođe, jasno je i da razapinjujuće stablo ne mora biti jedinstveno.
+	
+		\paragraph{}
+		Sada je već jasno da je određivanje razapinjujućeg stabla problem koji se jako često javlja. Kako razapinjujuće stablo vrlo često nije moguće jedinstveno odrediti, 
+		potrebno je pronaći sva takva stabla, pa onda odrediti koje nam najvise odgovara vodeći se nekim kriterijumom odabira. 
+		Ukoliko je već moguće formirati više od jednog razapinjujućeg stabla, korisno bi bilo prebrojati ih za dati graf.
+		
+		\paragraph{}
+		Kako bismo konačno opravdali naslov rada koji ukazuje na to da ćemo koristiti spektar matrice,
+		krajnje je vrijeme da uspostavimo vezu između spektra neke od grafu pridruženih 	     
+		matrica i nekog njegovog svojstva. 
+		S toga, navodimo narednu teoremu koja nam daje relaciju između sopstvenih vrijednosti Laplasove matrice grafa i broja njegovih razapinjujućih stabala.
+	
+		\begin{theorem}[Kirhofova teorema]
+		Neka je dat povezan graf $G= (V,E) $ sa n čvorova, njegova Laplasova matrica $L_G$ i njene nenula sopstvene vrijednosti $\alpha_2, \alpha_3, \dots, \alpha_n$. Tada važi
+		\[
+			k(G) = |V|^{-1}\alpha_2 \alpha_3 \dots \alpha_n
+		\]
 
-    Kako bismo dokazali navedenu lemu upotrijebicemo Courrant-Fischer teoremu
+		Kompleksnost povezanog grafa $G$, tj. broj njegovih razapinjujućih stabala jednak je količniku proizvoda nenula sopstvenih vrijednosti Laplasove matrice i broja čvorova. 
+		Jasno je da se za nepovezan graf ne može formirati razapinjujuće stablo, tj. u tom slučaju $\alpha_2 = 0$ pa dobijamo $k(G) = 0$. 
+		Ova teorema je još poznata i kao teorema "matrica-stablo" (eng. Matrix-Tree Theorem).
+		\end{theorem}
+	
+		\begin{custom_proof} Za dokazivanje teoreme biće nam potrebna i neka pomoćna tvrđenja koja ćemo usput navoditi.
 
-    \begin{theorem}[Courrant-Fischer]
-        Neka je data simetricna kvadratna matrica $M_{n \times n}$. Njene sopstvene vrijednosti $\alpha_1 \leq \alpha_2 \leq \dots \alpha_{n-1} \geq \alpha_n$.
-        mozemo izracunati putem sljedeceg izraza
-        \[
-            \alpha_i = \min_{\vec{x} \neq \vec{0} \land \vec{x} \perp \vec{x}_i \forall i \in \{1,2, \dots, i-1\}} \frac{\vec{x}^T M \vec{x}}{\vec{x}^T\vec{x}} 
-        \]
-        gdje je $x_i$ sopstveni vektor koji odogvara $\alpha_1$. 
-    \end{theorem}
+		Neka je $M$ proizvoljna matrica dimenzije $a \times b$. Sa $M_{R,S}$ označavaćemo redukovanu matricu koja se od matrice $M$ dobije tako što se zadrže samo vrste iz skupa $R$ i kolone is skupa $S$. 
+		$M_{R,:}$ je matrica koja se dobije od matrice $M$ tako što se zadrže samo vrste iz skupa $R$, a $M_{:,S}$ je matrica koja se dobije od matrice $M$ tako što se zadrže samo kolone iz skupa $S$.
+		Matrica $M_{R,S}$ je dimenzije $|R| \times |S|$.
+	
+		Kako svako razapinjujuće stablo sadrži sve čvorove grafa i $n-1$ granu,
+		jasno je da treba odrediti koliko podskupova skupa grana sa $n-1$ elementom zadovoljava uslove razapinjujućeg stabla.
+		Kako je u pitanju povezan graf, jasno je i da $|E| \geq n-1$.
+		Matrica incidencije je matrica koja najneposrednije sadrži informacije o granama grafa,
+		s toga se ona nameće kao logičan izbor prilikom formiranja razapinjujućeg stabla grafa. Matricu incidencije ćemo formirati u odnosu na proizvoljnu orijentaciju koju ćemo dodijeliti svakoj grani grafa.
+	    Iz grafa je potrebno je ukloniti odgovarajuće grane, odnosno iz matrice incidencije potrebno je ukloniti odgovarajuće kolone kako bi se formiralo razapinjujuće stablo. 
+		Tako dobijenu matricu incidencije razapinjujućeg stabla možemo predstaviti sa $I_{:,S}$ gdje je $S \subseteq E$ podskup skupa grana koje ulaze u sastav stabla.
+		Tako redukovana matrica incidencije je dimenzije $n \times (n - 1)$.
+	
+		Posmatrajmo slučaj u kome matrica $I_{:,S}$ odgovara podgrafu koji nije stablo. U tom slučaju odgovarajući podgraf sadrži ciklus. 
+		Drugim riječima u okviru skupa $S$ postoji niz grana koje formiraju ciklus.
+		Uočimo jedan takav ciklus i formirajmo redukovanu matricu $I_{V \setminus \{q\},S}$ uklanjanjem vrste koja predstavlja proizvoljan čvor $q$ van uočenog ciklusa.
+	    Jasno je da takav čvor postoji, jer bi u suprotnom značilo da su svi čvorovi sadržani u uočenom ciklusu a to nije moguće, jer bi za to trebalo n grana, dok ih mi imamo dostupno samo $n-1$. 
+		Bez umanjenja opštosti, možemo pretpostaviti da se radi o posljednjoj vrsti u matrici, jer je indeksiranje čvorova i grana prilikom formiranja matrice incidencije urađeno na proizvoljan način, 
+		što znači da je uvijek moguće namjestiti da uočeni čvor q bude predstavljen posljednjom vrstom matrice incidencije. 
+	    Formirana matrica je kvadratna dimenzije $n - 1$. Krećimo se sada po uočenom ciklusu u grafu i pri tome vršimo elementarne transformacije kolona matrice $I_{V \setminus \{q\},S}$,
+	    na način da prolaskom granom $(i,j)$ u smjeru od i ka j, množimo odgovarajuću kolonu sa 1, a u suprotnom sa -1. Dobijenu matricu označimo sa $I_{V \setminus \{q\},S}'$.
+	    Jasno je da važi $det(I_{V \setminus \{q\},S}') = \pm det(I_{V \setminus \{q\},S}$). Jasno je i da je svaki čvor sadržan u ciklusu incidentan sa dvije grane ciklusa,
+		i to na način da jedna grana izlazi iz datog čvora, a druga ulazi u dati čvor. Ukoliko sada saberemo kolone koje odgovaraju svim granama sadržanim u uočenom ciklusu, dobićemo da je njihov zbir nula. 
+		Drugim riječima, matrica $I_{V \setminus \{q\},S}'$ ima netrivijalnu sumu kolona koja je jednaka nuli. Prema linearnoj algebri ovo znači da matrica ima linerano zavisne kolone i da je singularna.
+		
+		\[det(I_{V \setminus \{q\},S}') = det(I_{V \setminus \{q\},S}) = 0\]
+	
+		Posmatrajmo sada slučaj u kome matrica $I_{,S}$ odgovara podgrafu koji jeste stablo. Formirajmo redukovanu matricu $I_{V \setminus \{q\},S}$ uklanjanjem posljednje vrste matrice $I_{:,S}$ koja odgovara čvoru q. 
+	    Pošto smo uklonili vrstu koja odogovara čvoru q iz matrice, a q je incidentan sa barem jednom granom stabla (jer je ono povezan graf), sada imamo slučaj da bar jedna kolona matrice $I_{V \setminus \{q\}:,S}$
+		ima jedan element jednak $\pm 1$, a sve ostale elemente jednake 0. Iskoristimo Laplasov metod računanja determinante matrice i izvrsimo razvoj po uočenoj koloni.
+		Dobijamo $det(I_{V \setminus \{q\},S}) = \pm det(I_{V \setminus \{q,w\},S})$. Čvor w odgovara vrsti koju smo uklonili prilikom razvoja determinante.
+		Jasno je da su $q$ i $w$ bili susjedni cvorovi. 
+		Kako nije moguće da su q i w bili samo međusobno susjedni, mora postojati još jedan čvor koji je bio susjedan sa jednim od njih, tj. u matrici $I_{V \setminus \{q,w\},S}$ mora postojati kolona koja ima jedan element
+		jednak $\pm 1$, a sve ostale jednake 0. Ponovo na isti način, upotrebom Laplasovog razvoja računamo $det(I_{V \setminus \{q,w\},S})$. 
+		Ovaj iterativni postupak ponavljamo sve dok ne dođemo do determinante koja odgovara matrici dimenzije $2 \time 2$. 
+		Nije moguće da dva preostala čvora budu povezana samo izmedju sebe, tj. bar jedan od njih je u izvornom grafu susjedan sa nekim od uklonjenjih čvorova.
+		Ukoliko preostala dva čvora nisu susjedna, onda i drugi čvor mora biti susjedan sa nekim od uklonjenih čvorova.
+		Takođe, dva preostala čvora ne mogu biti istovremeno susjedni i pri tome oba biti povezana sa nekim od prethodno uklonjenih čvorova, jer bi u tom slučaju imali ciklus.
+		Na osnovu prethodnog, dolazimo do zaključka da je rezultantna matrica oblika 
+		\[
+		\begin{bmatrix} \pm 1 &  0 \\ \mp 1 & \pm 1 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} \pm 1 &  \pm 1 \\ \mp 1 & 0 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} \pm 1 &  \pm 1 \\ 0 &  \mp 1 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} 0 & \pm 1 \\ \pm 1 & \mp 1 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} 0 &  \pm 1 \\ \pm 1 & 0 \end{bmatrix}
+		\text{ ili } \begin{bmatrix} \pm 1 &  0 \\ 0 & \pm 1 \end{bmatrix}
+		\] 
+		Vrijednost determinante svih ovih matrica je $\pm 1$, 
+		što znači i da je $det(I_{V \setminus \{q\},S}) = \pm 1$.
+		Konačno dobijamo:
+		\[
+		 det(I_{V \setminus \{q\},S}) = 
+		\begin{cases}
+		\pm 1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G} \\
+		0 \text{ u suprotnom }
+		\end{cases} 
+		\]
+		gdje je $q$ čvor predstavljen posljednom vrstom matrice $I_G$. 
+		Kako bismo se rijesili $\pm 1$, kvadrirajmo determinantu.
+		\[
+		 det(I_{V \setminus \{q\},S})^2 = 
+		\begin{cases}
+		1 \text{ ako skup S odgovara skupu grana koje formiraju razapinjujuce stablo grafa G}\\
+		0 \text{ u suprotnom}
+		\end{cases} 
+		\]
+		Ukoliko sada izračunamo sumu po svim podskupovima grana koji sadrže tačno $n-1$ granu i formiraju razapinjujuće stablo grafa dobićemo upravo kompleksnost grafa $G$.
+		\[
+		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\},S})^2 = k(G)
+		\]
+		Iskoristimo činjenicu da $det(M^T) = det(M)$, da $M_{R,S} = (M_{:,S})_{R,:} = (M_{R,:})_{:,S}$ i da $(M_{R,S})^T = (M^T)_{S,R}$.
+		\[
+		\begin{split}
+		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\}:,S})^2  & =
+		\sum_{S \subseteq E \land |S| = n -1}   det(I_{V \setminus \{q\}:,S}) * det\big((I_{V \setminus \{q\}:,S})^T\big) \\
+		&  = \sum_{S \subseteq E \land |S| = n -1}   det\big((I_{V \setminus \{q\},:})_{:,S}\big) * det\Big(\big((I_{V \setminus \{q\},:})_{:,S}\big)^T\Big)\\
+		&  = \sum_{S \subseteq E \land |S| = n -1}   det\big((I_{V \setminus \{q\},:})_{:,S}\big) * det\Big(\big((I_{V \setminus \{q\},:})^T\big)_{S,:}\Big)\\
+		\end{split}
+		\]
+		Prisjetimo se Cauchy-Binet formule koja tvrdi da ako su date matrice $A_{p \times q}$ i $B_{q \times p}$ i ako je $q \geq p$ onda važi
+		\[
+			det(AB) = \sum_{|S| = q} det(A_{\{:,S\}}) det(B_{\{S,:\}})
+		\]
+		gdje se sumiranje vrši po svim podskupovima skupa kolona matrice A i skupa vrsta matrice B sa kardinalnosti q.
+		Prema ovoj formuli, za matricu $A = I_{V \setminus \{q\},:}$ dimenzija $(n - 1) \times |E|$ i matricu $B = (I_{V \setminus \{q\},:})^T$ dimenzija $|E| \times (n - 1)$, pri čemu je $|E| \geq (n-1)$, jer u pitanju
+		povezan graf, važi
+		\[
+		det \big(I_{V \setminus \{q\},:} (I_{V \setminus \{q\},:})^T\big) = \sum_{|S| = n - 1} det\big((I_{V \setminus \{q\},:})_{:.S}\big) det\Big(\big((I_{V \setminus \{q\},:})^T\big)_{S,:}\Big) = k(G)
+		\] 
+		Iskoristimo jednu od karakterizacija Laplasove matrice $L_G = I_G I_G^T$.
+		Matrica incidencije u prethodnom izrazu je kreirana prema proizvoljnoj orijentaciji koja je dodijeljena svakoj grani.
+		
+		\[
+			L_{ij} = \sum_{k=1}^{|E|} I_{ik}I_{k,j}
+		\]
+		Ukoliko pak posmatramo redukovnu matricu incidencije $I_{V \setminus \{q\},:}$, imamo
+		\[
+		\big(I_{V \setminus \{q\},:}(I_{V \setminus \{q\},:})^T\big)_{ij} = \sum_{k=1}^{|E|} I_{ik}I_{k,j} \text{ pri cemu } i,j \in \{1,2, \dots n-1\}
+		\]
 
-    Courrant-Fischer teorema na govori da se sopstvena vrijednost $\alpha_i$ moze dobiti kao minimum Rayleough qoutiten po svim vektorima 
-    ortogonalnim sa sopstvenim vektorima koji odogvaraju manjim sopstvenim vrijednostima. 
+		Množenjem redukovane matrice $I_G$ i odgovarajuće transponovane matrice kao rezultat dobijamo redukovanu Laplasovu matricu koja je dobijena izostavljanjem posljednje vrste i kolone Laplasove matrice.
+		Označimo tu matricu sa $L_{V \setminus \{n\}, E \setminus \{m\}}$, gdje n odgovara posljednoj vrsti a m posljednoj koloni Laplasove matrice.
+		\[
+			L_{V \setminus \{n\}, E \setminus \{m\}} = I_{V \setminus \{q\},:}(I_{V \setminus \{q\},:})^T
+		\]
+		\[
+			det(L_{V \setminus \{n\}, E \setminus \{m\}}) = k(G)
+		\]
+		Kako n odgovara posljednoj vrsti, a m posljednjoj koloni matrice $L_G$ jasno je da \\ $det(L_{V \setminus \{n\}, E \setminus \{m\}}) = L_{nn} = k(G)$ gdje je $L_{nn}$ minor koji odgovara elementu $l_{nn}$ Laplasove matrice.
+	
+	 	Sada je još potrebno uspostaviti vezu između minora $L_{nn}$ i sopstvenih vrijednosti matrice $L_G$.
+		Pošto su u pitanju sopstvene vrijednosti, jasno je da će nam polazna tačka biti karakteristična jednačina $L_G \vec{x} = \alpha \vec{x}$.
 
-    Koristeci navedenu teoremu i steceno znanje o kvadratnoj formi Laplasove matrice dobijamo
-    \[
-        \alpha_n = \max_{\vec{x} \neq \vec{0}} \frac{\vec{x}^T M \vec{x}}{\vec{x}^T\vec{x}} = \max_{\vec{x} \neq \vec{0}} \frac{ \sum_{\{u,v\} \in E} (\vec{x}_u - \vec{x}_v)^2 }{ \sum_{i \in \{1,2 \dots n\}} \vec{x}_i^2}
-    \]
-        
-    Ukoliko sad uzmemo da je $\vec{x}$ jedan od vektora iz standardne baze, tj da vazi za neko $j \in \{1,2, \dots n\} \vec{x}_j = 1$, a za $i \neq j$ vazi $\vec{x}_i = 0$ dobijamo
-    \[
-        \alpha_n > \frac{ d (\vec{x}_j - 0)^2 }{1} = d \times 1  
-    \]
-    \[
-        \alpha_n > d  
-    \]
+		\[
+			\begin{split}
+				L_G \vec{x} &= \alpha \vec{x} \\
+				L_G \vec{x} - \alpha \vec{x} &= \vec{0}  \\
+				(L_G - \alpha I) \vec{x} &= \vec{0}  
+			\end{split}
+		\]
+		Posmatrajmo matricu $ M = L_G - \alpha I_{n \times n}$, gdje $\alpha \in \mathbb{R}$.
+		\[
+				 (L_G - \alpha I_{n \times n})_{ij} =
+				 \begin{cases}
+				 deg(i) - \alpha  & \text{ako } i = j \\
+				 -1 & \text{ako } \{i,j\} \in E \\ 
+				 0  & \text{u suprotnom}
+				 \end{cases}
+		\]
+		Kako je zbir elemenata u svakoj vrsti/koloni matrice $L_G$ jednak nuli, onda je zbir elemenata u svakoj vrsti/koloni matrice $M$ jednak $-\alpha$.
+		Ukoliko izvršimo elementarnu transformaciju vrsta i prvih $n-1$ vrsta saberemo u n-tu vrstu matrice, dobijamo  $M_{nj} = -\alpha$ za $ j \in \{1,2,3 \dots n\}$.
+		Uradimo sada isto i sa kolonama. Nakon sumiranja prvih $n-1$ kolona u posljednju kolonu, dobijamo $m_{in} = -\alpha$ za $i \in \{1,2, \dots n-1\}$ i $m_{nn} = -n \alpha$.
+		\[
+			M' =\begin{bmatrix}
+				deg(1) - \alpha & ? & ? & \dots & ? & -\alpha \\
+				? & deg(2) - \alpha & ? & \dots & ? & -\alpha \\
+				? & ? & deg(3) - \alpha & \dots & ? & -\alpha \\
+				\vdots & \vdots & \vdots & \ddots & \vdots & -\alpha \\
+				? & ? & ? & \dots &deg(n-1) - \alpha & -\alpha \\
+				-\alpha & -\alpha & -\alpha & \dots &-\alpha & -n \alpha \\
+		\end{bmatrix}
+		\]
+		Radi o elementarnim transformacija pa važi $det(M) = det(M')$.
+		Kako svi elementi u n-toj vrsti imaju faktor $\alpha$, važi $det(M')=-\alpha det(M")$, gdje je M" data sa
+		\[
+			M" =\begin{bmatrix}
+				deg(1) - \alpha & ? & ? & \dots & ? & -\alpha \\
+				? & deg(2) - \alpha & ? & \dots & ? & -\alpha \\
+				? & ? & deg(3) - \alpha & \dots & ? & -\alpha \\
+				\vdots & \vdots & \vdots & \ddots & \vdots & -\alpha \\
+				? & ? & ? & \dots &deg(n-1) - \alpha & -\alpha \\
+				1 & 1 & 1 & \dots & 1 & n \\
+				\end{bmatrix}
+		\]
+		Iskoristimo sada Laplasov razvoj $det(M")$ po posljednjoj koloni.
+		\[ 
+		\begin{split}
+			det(L_G - \alpha I) & = det(M) = -\alpha det(M") \\
+			                    & = -\alpha \big( (-1)^{n+n}nM"_{nn} + \sum_{k=1}^{n-1}(-1)^{n+k}(-\alpha) M"_{nk} \big)  \\
+			                    & = -\alpha \big( (-1)^{n+n}nM"_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k}(-1)M"_{nk} \big) \\
+					     	    & = (-1)^{2n+1} \alpha nM"_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
+		\end{split}
+		\]
+		Sa $M"_{ij}$ predstavljen je minor koji odgovara elementu $m"_{ij}$ matrice $M"$.
+		Primijetimo da za minore važi $M"_{nn} = (L_G - \alpha I)_{nn}$, jer se matrice  $M"$ i $L_G - \alpha I$ razlikuju isključivo u n-toj vrsti i koloni.
+		\[
+		det(L_G - \alpha I) = (-1)^{2n+1} \alpha n (L_G- \alpha I)_{nn} + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
+		\]
+		$(L_G- xI)_{nn}$ je polinom stepena $n-1$, pa važi $(L_G- \alpha I)_{nn} = a_{n-1}\alpha^{n-1} + \dots + a_0$.
+		Uvrštavanjem u prethodni izraz dobijamo:
+		\[
+			\begin{split}
+				det(L_G - \alpha I) &= (-1)^{2n+1} n \alpha (a_{n-1}\alpha^{n-1} + a_{n-2}\alpha^{n-2} + \dots + a_0) + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk} \\
+									&= (-1)^{2n+1} n (a_{n-1}\alpha^n + a_{n-2}\alpha^{n-1} + \dots + a_0 \alpha) + \alpha^2 \sum_{k=1}^{n-1}(-1)^{n+k+1}M"_{nk}
+			\end{split}
+		\]
+		Primijetimo da je koeficijent uz $\alpha$ jednak $(-1)^{2n+1} n a_0$, gdje je $a_0$ slobodni član polinoma $(L_G- \alpha I)_{nn}$ koga dobijamo za $\alpha=0$.
+		\[
+		  a_0 = (L_G- 0I)_{nn} = (L_G- O)_{nn} = (L_G)_{nn}
+		\]
+		Konačno, koeficijent uz $\alpha$ jednak $ (-1)^{2n+1} n (L_G)_{nn} = - n (L_G)_{nn}$.
+		Kako je $det(L_G - \alpha I)$ karakteristični polinom matrice $L_G$, i $\alpha_1 = 0$ važi za svaki graf, dobijamo:
+		\[
+			\begin{split}
+				det(L_G - \alpha I)  & = (-1)^n \alpha (\alpha - \alpha_2) \dots (\alpha - \alpha_n) \\
+									 & = (-1)^n(-1)^{n-1} \alpha_2 \dots \alpha_n x + \dots \\
+									 & = (-1)^{2n-1} \alpha_2 \dots \alpha_n x + \dots \\
+								     & = (-1) \alpha_2 \dots \alpha_n x + \dots 
+									\end{split}
+									\]
+		Sada znamo da je koeficijent uz $\alpha$ dat izrazom $- \alpha_2 \dots \alpha_n$, gdje su $\alpha_i$ sopstvene vrijednosti Laplasove matrice. 
+	
+		Poređenjem dva dobijena izraza za koeficijent uz $\alpha$ dobijamo 
+		\[
+			\begin{split} 
+				-n (L_G)_{nn}  = &  - \alpha_2 \dots \alpha_n \\
+				(L_G)_{nn}  = & n^{-1} \alpha_2 \dots \alpha_n \\
+				 L_{nn} = & n^{-1} \alpha_2 \dots \alpha_n \\ 
+			\end{split} 
+		\]
+		Ako sada iskoristimo izraz do kojeg smo prethodno došli, $ L_{nn} = k(G)$, dolazimo do kraja dokaza $k(G) = n^{-1} \alpha_2 \dots \alpha_n$
+		
+	\end{custom_proof} 
 
-    Razmislimo sada kako bismo mogli utvrditi koji dio grafa je najmanje povezan sa ostatkom grafa. Idealno bi bilo kada bismo mogli definisati mjeru povezanosti podskupa cvorova S grafa G sa ostatkom cvorova.
-    Jasno je da cemo posmatrati grane koje povezuju neki od cvorova podskupa sa cvorom van tog skupa. Na ovaj nacin dolazimo do izraza za provodnost grafa
-    \[ \partial(S) = \{ \{v_1,v_2\}: v_1 \in S \land v_2 \in (V \setminus S)\} \]
-    Provodnost skupa podskupa cvorova S grafa G predstavlja skup grana koje povezuju cvorove iz skupa S sa ostalim cvorovima.
+	\section{Razni primjeri upotrebe}
+	\begin{example}
+        Regulatorna agencija na raspolaganju ima k radio frekvencija. Na konkurs za dodjelu frekvencije prijavilo se n radio stanica, pri čemu je $n \gg k$.
+        Prostorno udaljenim radio stanicima čiji se reoni emitovanja ne poklapaju agencija može dodijeliti istu frekvenciju, ali to nije slučaj sa svim radio stanicama.
+        Kako će agencija odrediti kojoj radio stanici ce dodijeliti koju radio frekvenciju?
 
+        Kako bismo opravdali pojavljivanje ovoga zadatku u radu vezanom za grafove, naravno da ćemo i ovaj put svesti problem na domen grafova.
+        Radio stanice ćemo predstavljati sa čvorovima, a relaciju preklapanja reona emitovanja između dvije stanice ćemo modelovati sa granom između čvorova.
 
-    Kada bismo kao mjeru povezanosti podskupa svorova S uzeli kardinalost provodnosti, to zasigurno ne bi predstavljalo dobru mjeru, iz razloga sto kardinalost
-    posmatrnog skupa utice i na kardinalnost provodnosti, tj. za ocekivati da veci skup cvorova S ima i vecu provodnosti. S toga, kao jedna od ideja namece se da izvrsimo normalizajiju sa brojem 
-    cvorova u posmatranom skupu. Na taj nacin dolazimo da definicije izometrijskog odnosa skupa S.
-    \[
-        h(S) = \frac{|\partial(S)|}{|S|}
-    \]
-    Jasno je da manja vrijednost izometrijskog odnosa $h(S)$ ukazuje na vecu izolovanosti skupa cvorova S.
-    Pored izometrijskog odnosa podskupa cvorova definise se i izomterijski odnosr grafa kao
-    \[
-         h(G) = \min_{|S| <= |V| / 2} h(S)
-    \]
-    Izometrijski odnos grafa G predstavlja izometrijski odnos njenogovj najizolovanijeg podgrafa.
-    
-    Bilo jos bolje kada bismo mogli utvrditi donju granicu za izometrijski odnos. Upravo to nam omogucava sljedeca teorema.
+        Već na prvi pogled zadatak se svodi na bojenje ovako formiranog grafa sa k boja, odnosno dodjeljivanje boje (neke vrijednosti) svakom čvoru grafa tako da
+        susjedima nisu dodijeljene iste boje.
+		Bojenje grafa nije ništa drugo do određivanje funkcije $ c : V \to C$ koja slika skup čvorova u skup dostupnih boja.
+        Problem bojenja grafa sa k boja, nije uvijek rješiv i zavisi od strukture grafa. Ukoliko je pak moguće obojiti dati graf sa k boja za graf G se kaže da je "k obojiv".
+		Na osnovu definicije bojenja grafa lako se može zaključti da graf nije "k obojiv" ukoliko bar jedan od čvorova ima više od $k-1$ susjeda, tj. ukoliko važi $\exists v \in V$ takav da $deg(v) \geq k-1$. 
+		Najmanje k za koje je G "k obojiv" naziva se hromatski broj grafa G u oznaci $\chi(G)$.
 
-    \begin{theorem}[Lower bound of Cheegar]
-        Neka je dat povezan graf $G=(V,E)$ i neka je $S \subset V$. Tada vazi
-        \[ h(S) \geq \alpha_2 (1 - \frac{|S|}{|V|})\]
-        gdje je $\alpha_2$ sopstvena vrijednost Laplasove matrice grafa.
+        Već na početku, nismo sigurni ni da li je moguće riješiti postavljeni zadatak, ali zato smanjimo kriterijum i zadovoljimo se time da nakon podjele frekvencija imamo što manje preklapanja.
+        Kao bismo riješili postavljeni zadatak potrebno je odrediti vektor $\vec{c}$ takav da njegova koordianta $\vec{c}_i$ ukazuje na to koju boju je potrebno dodijeliti radio stanici i.
 
-        Jasno je da je za povezan graf ocito koji podskup cvorova je najizolovaniji.
-    \end{theorem}
-
-    \begin{custom_proof}
-        Prema Courant-Fischer teoremi imamo
-        \[
-        \alpha_2 = \min_{\vec{x} \perp \vec{1}} \frac{\vec{x}^T L_G \vec{x}}{\vec{x}^T \vec{x}} 
-        = \min_{\vec{x} \perp \vec{1}} \frac{ \sum_{\{u,v\} \in E} (\vec{x}_u - \vec{x}_v)^2}{\vec{x}^T \vec{x}}
-        \]
-
-        Posmatrajmo sada vektor cije su koordinate date Sa
-        \[
-            \vec{v} = 
-            \begin{cases}
-                1 - \frac{|S|}{|V|} & i \in S\\ 
-                - \frac{|S|}{|V|} & i \in V \setminus S
-            \end{cases}
-        \]
-
-        Motivacija za posmatranje ovog vektora je vise, prije svega ovaj vektor je ortogonalna jedinicnom vektoru.
-
-        \[
-        \begin{split}
-            \vec{v}^T\vec{1} & = \sum_{i \in \{1,2, \dots n\}} \vec{v}_i * 1 \\
-            & = \sum_{i \in \{1,2, \dots n\}} \vec{v}_i \\
-            & = |S| * (  1 - \frac{|S|}{|V|} ) + ( -\frac{|S|}{|V|}) * |V \setminus S| \\
-            & = |S| - |S| * \frac{|S|}{|V|} - \frac{|S|}{|V|} * |V \setminus S| \\
-            & = |S| - \frac{|S|}{|V|} * (|V \setminus S| + |S|) \\
-            & = |S| - \frac{|S|}{|V|} * |V| \\
-            & = |S| - |S| = 0 
-        \end{split}
-        \]
-
-        Uocima da je $\vec{v}_u - \vec{v}_v = 0$ ukoliko oba cvora pripadaju ili ne pripadaju skupu S, a da je $\vec{v}_u - \vec{v}_v = 1$ ukoliko tacno jedan od cvorova u i v pripada skupu S.
-         
-        \[
-        \begin{split}
-            \alpha_2  & \leq \frac{ \sum_{\{u,v\} \in E} (\vec{v}_u - \vec{v}_v)^2}{\vec{v}^T \vec{v}} \\
-            \alpha_2  & \leq \frac{ |\partial(S)|}{\sum \vec{v}_i^2} 
-        \end{split}
-        \]
-        
-        Odredimo sada modul vektora v
-        \[
-            \begin{split}
-                \vec{v}^T\vec{v} & = \sum_{i \in \{1,2, \dots n\}} v_i \\ 
-                \vec{v}^T\vec{v} & = |S| * (1 - \frac{|S|}{|V|})^2 + |V \setminus S| (-\frac{|S|}{|V|})^2 \\ 
-                \vec{v}^T\vec{v} & = |S| - 2 * |S| * \frac{|S|}{|V|} + |S| * (\frac{|S|}{|V|})^2 + |V \setminus S| (\frac{|S|}{|V|})^2 \\ 
-                \vec{v}^T\vec{v} & = |S| - 2 * |S| * \frac{|S|}{|V|} + (|S| + |V \setminus S|) * (\frac{|S|}{|V|})^2 \\ 
-                \vec{v}^T\vec{v} & = |S| - 2 * |S| * \frac{|S|}{|V|} + |V| * (\frac{|S|}{|V|})^2 \\ 
-                \vec{v}^T\vec{v} & = |S| - 2 * \frac{|S|^2}{|V|} + (\frac{|S|^2}{|V|}) \\ 
-                \vec{v}^T\vec{v} & = |S| - \frac{|S|^2}{|V|} \\ 
-                \vec{v}^T\vec{v} & = |S| * ( 1 - \frac{|S|}{|V|}) \\ 
-            \end{split}
-            \]
-            
-            Nakon uvrstavanja dobijenog izraza, dobijamo
-            \[
-            \begin{split}
-                \alpha_2  & \leq \frac{ \sum_{\{u,v\} \in E} (\vec{v}_u - \vec{v}_v)^2}{\vec{v}^T \vec{v}} \\
-                \alpha_2  & \leq \frac{ |\partial(S)|}{|S| * ( 1 - \frac{|S|}{|V|})} \\ 
-                \alpha_2 * |S| * ( 1 - \frac{|S|}{|V|}) & \leq |\partial(S)| \\
-                \alpha_2 * ( 1 - \frac{|S|}{|V|}) & \leq \frac{|\partial(S)|}{|S|} \\ 
-                \frac{|\partial(S)|}{|S|} & \geq  \alpha_2 * ( 1 - \frac{|S|}{|V|}) \\ 
-                h(S) & \geq  \alpha_2 * ( 1 - \frac{|S|}{|V|}) \\ 
-                h(G) & = \min_{|S| \leq |V| / 2}  \alpha_2 * ( 1 - \frac{|S|}{|V|}) \\ 
-                h(G) & = \alpha_2  - \max_{|S| \leq |V| / 2}  \alpha_2 * \frac{|S|}{|V|} \\ 
-                h(G) & = \alpha_2  - \alpha_2 * \frac{|V|/2}{|V|} \\ 
-                h(G) & = \alpha_2  * (1 - 1/2) \\ 
-                h(G) & = \alpha_2 / 2  
-            \end{split}
-            \]
-
-            Dobijeni izraz je jos jedna potvrda cinjenice da najmanja pozitivna sopstvena vrijednost laplasove matrice pokazuje koliko dobro je graf povezan.
-            Ukoliko je ova sopstvena vrijednmost veca, veci je i izomterijski odnos grafa, tj. njenogoj najizoolovanij dio je bolje povezan sa ostatkom grafa.
-
-    \end{custom_proof}
-
-
-
-    Spektralna teorema grafova je jako zastupljena u raynim naucnim olastima, narocito u racunarskim naukama.
-    Laplasova matrica i njen spektar se koristi za spektralno praticionisanja grafova prilikom segmentacije slike rasporednvanja tranzistora na VLSI cipovima. Prilikom klasifikacije dokumanta na sonocu semnatickih pveyanistu izmedju rijeci.
-    Prilikon analize podataka i spektralnog uparivanja.
-
-    Fiedler value nad vector
-
-    Graph cut problem se svodi na partcionisanje grafa tako da teyine grana unutar particije budu sto vece a da grane koje povezuju 2 particije budu sto manje
-
-    Spectaln graph embedding on a line
-
-    \begin{example}
-        Regulatorna agencija na raspolaganju ima k radio frekvencija. Na konkurs za dodjelu frekvencije prijavilo se n radio stanica, pri cemu je $n \gg k$.
-        Prostorno udaljenim radio stanicima ciji se reoni emitovanja ne poklapaju agencija moze dodijeliti istu frekvenciju ali to nije slucaj sa svim radio stanicama.
-        Kako ce agencija odrediti kojoj radio stanici ce didijeliti koju radio frekvenciju?
-
-        Kako bismo opravdali pojavljivanje ovoga zadatku u radu vezanom za grafove, naravno da cemo i ovaj put svesti problem na domen grafova.
-        Radio stanice cemo predstavljati sa cvorovima a relaciju preklapanja reona emitovanja izmedju dvije stanice cemo modelovati sa granom izmedju cvorova.
-
-        Vec na prvi pogled zadatak se svodi na bojenje ovako formiranog grafa sa k boja, odnosno dodjeljivanje boje (neke vrijednosti) svakom cvoru grafa tako da
-        susjednim cvorovima nisu dodijeljene iste boje. Bojenje grafa nije nista drugo do odredjivanje funkcije koja slika skup cvorova u skup dostupnih boja $ c : V \to C$.
-        Problem bojenja grafa sa k boja, nije uvijek rjesiv i zavisi od strukture grafa. Ukoliko je pak moguce obojiti dati graf sa k boja za graf G se
-        kaze da je "k obojiv". Na osnovu definicije bojenja grafa lako se moze zakljuciti da graf nije "k obojiv" ukoliko bar jedan od cvorova ima vise od $k-1$ susjeda, tj.
-        ukoliko vazi $\exists v \in V deg(v) \geq k-1$. Najmanje k za koje je G "k obojiv" naziva se hromatski broj grafa G u oznaci $\chi(G)$.
-
-        Vec na pocetku, nismo sigurni ni da li je moguce rijesiti postavljeni zadatak, ali smanjimo kriterijum i zadovoljimo se time da nakon podjele frekvencija imamo sto manje preklapanja.
-        
-        Kao bismo rijesili postavljeni zadatak potrebno je odrediti vektor $\vec{c}$ takava da $\vec{c}_i$ ukazuje na to koju boju je potrebno dodijeliti radio stanici i.
-
-        Prisjetimo se cemu je jednaka kvadratna forma Laplasove matrice formiranog grafa.
+        Prisjetimo se čemu je jednaka kvadratna forma Laplasove matrice.
         \[
             \vec{x}^T L_G \vec{x} = \sum_{\{i,j\} \in E} (\vec{x}_i - \vec{x}_j)^2
         \]
         
         Ukoliko je pak $\vec{x}$ sopstveni vektor Laplasove matrice imamo da je 
         \[
-            \vec{x}^T L_G \vec{x} = \sum_{\{i,j\} \in E} (\vec{x}_i - \vec{x}_j)^2 = \alpha
+            \vec{x}^T L_G \vec{x} = \sum_{\{i,j\} \in E} (\vec{x}_i - \vec{x}_j)^2 = \alpha ||\vec{x}||
         \]
         
-        Ukoliko odaberemo vektore koji odgovaraju najvecim sopstvenim vrijednostima Laplasove matrice, jasno je da u tom slucaju suma iz prethodnog izraza
-        dostize svoj maksim, a upravo ona predstavlja sumu razlika izmedju vrijednosti dodijeljenih susjednim cvorovima. S toga, cvorovi kojima ovi sopstveni 
-        vekori dodjeljuju bliske vrijednosti teze da budu sto udaljeniji u grafu.
+        Ukoliko odaberemo vektor koji odgovara najvećoj sopstvenoj vrijednosti Laplasove matrice, u tom slučaju suma iz prethodnog izraza
+        dostiže svoj maksimum, odnosno teži se tome da susjednim čvorovima budu dodjeljene različite vrijednosti. 
 
-        S toga, kao jedna od ideja namece spektralno particionaisanje ali upotrebom sopstvenih vektora koji odgovara 2 do 3 najvece sopstvene vrijednosti.
-        Nakon izracunavanja sopstvenih vektora, njihove elemente je potrebno podijeliti u k grupa na osnovu njihove vrijednosti (upotrebom k-susjeda ili nekog drugog algoritma) i svakoj grupu dodijeliti boju.
-        Element sopstvenog vektora $\vec{e}_i$ koji pripada j-toj grupi, kojoj je pridruzena boja $c_j$ ukazuje na to da bismo cvor $v_i$ trebali obojit sa $c_j$ bojom.
+        S toga, kao jedna od ideja nameće se particionisanje grafa ali upotrebom sopstvenog vektora koji odgovara najvećoj sopstvenoj vrijednosti.
+        Nakon izračunavanja sopstvenog vektora, koordinate je potrebno podijeliti u k grupa na osnovu njihove vrijednosti (upotrebom k-susjeda ili nekog drugog algoritma) i svakoj grupu dodijeliti boju.
+        Element sopstvenog vektora $\vec{e}_i$ koji pripada j-toj grupi, kojoj je pridružena boja $c_j$ ukazuje na to da bismo čvor $v_i$ trebali obojiti sa $c_j$ bojom.
 
     \end{example}
-    
+
+	\newpage
+
+	\section*{Bibliografija}
+\begin{itemize}
+    \item [\textbf{[1]}] J. Jiang, \textit{An introduction to spectral graph theory}, 2012.
+    \item [\textbf{[2]}] B. Slininger, \textit{Fiedler's Theory of Spectral Graph Partitioning}.
+    \item [\textbf{[3]}] D. Spielman, \textit{Spectral Graph Theory}.
+    \item [\textbf{[4]}] U. Brandes, D. Harel, Y. Koren, \textit{Spectral Graph Drawing}, 2004.
+    \item [\textbf{[5]}] L. Cai, \textit{Everything about Spectral Graph Theory}.
+    \item [\textbf{[6]}] F. R. K. Chung, \textit{Lectures on Spectral Graph Theory}, University of Pennsylvania.
+    \item [\textbf{[7]}] D. A. Spielman, \textit{The Laplacian}, Yale University, 2015.
+    \item [\textbf{[8]}] T. Roughgarde, G. Valiant, \textit{Spectral Graph Theory}, Stanford University, 2024.
+    \item [\textbf{[9]}] \textit{Combinatorial Analysis}, MIT, 2014.
+\end{itemize}
+
 	\end{document}
 	
